@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title> Ifjúsági Könyvesbolt </title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" type="text/css" href="formaz.css">
+<style>
+body
+{
+	background-color: lightblue;
+}
+.header 
+{
+  padding: 10px;
+  text-align: center;
+}
+#kont
+{
+	float: right;
+	margin-top: -75px;
+	font-family: monospace;
+	font-size: small;
+}
+@media screen and (max-width: 600px) 
+{
+  #kont {
+			margin-right: 35%;
+			margin-top: 5%;
+		}
+}		
+a:link 
+{
+  text-decoration: none;
+  cursor:pointer;
+}
+a:hover 
+{
+  text-decoration: underline;
+}
+a:active 
+{
+  text-decoration: underline;
+}
+ul 
+{
+  list-style-type: none;
+  margin-top: 3.5%;
+  padding: 0;
+  overflow: hidden;
+  background-color: #38444d;
+}
+li 
+{
+  float: left;
+  align: center;
+}
+li a, .dropbtn 
+{
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  display: flex;
+}
+li a:hover, .dropdown:hover .dropbtn 
+{
+  background-color: #3366ff;
+  text-decoration: none;
+}
+li.dropdown 
+{
+  display: inline-block;
+}
+.dropdown-content 
+{
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a 
+{
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+.dropdown-content a:hover 
+{
+background-color: #f1f1f1;
+}
+.dropdown:hover .dropdown-content 
+{
+  display: block;
+}
+li a.active 
+{
+  background-color: #3366ff;
+  color: white;
+}
+@media screen and (max-width: 600px) 
+{
+  li {
+    float: none;
+    width: 100%;
+	flex-direction: column;
+	}
+}
+.column 
+{
+  float: left;
+  padding: 5px;
+}
+.column.side 
+{
+  width: 24%;
+}
+.column.middle 
+{
+  width: 49%;
+}
+.row:after 
+{
+  content: "";
+  display: table;
+  clear: both;
+}
+@media screen and (max-width: 600px) 
+{
+  .column.side, .column.middle 
+  {
+    width: 100%;
+  }
+}
+.footer 
+{
+	padding: 10px;
+	font-family: monospace;
+	font-size: small;
+}
+.footer p
+{
+	float: right;
+	margin-top: -10px;
+}
+.footer img
+{
+	float: right;
+	margin-top: -85px;
+}
+.footer a
+{
+	text-decoration: none;
+}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>IFJÚSÁGI KÖNYVESBOLT</h1>
+<div id="kont">
+<img src="logo.png" alt="logo">
+<p><a href="a">Kijelentkezés</a></p>
+</div>
+</div>
+
+<ul>
+	<li><a href="fmain.html" class="active">Rólunk</a>
+	<li class="dropdown">
+	<a href="feltolt.html" class="dropbtn">Feltöltött könyvek</a>
+	<div class="dropdown-content">
+		<a href="feltoltes.html">Könyv feltöltés</a>
+    </div>
+	<li class="dropdown">
+    <a href="fvasar.html" class="dropbtn">Vásárlás</a>
+    <div class="dropdown-content">
+		<a href="fakcio.html">Akciók</a>
+    </div>
+  </li>
+  <li><a href="ffizet.html">Fizetés és Szállítás</a></li>
+  <li><a href="fvirtual.html">Virtuális séta</a></li>
+  <li><a href="#kapcs">Kapcsolatok</a></li>
+  <li style="float: right;"><a href="fkosar.html">Kosár</a></li>
+</ul>
+
+<div class="row">
+<div class="column side">
+<h2>
+Az ifjúsági könyvesbolt célja:
+</h2>
+<p>
+A cél az olvasás népszerűsítése a fiatalok körében. 
+Ennek érdekében az oldal több egyedi megoldást is tartalmaz.
+Például a virtuális séta.A könyv feltöltés lehetőséget ad
+arra, hogy a felhasználók kiéljék kreativ oldalukat.</p>
+</div>
+
+<div class="column middle">
+<h2>
+Weboldal felépítése, működése:
+</h2>
+<p>
+Az oldal rendkívül egyszerű felépítésű. Az oldal megtekintéséhez regisztráció nem feltétlenül szükséges
+azonban vásárláshoz elengedhetetlen.<br><br>
+<b>Vásárlás:</b>
+Itt lehet válogatni az összes könyv közül. A gyors találatot keresés, és szűrés funkció segíti.<br><br>
+<b>Akciók:</b>
+A vásárlás füllel megegyező az egyetlen különbség, hogy itt csak az akciós könyvek találhatóak meg.<br><br>
+<b>??Digitális Könyvek??:</b>
+Az online olvasható könyveket tartalmazza.<br><br>
+<b>Feltöltött könyvek:</b>
+A felhasználók által feltöltött könyveket tartalmazza.<br><br>
+<b>Könyv feltöltés:</b>
+Itt tudnak a felhasználók feltölteni saját műveket.<br><br>
+<b>Kosár:</b>
+Itt láthatóak a kosárba helyezet könyvek és a vásárlás befejezése is itt történik.<br><br>
+<b>Fizetés és Szállítás:</b>
+Rövid leírást tartalmaz a fizetés és szállítás menetéről.<br><br>
+<b>Kapcsolatok:</b>
+Az elérhetőségekre ugrik.<br><br>
+<b>Virtuális séta:</b>
+Ahogy arra a neve is utal egy virtuális könyvbolt, ahol körbe lehet sétálni.
+</p>  
+</div>
+
+<div class="column side">
+<h2>
+??Jővőbeli tervek??
+</h2>
+<p>
+??Milyen kiegészítő funkciok jönnek a jővőben.??</p>
+</div>
+</div>
+
+<div class="footer">
+<hr>
+<a id="kapcs">
+<h3>Kapcsolatok:</h3>
+<address>
+email:<a href="mailto:csongortuzok@gmail.com">************</a><br>
+tel.:06***********<br>
+központi raktár:********
+</address>
+</a>
+<img src="logo.png" alt="logo">
+<p>Ifjúsági <br> könyvbolt</p>
+</div>
+</body>
+</html>
