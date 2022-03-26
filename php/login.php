@@ -11,47 +11,51 @@
 	$db = new mysqli("localhost","root","","ik");
 	if (isset($_POST["submit"]))
 	{
-		$errors = array();
 		$true = true;
 		if (empty($_POST['nickname']))
 		{
 			$true = false;
-			array_push($errors, "A Felhasználónév üres!");
+			($nickname_error = "A Felhasználónév üres!");
 		}
 		if (empty($_POST['pass1']))
 		{
 			$true = false;
-			array_push($errors, "A Jelszó üres!");
+			($pass1_error = "A Jelszó üres!");
 		}
+		
 		if ($true)
 		{
-			$nickname = mysqli_real_escape_string($db, $_POST['nickname']);
-			$pass1 = mysqli_real_escape_string($db, $_POST['pass1']);
-			$pass1 = md5(md5($pass1));
-			$sql = "SELECT * FROM users WHERE nickname='$nickname' AND
+		$nickname = mysqli_real_escape_string($db, $_POST['nickname']);
+		$pass1 = mysqli_real_escape_string($db, $_POST['pass1']);
+		$pass1 = md5(md5($pass1));
+		$sql = "SELECT * FROM users WHERE nickname='$nickname' AND
 					pass1='$pass1'";
-			$result=mysqli_query($db,$sql);
-			$row=mysqli_fetch_array($result);
+		$result=mysqli_query($db,$sql);
+		$row=mysqli_fetch_array($result); 
 			
 			
 			if ($row["usertype"] == "user")
 			{
+				$true=false;
 				session_start();
 				$_SESSION['nickname'] = $nickname;
 				header('location: fmain.php');
 			}
 			elseif ($row["usertype"] == "admin")
 			{
+				$true=false;
 				session_start();
 				$_SESSION['nickname'] = $nickname;
 				header('location: admin.php');
 			}
 			else
 			{
-				array_push($errors, "A Felhasználónév vagy a Jelszó nem megfelelő!");
+				($error = "A Felhasználónév vagy a Jelszó nem megfelelő!");
 			}
 			
 		}
+		
+		
 	}
 	$db->close();
 ?>
@@ -79,7 +83,7 @@
 		{
 			nickname.style.border = "1px solid red";
 			pass1.style.border = "1px solid red";
-			errors.innerHTML = "A felhasználónév és jelszó üres!";
+			errors.innerHTML = "<b>A felhasználónév és jelszó üres!</b>";
 			nickname.focus();
 			return false;
 			
@@ -87,14 +91,14 @@
 		{
 			nickname.style.border = "1px solid red";
 			nickname.focus();
-			errors.innerHTML = "A felhasználónév üres!";
+			errors.innerHTML = "<b>A felhasználónév üres!</b>";
 			return false;
 			
 		}else if (pass1.value == "")
 		{
 			pass1.style.border = "1px solid red";
 			pass1.focus();
-			errors.innerHTML = "A jelszó üres!";
+			errors.innerHTML = "<b>A jelszó üres!</b>";
 			return false;
 		}
 	}
@@ -112,23 +116,33 @@
 Felhasználónév:
 <br>
 <input type="text" name="nickname" size=8%>
-<br><br>
+<br>
+<?php
+	if (!empty($nickname_error))
+	{
+		echo "<b>".$nickname_error."</b>";
+	}
+?>
+<br>
 Jelszó:
 <br>
 <input type="password" name="pass1" size=8%>
-<br><br>
+<br>
+<?php
+	if (!empty($pass1_error))
+	{
+		echo "<b>".$pass1_error."</b>";
+	}
+?>
+<br>
 <input type="submit" name="submit" value="Belépés">
 <br><br>
 </form>
-</form>
 <div id="errors"></div>
 <?php
-	if (!empty($errors))
+	if (!empty($error))
 	{
-		foreach ($errors as $key)
-		{
-			echo $key."<br>";
-		}
+		echo "<b>".$error."</b>";
 	}
 ?>
 
