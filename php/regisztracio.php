@@ -1,17 +1,52 @@
 <!DOCTYPE html>
 <html lang="hu">
 <?php
+	session_start();
+		$first_num = rand(1, 10);
+		$second_num = rand(1, 10);
+		$operators = array("+", "-", "*");
+		$operator = rand(0, count($operators) - 1);
+		$operator = $operators[$operator];
+		
+			$answer = 0;
+		switch($operator)
+		{
+			case "+":
+			$answer = $first_num + $second_num;
+			break;
+			case "-":
+			$answer = $first_num - $second_num;
+			break;
+			case "*":
+			$answer = $first_num * $second_num;
+			break;
+		}
+		echo $answer;
+		if (isset($_POST['submit1']))
+		{
+			$true = true;
+			if (!($_POST["answer"]=$_SESSION["answer"]))
+		{
+			$true=false;
+			echo "Hiba";
+		}else{
+			echo "jo";
+		}
+		}
+
+
 	$db = new mysqli('localhost','root','','ik');
+		
 
 	if (isset($_POST['submit']))
 	{
+		$true = true;
 		$vname = mysqli_real_escape_string($db, $_POST['vname']);
 		$kname = mysqli_real_escape_string($db, $_POST['kname']);
 		$email = mysqli_real_escape_string($db, $_POST['email']);
 		$nickname = mysqli_real_escape_string($db, $_POST['nickname']);
 		$pass1 = mysqli_real_escape_string($db, $_POST['pass1']);
 		$pass1 = md5(md5($pass1));
-		$true = true;
 		
 			if (empty($_POST['vname']))
 			{
@@ -55,8 +90,8 @@
 			($pass_error = "A Jelszavak nem egyeznek!");
 			}
 		
-			$sql_n = "SELECT * FROM users WHERE nickname='$nickname'";
-			$sql_e = "SELECT * FROM users WHERE email='$email'";
+			$sql_n = "SELECT * FROM users2 WHERE nickname='$nickname'";
+			$sql_e = "SELECT * FROM users2 WHERE email='$email'";
 			$res_n = mysqli_query($db, $sql_n) or die(mysqli_error($db));
 			$res_e = mysqli_query($db, $sql_e) or die(mysqli_error($db));
 			
@@ -74,11 +109,18 @@
 	if ($true)
 		{
 			
+			$verification_code = substr(number_format
+			(time() * rand(), 0,'', ''), 0, 6);
 			
 			
+
+			mail($email,
+			'Email verification','Verification code:'.$verification_code,
+			'From: ifjusagikonyvesbolt@gmail.com');
 			
-			$sql = "INSERT INTO users(vname, kname, email, nickname, pass1, date)
-			VALUES ('$vname','$kname','$email','$nickname','$pass1',NOW())";
+			
+			$sql = "INSERT INTO users2(vname, kname, email, nickname, pass1, date, verification_code, email_verified_at)
+			VALUES ('$vname','$kname','$email','$nickname','$pass1',NOW(),'$verification_code',NULL)";
 			$db->query($sql);
 			session_start();
 			$_SESSION['nickname'] = $nickname;
@@ -87,6 +129,7 @@
 			
 		}
 	}
+
 	$db->close();
 ?>
 <head>
@@ -199,6 +242,23 @@ jelszó ismét:
 	}
 ?>
 <br>
+
+captcha hitelesítés:
+<br>
+<?php echo $first_num . " " . $operator . " " . $second_num . " = ";?>
+<br>
+<input type="number" name="answer" size=8%>
+<input type="submit" value="OK" name="submit1" size=8%>
+<br>
+<?php
+	if (!empty($captcha_error))
+	{
+		echo "<b>".$captcha_error."</b>";
+	}
+?>
+<br>
+
+
 <input name="submit" value="Regisztráció" type="submit">
 <br>
 <br>
