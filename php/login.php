@@ -28,12 +28,15 @@
 		$nickname = mysqli_real_escape_string($db, $_POST['nickname']);
 		$pass1 = mysqli_real_escape_string($db, $_POST['pass1']);
 		$pass1 = md5(md5($pass1));
-		$sql = "SELECT * FROM users WHERE nickname='$nickname' AND
+		$sql = "SELECT * FROM users2 WHERE nickname='$nickname' AND
 					pass1='$pass1'";
 		$result=mysqli_query($db,$sql);
 		$row=mysqli_fetch_array($result); 
 			
-			
+				if ($row["email_verified_at"] == NULL)
+			{
+				($ver_error = "Erösitd meg az emailed <a href='email-ver.php'>itt</a>");
+			}
 			if ($row["usertype"] == "user")
 			{
 				$true=false;
@@ -142,11 +145,16 @@ Jelszó:
 <?php
 	if (!empty($error))
 	{
-		echo "<b>".$error."</b>";
+		echo "<b>".$error."</b><br>";
 	}
 ?>
-
-<a href="regisztracio.php">regisztráció</a>
+<?php
+	if (!empty($ver_error))
+	{
+		echo "<b>".$ver_error."</b>";
+	}
+?>
+<p><a href="regisztracio.php">regisztráció</a>
 <br>
 <a href="vmain.html">Belépés vendég felhasználóval</a>
 </div>
