@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="hu">
 <?php
+//**************************************************//
 	session_start();
 		$first_num = rand(1, 10);
 		$second_num = rand(1, 10);
@@ -8,7 +9,7 @@
 		$operator = rand(0, count($operators) - 1);
 		$operator = $operators[$operator];
 		
-			$answer = 0;
+		$answer = 0;
 		switch($operator)
 		{
 			case "+":
@@ -21,19 +22,21 @@
 			$answer = $first_num * $second_num;
 			break;
 		}
+		$_SESSION["answer"] = $answer;
 		echo $answer;
-		if (isset($_POST['submit1']))
+	if (isset($_POST['submit1']))	
+	{
+	$user_answer = $_POST["answer"];
+	$answer = $_SESSION["answer"];
+		
+			if ($answer != $user_answer)
 		{
-			$true = true;
-			if (!($_POST["answer"]=$_SESSION["answer"]))
-		{
-			$true=false;
-			echo "Hiba";
+			echo "hiba";
 		}else{
-			echo "jo";
+			echo "YEEET";
 		}
-		}
-
+	}
+//******************************************************************************//
 
 	$db = new mysqli('localhost','root','','ik');
 		
@@ -227,7 +230,7 @@ jelszó:
 	}
 ?>
 <br>
-jelszó ismét:
+jelszó ismét: 
 <br>
 <input type="password" name="pass2" size=8%>
 <br>
@@ -251,7 +254,7 @@ captcha hitelesítés:
 <input type="submit" value="OK" name="submit1" size=8%>
 <br>
 <?php
-	if (!empty($captcha_error))
+	if (!empty($ ))
 	{
 		echo "<b>".$captcha_error."</b>";
 	}

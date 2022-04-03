@@ -157,6 +157,8 @@ Jelszó:
 <p><a href="regisztracio.php">regisztráció</a>
 <br>
 <a href="vmain.html">Belépés vendég felhasználóval</a>
+<br>
+<a href="reset_password.php">Elfelejtetted a jelszavad?</a>
 </div>
 </div>
 
