@@ -115,7 +115,7 @@
 <div id="hasab1">
 <b>belépés:</b>
 <br><br>
-<form onsubmit="return main()" name="form" action="login.php" method="POST">
+<form onsubmit="return main()" name="form" action="index.php" method="POST">
 Felhasználónév:
 <br>
 <input type="text" name="nickname" size=8%>

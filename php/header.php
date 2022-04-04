@@ -19,7 +19,7 @@
 	session_start();
 	if(!isset($_SESSION["nickname"]))
 	{
-		header("location:login.php");
+		header("location:index.php");
 	}
 	echo '<br>'.$_SESSION['nickname'];
 ?>

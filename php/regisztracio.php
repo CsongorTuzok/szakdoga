@@ -266,7 +266,7 @@ captcha hitelesítés:
 <br>
 <br>
 </form>
-<a href="login.php">Vissza</a>
+<a href="index.php">Vissza</a>
 </div>
 </div>
 

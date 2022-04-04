@@ -17,7 +17,7 @@ if (isset($_POST["verify_email"]))
 		die ("Sikertelen hitelesítés!");
 	}
 	echo "<p>Sikeres hitelesítés!</p>";
-	echo "<p><a href=login.php>Bejelentkezés</a></p>";
+	echo "<p><a href=index.php>Bejelentkezés</a></p>";
 	exit();
 }
 ?>
