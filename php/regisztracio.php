@@ -33,7 +33,7 @@
 		{
 			echo "hiba";
 		}else{
-			echo "YEEET";
+			echo "jo";
 		}
 	}
 //******************************************************************************//
@@ -254,7 +254,7 @@ captcha hitelesítés:
 <input type="submit" value="OK" name="submit1" size=8%>
 <br>
 <?php
-	if (!empty($ ))
+	if (!empty($captcha_error))
 	{
 		echo "<b>".$captcha_error."</b>";
 	}
@@ -270,18 +270,6 @@ captcha hitelesítés:
 </div>
 </div>
 
-<div class="footer">
-<hr>
-<a id="kapcs">
-<h3>Kapcsolatok:</h3>
-<address>
-email:<a href="mailto:csongortuzok@gmail.com">************</a><br>
-tel.:06***********<br>
-központi raktár:********
-</address>
-</a>
-<img src="img/logo.png" alt="logo">
-<p>Ifjúsági <br> könyvbolt</p>
-</div>
+<?php include 'footer.php';?>
 </body>
 </html>
