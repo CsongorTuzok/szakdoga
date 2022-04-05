@@ -23,7 +23,7 @@
 	}
 	echo '<br>'.$_SESSION['nickname'];
 ?>
-<p><a href="a">Kijelentkezés</a></p>
+<p><a href="logout.php">Kijelentkezés</a></p>
 </div>
 </div>
 

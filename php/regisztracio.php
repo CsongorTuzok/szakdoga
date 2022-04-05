@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="hu">
 <?php
-//**************************************************//
-		$true = true;
+	$db = new mysqli('localhost','root','','ik');
+	$true = true;
+		
+//***************************************************//	
 		$first_num = rand(1, 10);
 		$second_num = rand(1, 10);
 		$operators = array("+", "-", "*");
@@ -22,24 +24,8 @@
 			$answer = $first_num * $second_num;
 			break;
 		}
-		echo $answer;
-	if (isset($_POST['submit1']))	
-	{
-	$user_answer = $_POST["answer"];
-		
-			if ($answer != $user_answer)
-		{
-			$true = false;
-			echo "hiba";
-		}else{
-			echo "jo";
-		}
-	}
-//******************************************************************************//
-
-	$db = new mysqli('localhost','root','','ik');
-		
-
+//***************************************************//
+	
 	if (isset($_POST['submit']))
 	{
 		
@@ -113,6 +99,18 @@
 				$true = false;
 				$email_error = "Email foglalt";
 			}
+			
+	
+//***************************************************//	
+		$user_answer = $_POST["answer"];
+		
+			if ($answer != $user_answer)
+		{
+			$true = false;
+			$captcha_error = "Hibás azonosítás";
+		}
+//***************************************************//
+	
 		
 	if ($true)
 		{
@@ -257,7 +255,6 @@ captcha hitelesítés:
 <?php echo $first_num . " " . $operator . " " . $second_num . " = ";?>
 <br>
 <input type="number" name="answer" size=12%>
-<input type="submit" value="OK" name="submit1" size=12%>
 <br>
 <?php
 	if (!empty($captcha_error))
