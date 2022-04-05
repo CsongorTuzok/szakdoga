@@ -2,7 +2,7 @@
 <html lang="hu">
 <?php
 //**************************************************//
-	session_start();
+		$true = true;
 		$first_num = rand(1, 10);
 		$second_num = rand(1, 10);
 		$operators = array("+", "-", "*");
@@ -22,15 +22,14 @@
 			$answer = $first_num * $second_num;
 			break;
 		}
-		$_SESSION["answer"] = $answer;
 		echo $answer;
 	if (isset($_POST['submit1']))	
 	{
 	$user_answer = $_POST["answer"];
-	$answer = $_SESSION["answer"];
 		
 			if ($answer != $user_answer)
 		{
+			$true = false;
 			echo "hiba";
 		}else{
 			echo "jo";
@@ -43,7 +42,7 @@
 
 	if (isset($_POST['submit']))
 	{
-		$true = true;
+		
 		$vname = mysqli_real_escape_string($db, $_POST['vname']);
 		$kname = mysqli_real_escape_string($db, $_POST['kname']);
 		$email = mysqli_real_escape_string($db, $_POST['email']);
@@ -92,13 +91,19 @@
 			$true = false;
 			($pass_error = "A Jelszavak nem egyeznek!");
 			}
+			$uppercase = preg_match('@[A-Z]@', $_POST['pass1']);
+			$lowercase = preg_match('@[a-z]@', $_POST['pass1']);
+			$number = preg_match('@[0-9]@', $_POST['pass1']);
+			if(!$uppercase || !$lowercase || !$number || strlen($_POST['pass1']) < 8) {
+			$true = false;
+			($pass3_error = 
+			"A Jelszónak minimum 8 karakter hosszúnak kell lenni és tartalmaznia kell egy nagy betűs karaktert és egy számot.");
+			}
 		
 			$sql_n = "SELECT * FROM users2 WHERE nickname='$nickname'";
 			$sql_e = "SELECT * FROM users2 WHERE email='$email'";
 			$res_n = mysqli_query($db, $sql_n) or die(mysqli_error($db));
 			$res_e = mysqli_query($db, $sql_e) or die(mysqli_error($db));
-			
-			
 			
 			if (mysqli_num_rows($res_n)>0)
 			{				
@@ -114,9 +119,6 @@
 			
 			$verification_code = substr(number_format
 			(time() * rand(), 0,'', ''), 0, 6);
-			
-			
-
 			mail($email,
 			'Email verification','Verification code:'.$verification_code,
 			'From: ifjusagikonyvesbolt@gmail.com');
@@ -159,7 +161,7 @@
 <form id="register" action="regisztracio.php" method="POST">
 Vezetéknév:
 <br>
-<input type="text" name="vname" size=8%>
+<input type="text" name="vname" size=12%>
 <br>
 <?php
 	if (!empty($vname_error))
@@ -170,7 +172,7 @@ Vezetéknév:
 <br>
 Keresztnév:
 <br>
-<input type="text" name="kname" size=8%>
+<input type="text" name="kname" size=12%>
 <br>
 <?php
 	if (!empty($kname_error))
@@ -181,7 +183,7 @@ Keresztnév:
 <br>
 email cím:
 <br>
-<input type="email" name="email" size=8%>
+<input type="email" name="email" size=12%>
 <br>
 <?php
 	if (!empty($email_error))
@@ -204,7 +206,7 @@ email cím:
 <br>
 felhasználó név:
 <br>
-<input type="text" name="nickname" size=8%>
+<input type="text" name="nickname" size=12%>
 <br>
 <?php
 	if (!empty($nickname_error))
@@ -221,7 +223,7 @@ felhasználó név:
 <br>
 jelszó:
 <br>
-<input type="password" name="pass1" size=8%>
+<input type="password" name="pass1" size=12% title="Min. 8 karakter kis- és nagy betű ill. szám szükséges.">
 <br>
 <?php
 	if (!empty($pass1_error))
@@ -232,7 +234,7 @@ jelszó:
 <br>
 jelszó ismét: 
 <br>
-<input type="password" name="pass2" size=8%>
+<input type="password" name="pass2" size=12%>
 <br>
 <?php
 	if (!empty($pass2_error))
@@ -241,7 +243,11 @@ jelszó ismét:
 	}
 	if (!empty($pass_error))
 	{
-		echo "<b>".$pass_error."</b>";
+		echo "<b>".$pass_error."</b><br>";
+	}
+	if (!empty($pass3_error))
+	{
+		echo "<b>".$pass3_error."</b>";
 	}
 ?>
 <br>
@@ -250,8 +256,8 @@ captcha hitelesítés:
 <br>
 <?php echo $first_num . " " . $operator . " " . $second_num . " = ";?>
 <br>
-<input type="number" name="answer" size=8%>
-<input type="submit" value="OK" name="submit1" size=8%>
+<input type="number" name="answer" size=12%>
+<input type="submit" value="OK" name="submit1" size=12%>
 <br>
 <?php
 	if (!empty($captcha_error))
