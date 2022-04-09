@@ -154,7 +154,7 @@ Jelszó:
 		echo "<b>".$ver_error."</b>";
 	}
 ?>
-<p><a href="regisztracio.php">regisztráció</a>
+<p><a href="regisztracio.php">Regisztráció</a>
 <br>
 <a href="vmain.html">Belépés vendég felhasználóval</a>
 <br>

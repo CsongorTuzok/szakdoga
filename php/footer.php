@@ -15,8 +15,8 @@
 <a id="kapcs">
 <h3>Kapcsolatok:</h3>
 <address>
-email:<a href="mailto:csongortuzok@gmail.com">************</a><br>
-tel.:06***********<br>
+email:<a href="mailto:ifjusagikonyvesbolt@gmail.com">ifjusagikonyvesbolt@gmail.com</a><br>
+tel.:+36*********<br>
 központi raktár:********
 </address>
 </a>
