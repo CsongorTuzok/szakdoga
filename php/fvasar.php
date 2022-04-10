@@ -117,25 +117,12 @@ $pr_result = mysqli_query($db, $pr_query);
 $total_record = mysqli_num_rows($pr_result);
 $total_page = ceil($total_record/$num_per_page);
 
-if($page>1)
-{
-	echo "<a href='fvasar.php?page=".($page-1)."' class='pagination'>&laquo;</a>";
-}
 
-for($i=1;$i<$total_page;$i++)
-{
-	echo "<a href='fvasar.php?page=".$i."' class='pagination'>$i</a>";
-}
-
-if($i>$page)
-{
-	echo "<a href='fvasar.php?page=".($page+1)."' class='pagination'>&raquo;</a>";
-}
 //*******************************************************
 
-if (mysqli_num_rows($pr_result) > 0)
+if (mysqli_num_rows($result) > 0)
 {
-	while($row = mysqli_fetch_array($pr_result))
+	while($row = mysqli_fetch_array($result))
 	{
 	
 ?>	
@@ -162,7 +149,20 @@ if (mysqli_num_rows($pr_result) > 0)
 <?php		
 	}
 }
+if($page>1)
+{
+	echo "<div class='pagination'><a href='fvasar.php?page=".($page-1)."'>&laquo;</a></div>";
+}
 
+for($i=1;$i<$total_page;$i++)
+{
+	echo "<div class='pagination'><a href='fvasar.php?page=".$i."' class='pagination'>$i</a></div>";
+}
+
+if($i>$page)
+{
+	echo "<div class='pagination'><a href='fvasar.php?page=".($page+1)."' class='pagination'>&raquo;</a></div>";
+}
 ?>
 
 <h4>Kosár:</h4>
