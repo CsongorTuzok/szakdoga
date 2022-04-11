@@ -102,13 +102,13 @@
 			
 	
 //***************************************************//	
-	//	$user_answer = $_POST["answer"];
+		$user_answer = $_POST["answer"];
 		
-	//		if ($answer != $user_answer)
-	//	{
-	//		$true = false;
-	//		$captcha_error = "Hibás azonosítás";
-	//	}
+			if ($answer != $user_answer)
+		{
+			$true = false;
+			$captcha_error = "Hibás azonosítás";
+		}
 //***************************************************//
 	
 		

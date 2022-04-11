@@ -2,7 +2,7 @@
 <?php
 session_start();
 require_once('config.php');
-//**********************************
+
 if(isset($_GET['page']))
 {
 	$page = $_GET['page'];
@@ -15,13 +15,13 @@ $start_from = ($page-1)*4;
 
 $query = "SELECT * FROM product LIMIT $start_from, $num_per_page";
 $result = mysqli_query($db, $query);
-//*****************************************
+
 
 if(isset($_POST["add_to_cart"]))
 {
 	if(isset($SESSION["shopping_cart"]))
 	{
-		$item_array_id = array_coumn($_SESSION["shopping_cart"], "item_id");
+		$item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
 		if(!in_array($_GET["ID"], $item_array_id))
 		{
 			$count = count($SESSION["shopping_cart"]);
@@ -84,8 +84,51 @@ if(isset($GET["action"]))
 <div class="side">
 <p>
 <b style="	font-family: monospace">Keresés:</b>
-<input type="text" name="kif" size=15%>
-<input type="submit" value="Keresés">
+<input type="text" name="search" size=15%>
+<input type="submit" name="submit" value="Keresés">
+
+<!--******************************************-->
+<?php
+if (isset($_POST["submit"]))
+{
+	$str = $_POST["search"];
+	$sth = $db -> prepare("SELECT * FROM 'product' WHERE k_name = '$str'");
+	
+	$sth -> setFetchMode(PDO:: FETCH_OBJ);
+	$sth -> execute();
+	
+	if($row = $sth -> fetch())
+	{
+?>
+		<div class="main">
+	<form method="POST" action="fvasar.php?action=add&ID=<?php echo $row["ID"];?>">
+	<div style="float: left;
+	border: 1px solid black;
+	background-color: #99e6ff;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+	<img src="<?php echo $row["image"]?>"><br>
+	<h4><?php echo $row["sz_name"] ?></h4>
+	<h4><?php echo $row["k_name"] ?></h4>
+	<h4><?php echo $row["topic"] ?></h4>
+	<h4><?php echo $row["price"] ?> Ft</h4>
+	<input type="number" name="quantity" value="1">
+	<input type="hidden" name="hidden_szname" value="<?php echo $row["sz_name"]; ?>">
+	<input type="hidden" name="hidden_kname" value="<?php echo $row["k_name"]; ?>">
+	<input type="hidden" name="hidden_topic" value="<?php echo $row["topic"]; ?>">
+	<input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>">
+	<input type="submit" name="add_to_cart" value="Kosárba">
+	</form>
+	</div>
+	</div>
+
+<?php
+	
+	}else{
+		echo "Nincs ilyen könyv!";
+	}
+}
+?>
+<!--******************************************-->
 <br><br>
 <b style="	font-family: monospace; font-size: large">Szűrés:</b>
 <br><br>
@@ -111,14 +154,12 @@ if(isset($GET["action"]))
 </div>
 
 <?php
-//*********************************************************
 $pr_query = "SELECT * FROM product ORDER BY ID ASC";
 $pr_result = mysqli_query($db, $pr_query);
 $total_record = mysqli_num_rows($pr_result);
 $total_page = ceil($total_record/$num_per_page);
 
 
-//*******************************************************
 
 if (mysqli_num_rows($result) > 0)
 {
@@ -202,12 +243,7 @@ if(!empty($SESSION["shopping_cart"]))
 }
 ?>
 </table>
-
-
-
 </div>
-
-
 <?php include 'footer.php';?>
 </body>
 </html>
