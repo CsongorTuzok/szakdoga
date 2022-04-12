@@ -133,13 +133,36 @@ if (isset($_POST["submit"]))
 <b style="	font-family: monospace; font-size: large">Szűrés:</b>
 <br><br>
 <b style="	font-family: monospace">Témák:</b>
-<br><label>
-<input type="checkbox" name="tema" value="1">1<br>
-<input type="checkbox" name="tema" value="2">2<br>
-<input type="checkbox" name="tema" value="3">3<br>
-<input type="checkbox" name="tema" value="4">4<br>
-<input type="checkbox" name="tema" value="5">5<br>
-</label>
+<br>		   <?php
+                                $db = mysqli_connect("localhost","root","","ik");
+
+                                $topic_query = "SELECT * FROM topic";
+                                $topic_query_run  = mysqli_query($db, $topic_query);
+
+                                if(mysqli_num_rows($topic_query_run) > 0)
+                                {
+                                    foreach($topic_query_run as $topiclist)
+                                    {
+                                        $checked = [];
+                                        if(isset($_POST['topic']))
+                                        {
+                                            $checked = $_POST['topic'];
+                                        }
+                                        ?>
+                                            <div>
+                                                <input type="checkbox" name="topic[]" value="<?= $topiclist['ID']; ?>" 
+                                                    <?php if(in_array($topiclist['ID'], $checked)){ echo "checked"; } ?>
+                                                 />
+                                                <?= $topiclist['name']; ?>
+                                            </div>
+                                        <?php
+                                    }
+                                }
+                                else
+                                {
+                                    echo "Nincs ilyen téma!";
+                                }
+                            ?>
 <br>
 <b style="	font-family: monospace">Szerzők:</b>
 <br><label>
@@ -176,7 +199,6 @@ if (mysqli_num_rows($result) > 0)
 	<img src="<?php echo $row["image"]?>"><br>
 	<h4><?php echo $row["sz_name"] ?></h4>
 	<h4><?php echo $row["k_name"] ?></h4>
-	<h4><?php echo $row["topic"] ?></h4>
 	<h4><?php echo $row["price"] ?> Ft</h4>
 	<input type="number" name="quantity" value="1">
 	<input type="hidden" name="hidden_szname" value="<?php echo $row["sz_name"]; ?>">
