@@ -3,8 +3,6 @@
 if(isset($_POST['search']))
 {
     $valueToSearch = $_POST['valueToSearch'];
-    // search in all table columns
-    // using concat mysql function
     $query = "SELECT * FROM `product` WHERE CONCAT(`sz_name`, `k_name`) LIKE '%".$valueToSearch."%'";
     $search_result = filterTable($query);
     
@@ -14,7 +12,6 @@ if(isset($_POST['search']))
     $search_result = filterTable($query);
 }
 
-// function to connect and execute the query
 function filterTable($query)
 {
     $connect = mysqli_connect("localhost", "root", "", "ik");
@@ -48,7 +45,6 @@ function filterTable($query)
                     <th>ár</th>
                 </tr>
 
-      <!-- populate table from mysql database -->
                 <?php while($row = mysqli_fetch_array($search_result))
 				{?>
                 <tr>

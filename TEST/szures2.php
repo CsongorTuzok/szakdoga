@@ -25,11 +25,11 @@
                     <div class="card shadow mt-3">
                         <div class="card-header">
                             <h5>Filter 
-                                <button type="submit" class="btn btn-primary btn-sm float-end">Search</button>
+                                <button type="submit" class="btn btn-primary btn-sm float-end">Szűrés</button>
                             </h5>
                         </div>
                         <div class="card-body">
-                            <h6>Brand List</h6>
+                            <h6>Témák:</h6>
                             <hr>
 							   <?php
                                 $db = mysqli_connect("localhost","root","","ik");
