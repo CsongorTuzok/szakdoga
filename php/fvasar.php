@@ -21,7 +21,7 @@ $db = mysqli_connect("localhost", "root", "", "ik");
            else  
            {  
                 echo '<script>alert("Item Already Added")</script>';  
-                echo '<script>window.location="kosar.php"</script>';  
+                echo '<script>window.location="fvasar.php"</script>';  
            }  
       }  
       else  
@@ -45,7 +45,7 @@ $db = mysqli_connect("localhost", "root", "", "ik");
                 {  
                      unset($_SESSION["shopping_cart"][$keys]);  
                      echo '<script>alert("Item Removed")</script>';  
-                     echo '<script>window.location="kosar.php"</script>';  
+                     echo '<script>window.location="fvasar.php"</script>';  
                 }  
            }  
       }  
@@ -90,7 +90,7 @@ function filterTable($query)
 <div class="raw">
 <div class="side">
 <p>
-<form action="kosar.php?action=add&id=<?php echo $row["ID"]; ?>" method="post">
+<form action="fvasar.php?action=add&id=<?php echo $row["ID"]; ?>" method="post">
 <b style="	font-family: monospace">Keresés:</b>
 <input type="text" name="valueToSearch" size=15%>
 <input type="submit" name="search" value="Keresés">
@@ -174,7 +174,7 @@ function filterTable($query)
                      {  
                 ?>  
                 <div class="main">  
-                     <form method="post" action="kosar.php?action=add&id=<?php echo $row["ID"]; ?>">  
+                     <form method="post" action="fvasar.php?action=add&id=<?php echo $row["ID"]; ?>">  
                           <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;" align="center">  
                                <img src="<?php echo $row["image"]; ?>" class="img-responsive" /><br />  
                                <h4 class="text-info"><?php echo $row["author_id"]; ?></h4>  
@@ -230,7 +230,7 @@ function filterTable($query)
                                <td><?php echo $values["item_quantity"]; ?></td>  
                                <td><?php echo $values["item_price"]; ?>Ft</td>  
                                <td><?php echo number_format($values["item_quantity"] * $values["item_price"], 2); ?>Ft</td>  
-                               <td><a href="kosar.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Remove</span></a></td>  
+                               <td><a href="fvasar.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Remove</span></a></td>  
                           </tr>  
                           <?php  
                                     $total = $total + ($values["item_quantity"] * $values["item_price"]);  
