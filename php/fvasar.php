@@ -18,7 +18,7 @@ $db = mysqli_connect("localhost", "root", "", "ik");
                 );  
                 $_SESSION["shopping_cart"][$count] = $item_array;  
            }  
-           else  
+           else 
            {  
                 echo '<script>alert("Item Already Added")</script>';  
                 echo '<script>window.location="fvasar.php"</script>';  
@@ -84,6 +84,7 @@ function filterTable($query)
 </style>
 </head>
 <body>
+<?php include 'header.php';?>
 
 
 
@@ -96,6 +97,7 @@ function filterTable($query)
 <input type="submit" name="search" value="Keresés">
 
 <h5> 
+									
 									Témák:
                                 <button type="submit" class="btn btn-primary btn-sm float-end">Szűrés</button>
                             </h5>

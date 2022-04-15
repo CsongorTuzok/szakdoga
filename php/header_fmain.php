@@ -15,6 +15,14 @@
 <h1>IFJÚSÁGI KÖNYVESBOLT</h1>
 <div id="kont">
 <img src="img/logo.png" alt="logo">
+<?php
+	session_start();
+	if(!isset($_SESSION["nickname"]))
+	{
+		header("location:index.php");
+	}
+	echo '<br>Hello '.$_SESSION['nickname'];
+?>
 <p><a href="logout.php">Kijelentkezés</a></p>
 </div>
 </div>
