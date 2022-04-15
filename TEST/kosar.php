@@ -54,7 +54,7 @@ $db = mysqli_connect("localhost", "root", "", "ik");
 if(isset($_POST['search']))
 {
     $valueToSearch = $_POST['valueToSearch'];
-    $query = "SELECT * FROM `product` WHERE CONCAT(`sz_name`, `k_name`) LIKE '%".$valueToSearch."%'";
+    $query = "SELECT * FROM `product` WHERE CONCAT(`author_id`, `k_name`) LIKE '%".$valueToSearch."%'";
     $search_result = filterTable($query);
     
 }
@@ -73,25 +73,30 @@ function filterTable($query)
 ?>
 
  <!DOCTYPE html>  
- <html>  
-      <head>  
-           <title>Webslesson Tutorial | Simple PHP Mysql Shopping Cart</title>  
-           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
-           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
-           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
-      </head>  
-      <body>  
-           <br />  
-           <div class="container" style="width:700px;">  
-                <h3 align="center">Simple PHP Mysql Shopping Cart</h3><br />
-				      
-                        </div>
-                        <div class="card-body">
-                            <h6>Témák:</h6>
-                            <hr>
-							
-							<form action="kosar.php?action=add&id=<?php echo $row["ID"]; ?>" method="post">
-							<h5>Filter 
+ <html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title> Ifjúsági Könyvesbolt </title>
+<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+<link rel="stylesheet" type="text/css" href="css/vvasar.css">
+<style>
+</style>
+</head>
+<body>
+
+
+
+<div class="raw">
+<div class="side">
+<p>
+<form action="kosar.php?action=add&id=<?php echo $row["ID"]; ?>" method="post">
+<b style="	font-family: monospace">Keresés:</b>
+<input type="text" name="valueToSearch" size=15%>
+<input type="submit" name="search" value="Keresés">
+
+<h5> 
+									Témák:
                                 <button type="submit" class="btn btn-primary btn-sm float-end">Szűrés</button>
                             </h5>
 							   <?php
@@ -125,13 +130,9 @@ function filterTable($query)
                                     echo "Nincs ilyen téma!";
                                 }
 								?>
-                        </div>
-             
 
-           <input type="text" name="valueToSearch" placeholder="Value To Search"><br><br>
-						<input type="submit" name="search" value="Filter"><br><br>
-				
-                <?php  
+</div>
+ <?php  
                   
 					
 					
@@ -149,15 +150,17 @@ function filterTable($query)
                                          while($row = mysqli_fetch_array($products_run))  
 												{
                                             ?>
-                                                <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;" align="center">  
+												<div class="main">
+                                                <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px; float:left; width:10%;" align="center">  
                                <img src="<?php echo $row["image"]; ?>" class="img-responsive" /><br />  
                                <h4 class="text-info"><?php echo $row["author_id"]; ?></h4>  
                                <h4 class="text-info"><?php echo $row["k_name"]; ?></h4>  
                                <h4 class="text-danger"><?php echo $row["price"]; ?>Ft</h4>  
-                               <input type="number" name="quantity" class="form-control" value="1" />  
+                               <input type="number" name="quantity" value="1" />  
                                <input type="hidden" name="hidden_name" value="<?php echo $row["k_name"]; ?>" />  
                                <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>" />  
                                <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success" value="Add to Cart" />  
+                          </div>
                           </div>
                                             <?php
 												}
@@ -170,7 +173,7 @@ function filterTable($query)
                      while($row = mysqli_fetch_array($search_result))  
                      {  
                 ?>  
-                <div class="col-md-4">  
+                <div class="main">  
                      <form method="post" action="kosar.php?action=add&id=<?php echo $row["ID"]; ?>">  
                           <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;" align="center">  
                                <img src="<?php echo $row["image"]; ?>" class="img-responsive" /><br />  
@@ -192,6 +195,14 @@ function filterTable($query)
                 	
 
 ?>
+							
+							
+                        
+             
+
+         
+				
+               
 
 				
 				
@@ -236,7 +247,8 @@ function filterTable($query)
                      </table>  
                 </div> 
            </div>  
-           <br />  
+           <br> 
+		   <?php include 'footer.php';?>
       </body>  
  </html>
    

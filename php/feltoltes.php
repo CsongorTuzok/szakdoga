@@ -14,15 +14,21 @@
 
 <div class="raw">
 <div class="side">
-<h4>Válassza ki a feltölteni kívánt könyvet!</h4>
+<h4>Válassza ki a feltölteni kívánt PDF-et!</h4>
 <p>
-<input type="file" id="myfile" name="myfile">
-<br><br>
-<input type="submit" name="myfile" value="Feltöltés">
+<form action="feltoltes2.php" method="post" enctype="multipart/form-data">
+  <input type="file" name="fileToUpload" id="fileToUpload">
+  <br>
+  <br>
+  <input type="submit" value="Feltöltés" name="submit">
+  
+</form>
+
 </div>
 
 <div class="main">
 </div>
+
 </div>
 
 <?php include 'footer.php';?>

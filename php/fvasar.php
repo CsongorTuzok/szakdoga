@@ -1,72 +1,79 @@
-<!DOCTYPE html>
-<?php
-session_start();
-require_once('config.php');
+ <?php 
+ session_start();
+$db = mysqli_connect("localhost", "root", "", "ik");
+   
+ if(isset($_POST["add_to_cart"]))  
+ {  
+      if(isset($_SESSION["shopping_cart"]))  
+      {  
+           $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");  
+           if(!in_array($_GET["id"], $item_array_id))  
+           {  
+                $count = count($_SESSION["shopping_cart"]);  
+                $item_array = array(  
+                     'item_id'               =>     $_GET["id"],  
+                     'item_name'               =>     $_POST["hidden_name"],  
+                     'item_price'          =>     $_POST["hidden_price"],  
+                     'item_quantity'          =>     $_POST["quantity"]  
+                );  
+                $_SESSION["shopping_cart"][$count] = $item_array;  
+           }  
+           else  
+           {  
+                echo '<script>alert("Item Already Added")</script>';  
+                echo '<script>window.location="kosar.php"</script>';  
+           }  
+      }  
+      else  
+      {  
+           $item_array = array(  
+                'item_id'               =>     $_GET["id"],  
+                'item_name'               =>     $_POST["hidden_name"],  
+                'item_price'          =>     $_POST["hidden_price"],  
+                'item_quantity'          =>     $_POST["quantity"]  
+           );  
+           $_SESSION["shopping_cart"][0] = $item_array;  
+      }  
+ }  
+ if(isset($_GET["action"]))  
+ {  
+      if($_GET["action"] == "delete")  
+      {  
+           foreach($_SESSION["shopping_cart"] as $keys => $values)  
+           {  
+                if($values["item_id"] == $_GET["id"])  
+                {  
+                     unset($_SESSION["shopping_cart"][$keys]);  
+                     echo '<script>alert("Item Removed")</script>';  
+                     echo '<script>window.location="kosar.php"</script>';  
+                }  
+           }  
+      }  
+ }  
 
-if(isset($_GET['page']))
+if(isset($_POST['search']))
 {
-	$page = $_GET['page'];
-}else{
-	$page = 1;
+    $valueToSearch = $_POST['valueToSearch'];
+    $query = "SELECT * FROM `product` WHERE CONCAT(`author_id`, `k_name`) LIKE '%".$valueToSearch."%'";
+    $search_result = filterTable($query);
+    
+}
+ else {
+    $query = "SELECT * FROM `product`";
+    $search_result = filterTable($query);
 }
 
-$num_per_page = 04;
-$start_from = ($page-1)*4;
-
-$query = "SELECT * FROM product LIMIT $start_from, $num_per_page";
-$result = mysqli_query($db, $query);
-
-
-if(isset($_POST["add_to_cart"]))
+function filterTable($query)
 {
-	if(isset($SESSION["shopping_cart"]))
-	{
-		$item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
-		if(!in_array($_GET["ID"], $item_array_id))
-		{
-			$count = count($SESSION["shopping_cart"]);
-			$item_array = array(
-				'item_id'=>$_GET["ID"],
-				'item_szname'=>$_POST["hidden_szname"],
-				'item_kname'=>$_POST["hidden_kname"],
-				'item_price'=>$_POST["hidden_price"],
-				'item_quantity'=>$_POST["quantity"]
-			);
-			$SESSION["shopping_cart"][$count] = $item_array;
-		}else{
-			echo '<script>alert("Hozzá adva")</script>';
-			echo '<script>window.location="fvasar.php"</script>';
-		}
-	}else
-	{
-		$item_array = array(
-			'item_id'=>$_GET["ID"],
-			'item_szname'=>$_POST["hidden_szname"],
-			'item_kname'=>$_POST["hidden_kname"],
-			'item_price'=>$_POST["hidden_price"],
-			'item_quantity'=>$_POST["quantity"]
-		);
-		$_SESSION["shopping_cart"][0] = $item_array;
-	}
+    $db = mysqli_connect("localhost", "root", "", "ik");
+    $filter_Result = mysqli_query($db, $query);
+    return $filter_Result;
 }
 
-if(isset($GET["action"]))
-{
-	if($GET["action"] == "delete")
-	{
-		foreach($_SESSION["shopping_cart"] as $keys => $values)
-		{
-			if($values["item_id"] == $_GET["ID"])
-			{
-				unset($_SESSION["shopping_cart"][$keys]);
-				echo '<script>alert("Tétel törölve")</script>';
-				echo '<script>window.location="fvasar.php"</script>';
-			}
-		}
-	}
-}
 ?>
-<html lang="hu">
+
+ <!DOCTYPE html>  
+ <html lang="hu">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -83,61 +90,21 @@ if(isset($GET["action"]))
 <div class="raw">
 <div class="side">
 <p>
+<form action="kosar.php?action=add&id=<?php echo $row["ID"]; ?>" method="post">
 <b style="	font-family: monospace">Keresés:</b>
-<input type="text" name="search" size=15%>
-<input type="submit" name="submit" value="Keresés">
+<input type="text" name="valueToSearch" size=15%>
+<input type="submit" name="search" value="Keresés">
 
-<!--******************************************-->
-<?php
-if (isset($_POST["submit"]))
-{
-	$str = $_POST["search"];
-	$sth = $db -> prepare("SELECT * FROM 'product' WHERE k_name = '$str'");
-	
-	$sth -> setFetchMode(PDO:: FETCH_OBJ);
-	$sth -> execute();
-	
-	if($row = $sth -> fetch())
-	{
-?>
-		<div class="main">
-	<form method="POST" action="fvasar.php?action=add&ID=<?php echo $row["ID"];?>">
-	<div style="float: left;
-	border: 1px solid black;
-	background-color: #99e6ff;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
-	<img src="<?php echo $row["image"]?>"><br>
-	<h4><?php echo $row["sz_name"] ?></h4>
-	<h4><?php echo $row["k_name"] ?></h4>
-	<h4><?php echo $row["topic"] ?></h4>
-	<h4><?php echo $row["price"] ?> Ft</h4>
-	<input type="number" name="quantity" value="1">
-	<input type="hidden" name="hidden_szname" value="<?php echo $row["sz_name"]; ?>">
-	<input type="hidden" name="hidden_kname" value="<?php echo $row["k_name"]; ?>">
-	<input type="hidden" name="hidden_topic" value="<?php echo $row["topic"]; ?>">
-	<input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>">
-	<input type="submit" name="add_to_cart" value="Kosárba">
-	</form>
-	</div>
-	</div>
-
-<?php
-	
-	}else{
-		echo "Nincs ilyen könyv!";
-	}
-}
-?>
-<!--******************************************-->
-<br><br>
-<b style="	font-family: monospace; font-size: large">Szűrés:</b>
-<br><br>
-<b style="	font-family: monospace">Témák:</b>
-<br>		   <?php
-                                $db = mysqli_connect("localhost","root","","ik");
+<h5> 
+									Témák:
+                                <button type="submit" class="btn btn-primary btn-sm float-end">Szűrés</button>
+                            </h5>
+							   <?php
+                                
 
                                 $topic_query = "SELECT * FROM topic";
                                 $topic_query_run  = mysqli_query($db, $topic_query);
+
 
                                 if(mysqli_num_rows($topic_query_run) > 0)
                                 {
@@ -162,110 +129,126 @@ if (isset($_POST["submit"]))
                                 {
                                     echo "Nincs ilyen téma!";
                                 }
-                            ?>
-<br>
-<b style="	font-family: monospace">Szerzők:</b>
-<br><label>
-<input type="checkbox" name="szerzo" value="1">1<br>
-<input type="checkbox" name="szerzo" value="2">2<br>
-<input type="checkbox" name="szerzo" value="3">3<br>
-<input type="checkbox" name="szerzo" value="4">4<br>
-<input type="checkbox" name="szerzo" value="5">5<br>
-</label>
-<br>
-<input type="submit" value="Szűrés">
+								?>
+
 </div>
-
-<?php
-$pr_query = "SELECT * FROM product ORDER BY ID ASC";
-$pr_result = mysqli_query($db, $pr_query);
-$total_record = mysqli_num_rows($pr_result);
-$total_page = ceil($total_record/$num_per_page);
-
-
-
-if (mysqli_num_rows($result) > 0)
-{
-	while($row = mysqli_fetch_array($result))
-	{
-	
-?>	
-	<div class="main">
-	<form method="POST" action="fvasar.php?action=add&ID=<?php echo $row["ID"];?>">
-	<div style="float: left;
-	border: 1px solid black;
-	background-color: #99e6ff;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
-	<img src="<?php echo $row["image"]?>"><br>
-	<h4><?php echo $row["sz_name"] ?></h4>
-	<h4><?php echo $row["k_name"] ?></h4>
-	<h4><?php echo $row["price"] ?> Ft</h4>
-	<input type="number" name="quantity" value="1">
-	<input type="hidden" name="hidden_szname" value="<?php echo $row["sz_name"]; ?>">
-	<input type="hidden" name="hidden_kname" value="<?php echo $row["k_name"]; ?>">
-	<input type="hidden" name="hidden_topic" value="<?php echo $row["topic"]; ?>">
-	<input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>">
-	<input type="submit" name="add_to_cart" value="Kosárba">
-	</form>
-	</div>
-	
-<?php		
-	}
-}
-if($page>1)
-{
-	echo "<div class='pagination'><a href='fvasar.php?page=".($page-1)."'>&laquo;</a></div>";
-}
-
-for($i=1;$i<$total_page;$i++)
-{
-	echo "<div class='pagination'><a href='fvasar.php?page=".$i."' class='pagination'>$i</a></div>";
-}
-
-if($i>$page)
-{
-	echo "<div class='pagination'><a href='fvasar.php?page=".($page+1)."' class='pagination'>&raquo;</a></div>";
-}
-?>
-
-<h4>Kosár:</h4>
-<table>
-<tr>
-	<th>Szerző neve</th>
-	<th>Könyv címe</th>
-	<th>Ár</th>
-	<th>Összesen</th>
-	<th>action</th>
-</tr>
-<?php
-if(!empty($SESSION["shopping_cart"]))
-{
-	$total = 0;
-	foreach($SESSION["shopping_cart"] as $keys => $values)
-	{
+ <?php  
+                  
+					
+					
+				     if(isset($_POST['topic']))
+                            {
+                                $topicchecked = [];
+                                $topicchecked = $_POST['topic'];
+                                foreach($topicchecked as $rowtopic)
+                                {
+                                    // echo $rowtopic;
+                                    $products = "SELECT * FROM product WHERE topic_id IN ($rowtopic)";
+                                    $products_run = mysqli_query($db, $products);
+									if(mysqli_num_rows($products_run) > 0)
+                                    {
+                                         while($row = mysqli_fetch_array($products_run))  
+												{
+                                            ?>
+												<div class="main">
+                                                <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px; float:left; width:10%;" align="center">  
+                               <img src="<?php echo $row["image"]; ?>" class="img-responsive" /><br />  
+                               <h4 class="text-info"><?php echo $row["author_id"]; ?></h4>  
+                               <h4 class="text-info"><?php echo $row["k_name"]; ?></h4>  
+                               <h4 class="text-danger"><?php echo $row["price"]; ?>Ft</h4>  
+                               <input type="number" name="quantity" value="1" />  
+                               <input type="hidden" name="hidden_name" value="<?php echo $row["k_name"]; ?>" />  
+                               <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>" />  
+                               <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success" value="Add to Cart" />  
+                          </div>
+                          </div>
+                                            <?php
+												}
+                                    }
+                                }
+                            }
+							
+                elseif(mysqli_num_rows($search_result) > 0)  
+                {  
+                     while($row = mysqli_fetch_array($search_result))  
+                     {  
+                ?>  
+                <div class="main">  
+                     <form method="post" action="kosar.php?action=add&id=<?php echo $row["ID"]; ?>">  
+                          <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;" align="center">  
+                               <img src="<?php echo $row["image"]; ?>" class="img-responsive" /><br />  
+                               <h4 class="text-info"><?php echo $row["author_id"]; ?></h4>  
+                               <h4 class="text-info"><?php echo $row["k_name"]; ?></h4>  
+                               <h4 class="text-danger"><?php echo $row["price"]; ?>Ft</h4>  
+                               <input type="number" name="quantity" class="form-control" value="1" />  
+                               <input type="hidden" name="hidden_name" value="<?php echo $row["k_name"]; ?>" />  
+                               <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>" />  
+                               <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success" value="Add to Cart" />  
+                          </div>
+						</form>    
+						</form>    
+                </div>						  
+                      
+                <?php  
+					 }
+                }  
+                	
 
 ?>
-<tr>
-	<td><?php echo $values["item_szname"];?></td>
-	<td><?php echo $values["item_kname"];?></td>
-	<td><?php echo $values["item_price"];?>Ft</td>
-	<td><?php echo number_format($values["item_quantity"]*$values["item_price"], 2);?></td>
-	<td><a href="fvasar.php?action=delete&ID=<?php echo $values["item_id"];?>"><span>Törlés</span></a></td>
-</tr>
-<?php
-		$total = $total + ($values["item_quantity"]*$values["item_price"]);
-	}
-?>
-<tr>
-	<td colspan="3" align="right">Összesen:</td>
-	<td align="right"><?php echo number_format($total, 2);?></td>
-	<td></td>
-</tr>
-<?php
-}
-?>
-</table>
-</div>
-<?php include 'footer.php';?>
-</body>
-</html>
+							
+							
+                        
+             
+
+         
+				
+               
+
+				
+				
+                <div style="clear:both"></div>  
+                <br />  
+                 <h3>Order Details</h3>  
+                <div class="table-responsive">  
+                     <table class="table table-bordered">  
+                          <tr>  
+                               <th width="40%">Item Name</th>  
+                               <th width="10%">Quantity</th>  
+                               <th width="20%">Price</th>  
+                               <th width="15%">Total</th>  
+                               <th width="5%">Action</th>  
+                          </tr>  
+                          <?php   
+                          if(!empty($_SESSION["shopping_cart"]))  
+                          {  
+                               $total = 0;  
+                               foreach($_SESSION["shopping_cart"] as $keys => $values)  
+                               {  
+                          ?>  
+                          <tr>  
+                               <td><?php echo $values["item_name"]; ?></td>  
+                               <td><?php echo $values["item_quantity"]; ?></td>  
+                               <td><?php echo $values["item_price"]; ?>Ft</td>  
+                               <td><?php echo number_format($values["item_quantity"] * $values["item_price"], 2); ?>Ft</td>  
+                               <td><a href="kosar.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Remove</span></a></td>  
+                          </tr>  
+                          <?php  
+                                    $total = $total + ($values["item_quantity"] * $values["item_price"]);  
+                               }  
+                          ?>  
+                          <tr>  
+                               <td colspan="3" align="right">Total</td>  
+                               <td align="right"><?php echo number_format($total, 2); ?>Ft</td>  
+                               <td></td>  
+                          </tr>  
+                          <?php  
+                          }  
+                          ?>  
+                     </table>  
+                </div> 
+           </div>  
+           <br> 
+		   <?php include 'footer.php';?>
+      </body>  
+ </html>
+   

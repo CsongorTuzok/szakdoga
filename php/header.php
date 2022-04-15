@@ -33,7 +33,7 @@
 <div class="menu">
   <li><a href="fmain.php">Rólunk</a>
   <li class="dropdown">
-    <a href="feltolt.php" class="dropbtn">Feltöltött könyvek</a>
+    <a href="uploads/feltolt.php" class="dropbtn">Feltöltött könyvek</a>
     <div class="dropdown-content">
       <a href="feltoltes.php">Könyv feltöltés</a>
     </div>

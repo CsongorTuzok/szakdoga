@@ -70,6 +70,8 @@
 	echo $_SESSION['nickname'];
 ?>
 <br>
+<a href="afeltolt.php">Digitális könyv feltöltése</a>
+<br>
 <a href="logout.php">Kijelentkezés</a>
 
 <div class="row">
