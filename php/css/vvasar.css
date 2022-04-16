@@ -118,7 +118,7 @@ input[type=submit]:hover
 	margin-left: 5%;
 	}
 }
-.pagination 
+/*.pagination 
 {
   display: inline-block;
 }
@@ -141,4 +141,4 @@ input[type=submit]:hover
 .pagination a:hover:not(.active) 
 {
 	background-color: #f1f1f1;
-}
+}*/

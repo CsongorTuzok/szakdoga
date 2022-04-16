@@ -95,7 +95,7 @@ li a.active
 	flex-direction: column;
 	}
 }
-.checkbox{
+.check input[type=checkbox]{
  display: none;
 } 
 .hamburger {
@@ -122,7 +122,7 @@ li a.active
 .menu li + li {
  margin-top: 12px;
 }
-.checkbox:checked ~ .menu{
+.check input[type=checkbox]:checked ~ .menu{
  display: block;
 }
 .hamburger {

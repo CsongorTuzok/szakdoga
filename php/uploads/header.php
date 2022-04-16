@@ -20,7 +20,7 @@
 </div>
 
 <ul>
-<input type="checkbox" id="checkbox_toggle" />
+<input class="checkbox" type="checkbox" id="checkbox_toggle" />
 <label for="checkbox_toggle" class="hamburger">&#9776;</label>
 <div class="menu">
   <li><a href="../fmain.php">Rólunk</a>

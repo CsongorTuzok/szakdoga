@@ -23,6 +23,8 @@
   <input type="submit" value="Feltöltés" name="submit">
   
 </form>
+<p>Csak PDF formátumban lehetséges a feltöltés!</p>
+<p>Maximum 5MB-os fájlt lehetséges feltölteni!</p>
 
 </div>
 

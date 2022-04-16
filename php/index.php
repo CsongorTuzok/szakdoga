@@ -2,6 +2,18 @@
 
 <?php
 	session_start();
+	
+	function die_nicely($msg) {
+    echo <<<END
+	<style>body
+{
+	background-color: lightblue;
+}</style>
+<center><div><h3>$msg</h3></div></center>
+END;
+    exit;
+}
+	
 	if (!empty($_SESSION['nickname']))
 	{
 		header('location: fmain.php');
@@ -31,31 +43,37 @@
 		$sql = "SELECT * FROM users2 WHERE nickname='$nickname' AND
 					pass1='$pass1'";
 		$result=mysqli_query($db,$sql);
-		$row=mysqli_fetch_array($result); 
+				
+		if(mysqli_num_rows($result) > 0)
+         {
+         $row = mysqli_fetch_array($result);  
+					
 			
 				if ($row["email_verified_at"] == NULL)
 			{
-				($ver_error = "Erösitd meg az emailed <a href='email-ver.php'>itt</a>");
+				
+				die_nicely("Erösitd meg az emailed <a href='email-ver.php'>itt</a>");
+				
 			}
 			if ($row["usertype"] == "user")
 			{
-				$true=false;
 				session_start();
 				$_SESSION['nickname'] = $nickname;
 				header('location: fmain.php');
 			}
 			elseif ($row["usertype"] == "admin")
 			{
-				$true=false;
 				session_start();
 				$_SESSION['nickname'] = $nickname;
 				header('location: admin.php');
 			}
-			else
+			
+			
+		}else
 			{
 				($error = "A Felhasználónév vagy a Jelszó nem megfelelő!");
 			}
-			
+		
 		}
 		
 		
@@ -146,12 +164,6 @@ Jelszó:
 	if (!empty($error))
 	{
 		echo "<b>".$error."</b><br>";
-	}
-?>
-<?php
-	if (!empty($ver_error))
-	{
-		echo "<b>".$ver_error."</b>";
 	}
 ?>
 <p><a href="regisztracio.php">Regisztráció</a>

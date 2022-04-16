@@ -84,6 +84,8 @@ function filterTable($query)
 </style>
 </head>
 <body>
+
+
 <?php include 'header.php';?>
 
 
@@ -134,6 +136,7 @@ function filterTable($query)
 								?>
 
 </div>
+<div class="main">
  <?php  
                   
 					
@@ -152,8 +155,11 @@ function filterTable($query)
                                          while($row = mysqli_fetch_array($products_run))  
 												{
                                             ?>
-												<div class="main">
-                                                <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px; float:left; width:10%;" align="center">  
+												
+												<div style="float: left;
+	border: 1px solid black;
+	background-color: #99e6ff;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);" align="center">
                                <img src="<?php echo $row["image"]; ?>" class="img-responsive" /><br />  
                                <h4 class="text-info"><?php echo $row["author_id"]; ?></h4>  
                                <h4 class="text-info"><?php echo $row["k_name"]; ?></h4>  
@@ -162,8 +168,7 @@ function filterTable($query)
                                <input type="hidden" name="hidden_name" value="<?php echo $row["k_name"]; ?>" />  
                                <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>" />  
                                <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success" value="Add to Cart" />  
-                          </div>
-                          </div>
+                           </div>
                                             <?php
 												}
                                     }
@@ -175,9 +180,12 @@ function filterTable($query)
                      while($row = mysqli_fetch_array($search_result))  
                      {  
                 ?>  
-                <div class="main">  
+                <div>  
                      <form method="post" action="fvasar.php?action=add&id=<?php echo $row["ID"]; ?>">  
-                          <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;" align="center">  
+					 <div style="float: left;
+	border: 1px solid black;
+	background-color: #99e6ff;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);" align="center">
                                <img src="<?php echo $row["image"]; ?>" class="img-responsive" /><br />  
                                <h4 class="text-info"><?php echo $row["author_id"]; ?></h4>  
                                <h4 class="text-info"><?php echo $row["k_name"]; ?></h4>  
@@ -197,6 +205,7 @@ function filterTable($query)
                 	
 
 ?>
+</div>
 							
 							
                         

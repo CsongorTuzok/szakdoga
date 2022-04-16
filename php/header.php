@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title> Ifjúsági Könyvesbolt </title>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/header.css">
+<link rel="stylesheet" type="text/css" href="css/header2.css">
 <style>
 </style>
 </head>
@@ -20,7 +20,7 @@
 </div>
 
 <ul>
-<input type="checkbox" id="checkbox_toggle" />
+<label class="check"><input type="checkbox" id="checkbox_toggle" /></label>
 <label for="checkbox_toggle" class="hamburger">&#9776;</label>
 <div class="menu">
   <li><a href="fmain.php">Rólunk</a>

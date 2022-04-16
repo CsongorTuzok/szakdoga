@@ -10,14 +10,6 @@
 </style>
 </head>
 <body>
-<?php
-	session_start();
-	if(!isset($_SESSION["nickname"]))
-	{
-		header("location:index.php");
-	}
-	echo '<br>'.$_SESSION['nickname'];
-?>
 <?php include 'header.php';?>
 
 <div class="row">
