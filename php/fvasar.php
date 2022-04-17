@@ -8,19 +8,12 @@ if(isset($_POST['search']))
 {
     $valueToSearch = $_POST['valueToSearch'];
     $query = "SELECT * FROM `product` WHERE CONCAT(`author_id`, `k_name`) LIKE '%".$valueToSearch."%'";
-    $search_result = filterTable($query);
+    $search_result = mysqli_query($db,$query);
     
 }
  else {
     $query = "SELECT * FROM `product`";
-    $search_result = filterTable($query);
-}
-
-function filterTable($query)
-{
-    $db = mysqli_connect("localhost", "root", "", "ik");
-    $filter_Result = mysqli_query($db, $query);
-    return $filter_Result;
+    $search_result = mysqli_query($db,$query);
 }
 
 ?>
@@ -151,12 +144,12 @@ function filterTable($query)
                 ?>  
                 <div>   
 					 <div style="float: left;
-	border: 1px solid black;
-	background-color: #99e6ff;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	margin: 25px;" align="center">
+						border: 1px solid black;
+						background-color: #99e6ff;
+						box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+						margin: 25px;" align="center">
 	
-<form method="post" action="fkosar.php?action=add&id=<?php echo $row["ID"]; ?>">
+							<form method="post" action="fkosar.php?action=add&id=<?php echo $row["ID"]; ?>">
                                <img src="<?php echo $row["image"]; ?>" class="img-responsive" /><br />  
                                <h4 class="text-info"><?php echo $row["author_id"]; ?></h4>  
                                <h4 class="text-info"><?php echo $row["k_name"]; ?></h4>  
@@ -166,7 +159,7 @@ function filterTable($query)
                                <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>" /> <br> 
 							   
                                <input type="submit" name="add_to_cart" class="btn btn-success" value="Add to Cart" />  
-							   </form>
+							</form>
                           </div>
 						   
 						    

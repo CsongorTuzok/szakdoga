@@ -70,7 +70,7 @@ felhasználó név:
 <br>
 <input type="password" name="pass2" size=12% required>
 <br><br>
-captcha hitelesítés:
+Old meg a műveletet:
 <br>
 <?php echo $first_num . " " . $operator . " " . $second_num . " = ";?>
 <input type="number" name="answer" size=12% required>

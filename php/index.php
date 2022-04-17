@@ -85,7 +85,7 @@ END;
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="keywords" content="ifjúsági könyvesbolt, Webshop, könyvek, könyvesbolt, online könyvesbolt,">
+<meta name="keywords" content="ifjúsági könyvesbolt, Webshop, könyvek, könyvesbolt, online könyvesbolt">
 <meta name="description" content="Online Könyvesbolt">
 <title> Ifjúsági Könyvesbolt </title>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">

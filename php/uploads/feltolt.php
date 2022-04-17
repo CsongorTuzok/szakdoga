@@ -24,7 +24,7 @@
                                          while($row = mysqli_fetch_array($products_run))  
 												{
                                             ?>
-                                                <div class="konyv" style="border:1px solid #333; background-color:#38444d; border-radius:5px; padding:16px;" align="center">  
+                                                <div class="konyv" style="border:1px solid #333; background-color:#38444d; border-radius:5px; padding:16px; margin-top:5px;" align="center">  
                            
                                <a style="color: white; text-decoration: none; cursor:pointer;  display: block;" href="<?php echo $row["pdf_name"]; ?>"><?php echo $row["pdf_name"]; ?></a>  
                                
