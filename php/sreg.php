@@ -12,6 +12,7 @@
 		$vname = mysqli_real_escape_string($db, $_POST['vname']);
 		$kname = mysqli_real_escape_string($db, $_POST['kname']);
 		$email = mysqli_real_escape_string($db, $_POST['email']);
+		$email = filter_var($email, FILTER_SANITIZE_EMAIL);
 		$nickname = mysqli_real_escape_string($db, $_POST['nickname']);
 		$pass1 = mysqli_real_escape_string($db, $_POST['pass1']);
 		$pass1 = md5(md5($pass1));

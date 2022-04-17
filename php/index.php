@@ -170,7 +170,7 @@ Jelszó:
 <br>
 <a href="vmain.html">Belépés vendég felhasználóval</a>
 <br>
-<a href="reset_password.php">Elfelejtetted a jelszavad?</a>
+<a href="reset_password_input.php">Elfelejtetted a jelszavad?</a>
 </div>
 </div>
 

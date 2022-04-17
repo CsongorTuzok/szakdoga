@@ -28,9 +28,9 @@ if (isset($_POST["verify_email"]))
 	{
 		die_nicely("Sikertelen hitelesítés!<br> <a href='email-ver.php'>probáld újra</a>");
 		
+	}else{
+	die_nicely("<p>Sikeres hitelesítés!</p><p><a href=index.php>Bejelentkezés</a></p>");
 	}
-	echo "<p>Sikeres hitelesítés!</p>";
-	echo "<p><a href=index.php>Bejelentkezés</a></p>";
 	exit();
 }
 ?>

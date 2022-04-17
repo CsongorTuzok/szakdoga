@@ -12,34 +12,8 @@
 <body>
 <?php include 'header.php';?>
 <div class="raw">
-<div class="side">
-<p>
-<b style="	font-family: monospace">Keresés:</b>
-<input type="text" name="kif" size=15%>
-<input type="submit" value="Keresés">
-<br><br>
-<b style="	font-family: monospace; font-size: large">Szűrés:</b>
-<br><br>
-<b style="	font-family: monospace">Témák:</b>
-<br><label>
-<input type="checkbox" name="tema" value="1">1<br>
-<input type="checkbox" name="tema" value="2">2<br>
-<input type="checkbox" name="tema" value="3">3<br>
-<input type="checkbox" name="tema" value="4">4<br>
-<input type="checkbox" name="tema" value="5">5<br>
-</label>
-<br>
-<b style="	font-family: monospace">Szerzők:</b>
-<br><label>
-<input type="checkbox" name="szerzo" value="1">1<br>
-<input type="checkbox" name="szerzo" value="2">2<br>
-<input type="checkbox" name="szerzo" value="3">3<br>
-<input type="checkbox" name="szerzo" value="4">4<br>
-<input type="checkbox" name="szerzo" value="5">5<br>
-</label>
-<br>
-<input type="submit" value="Szűrés">
-</div>
+
+
 <div class="main">
   <?php
   $db = new mysqli('localhost','root','','ik');

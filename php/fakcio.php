@@ -179,12 +179,12 @@ function filterTable($query)
                                 }
                             }
 							
-                elseif(mysqli_num_rows($search_result) > 0)  
+                elseif(mysqli_num_rows($search_result) > 0 )  
                 {  
                      while($row = mysqli_fetch_array($search_result))  
                      {  
                 ?>  
-                <div>  
+                   <div>  
                      <form method="post" action="fakcio.php?action=add&id=<?php echo $row["ID"]; ?>">  
 					 <div style="float: left;
 	border: 1px solid black;
@@ -200,9 +200,9 @@ function filterTable($query)
                                <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>" />  
                                <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success" value="Add to Cart" />  
                           </div>
+						</form> 
 						</form>    
-						</form>    
-                </div>						  
+                		</div>			  
                       
                 <?php  
 					 }
