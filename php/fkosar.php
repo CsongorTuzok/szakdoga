@@ -114,8 +114,7 @@ if(isset($_POST["add_to_cart"]))
                                <td style="border: solid black 1px;" colspan="3" align="right" title="A végösszeg már tartalmazza a szállítási díjat is.">
 							   <b>*Végösszeg:</b></td>  
                                <td style="border: solid black 1px;" colspan="2" align="center"><?php echo $total; ?>Ft</td>  
-                               <td></td>  
-                          </tr>  
+                           </tr>  
                           <?php  
                           }  
                           ?>  

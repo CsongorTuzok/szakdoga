@@ -62,7 +62,6 @@ session_start();
                                <td style="border: solid black 1px;" colspan="3" align="right" title="A végösszeg már tartalmazza a szállítási díjat is.">
 							   <b>*Végösszeg:</b></td>  
                                <td style="border: solid black 1px;" align="center"><?php echo $total; ?>Ft</td>  
-                               <td></td>  
                           </tr>  
                           <?php  
                           }  
@@ -114,10 +113,9 @@ session_start();
 			
 			if($true)
 			{
+			mail($email, 'Siker', $values["item_name"], 'From: ifjusagikonyvesbolt@gmail.com');
 			
-			mail($email,
-			'Rendelés értesítő','Név:'.$values["item_name"],
-			'From: ifjusagikonyvesbolt@gmail.com');
+			
 			
 			
 			$sql = "INSERT INTO checkout(v_name, k_name, email, address, mobil)
