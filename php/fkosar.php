@@ -66,45 +66,17 @@ if(isset($_POST["add_to_cart"]))
 <?php include 'header.php';?>
 
 <div class="row">
-<div class="column side">
-<h4>Ez is érdekelhet:</h4>
-<p  id="hasab3">
-<img src="img/bookicon.jpg" alt="logo">
-<br>
-Fekete István
-<br><br>
-Tüskevár
-<br><br>
-ár: <del>1700Ft</del>
-<br><br>
-ár: 1600Ft
-<br><br>
-<input type="submit" value="Kosárba">
 
-<p  id="hasab4">
-<img src="img/bookicon.jpg" alt="logo">
-<br>
-Fekete István
-<br><br>
-Tüskevár
-<br><br>
-ár: <del>1700Ft</del>
-<br><br>
-ár: 1600Ft
-<br><br>
-<input type="submit" value="Kosárba">
-</div>
-
-<h3>Order Details</h3>  
+<h3 style="margin-top:100px;">Kosár Tartalma</h3>  
 				<div style="clear:both">
                 <div class="table-responsive">  
-                     <table class="table table-bordered">  
-                          <tr>  
-                               <th width="40%">Item Name</th>  
-                               <th width="10%">Quantity</th>  
-                               <th width="20%">Price</th>  
-                               <th width="15%">Total</th>  
-                               <th width="5%">Action</th>  
+                     <table style="border-collapse: collapse; ">  
+                          <tr style="background-color: #38444d; color: white;">  
+                               <th width="40%">Név</th>  
+                               <th width="10%">Darab szám</th>  
+                               <th width="20%">Ár</th>  
+                               <th width="15%">Összesen</th>  
+                               <th width="5%">Törlés</th>  
                           </tr>  
                           <?php   
                           if(!empty($_SESSION["shopping_cart"]))  
@@ -113,29 +85,47 @@ Tüskevár
                                foreach($_SESSION["shopping_cart"] as $keys => $values)  
                                {  
                           ?>  
-                          <tr>  
-                               <td><?php echo $values["item_name"]; ?></td>  
-                               <td><?php echo $values["item_quantity"]; ?></td>  
-                               <td><?php echo $values["item_price"]; ?>Ft</td>  
-                               <td><?php echo number_format($values["item_quantity"] * $values["item_price"], 2); ?>Ft</td>  
-                               <td><a href="fkosar.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Remove</span></a></td>  
-                          </tr>  
+                          <tr style="background-color: #99e6ff;"> 
+							
+                               <td style="border: solid black 1px;" align="center"><?php echo $values["item_name"]; ?></td>
+                               <td style="border: solid black 1px;" align="center"><?php echo $values["item_quantity"]; ?></td>  
+                               <td style="border: solid black 1px;" align="center"><?php echo $values["item_price"]; ?>Ft</td>  
+                               <td style="border: solid black 1px;" align="center"><?php echo $values["item_quantity"] * $values["item_price"]; ?>Ft</td>  
+                               <td style="border: solid black 1px;" align="center"><a href="fkosar.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Remove</span></a></td>  
+								
+						  </tr>  
                           <?php  
                                     $total = $total + ($values["item_quantity"] * $values["item_price"]);  
-                               }  
+                               } 
+								$sok=5000;
+								$keves=3000;
+								$ezer=999;
+								$hatszaz=699;
+							   if($total<$keves)
+							   {
+								   $total=$total + $ezer;
+							   }elseif($total<$sok && $total>$keves){
+								   $total=$total + $hatszaz;
+							   }else{
+								   $total=$total;
+							   }
                           ?>  
-                          <tr>  
-                               <td colspan="3" align="right">Total</td>  
-                               <td align="right"><?php echo number_format($total, 2); ?>Ft</td>  
+                          <tr style="background-color: #99e6ff;">  
+                               <td style="border: solid black 1px;" colspan="3" align="right" title="A végösszeg már tartalmazza a szállítási díjat is.">
+							   <b>*Végösszeg:</b></td>  
+                               <td style="border: solid black 1px;" colspan="2" align="center"><?php echo $total; ?>Ft</td>  
                                <td></td>  
                           </tr>  
                           <?php  
                           }  
                           ?>  
                      </table>  
-                </div> 
+                </div> <br>
+				<button style="float: right; margin-right: 30%;"><a href="checkout.php">Tovább</a></button>
+				<br>
+				
 </div>
+		   <?php include 'footer.php';?>
 </div>
-<?php include 'footer.php';?>
 </body>
 </html>

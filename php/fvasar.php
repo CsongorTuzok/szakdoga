@@ -46,12 +46,12 @@ function filterTable($query)
 <div class="raw">
 <div class="side">
 <p>
-<form action="fvasar.php?action=add&id=<?php echo $row["ID"]; ?>" method="post">
+<form action="fvasar.php" method="post">
 <b style="	font-family: monospace">Keresés:</b>
 <input type="text" name="valueToSearch" size=15%>
 <input type="submit" name="search" value="Keresés">
 </form> 
-<form action="fvasar.php?action=add&id=<?php echo $row["ID"]; ?>" method="post">
+<form action="fvasar.php" method="post">
 <h5> 
 									
 									Témák:

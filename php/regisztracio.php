@@ -62,11 +62,11 @@ felhasználó név:
 <br>
 <input type="text" name="nickname" size=12% required>
 <br><br>
-jelszó:
+<label title="Min. 8 karakter kis- és nagy betű ill. szám szükséges.">*jelszó:</label>
 <br>
-<input type="password" name="pass1" size=12% title="Min. 8 karakter kis- és nagy betű ill. szám szükséges." required>
+<input type="password" name="pass1" size=12% required>
 <br><br>
-jelszó ismét: 
+<label title="Min. 8 karakter kis- és nagy betű ill. szám szükséges.">*jelszó ismét: </label>
 <br>
 <input type="password" name="pass2" size=12% required>
 <br><br>
