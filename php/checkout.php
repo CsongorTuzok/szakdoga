@@ -81,6 +81,14 @@ session_start();
 		$address = mysqli_real_escape_string($db, $_POST['address']);
 		$mobil = mysqli_real_escape_string($db, $_POST['mobil']);
 		
+		while($values["item_name"]>0)
+		{
+			$item[]=$values["item_name"];
+		}
+		$total_item = implode(', ',$item);
+		
+		$quantity = mysqli_real_escape_string($db, $values["item_quantity"]);
+		 
 		
 			if (empty($_POST['v_name']))
 			{
@@ -118,8 +126,8 @@ session_start();
 			
 			
 			
-			$sql = "INSERT INTO checkout(v_name, k_name, email, address, mobil)
-			VALUES ('$v_name','$k_name','$email','$address','$mobil')";
+			$sql = "INSERT INTO checkout(v_name, k_name, email, address, mobil, item, quantity)
+			VALUES ('$v_name','$k_name','$email','$address','$mobil','$total_item','$quantity')";
 			$db->query($sql);
 			
 			echo '<script>alert("Köszönjük a vásárlást! Email küldve")</script>';  
