@@ -1,55 +1,24 @@
 <!DOCTYPE html>
 <?php
-session_start();
-$db = mysqli_connect("localhost", "root", "", "ik");
-if(isset($_POST["add_to_cart"]))  
- {  
-      if(isset($_SESSION["shopping_cart"]))  
-      {  
-           $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");  
-           if(!in_array($_GET["id"], $item_array_id))  
-           {  
-                $count = count($_SESSION["shopping_cart"]);  
-                $item_array = array(  
-                     'item_id'               =>     $_GET["id"],  
-                     'item_name'               =>     $_POST["hidden_name"],  
-                     'item_price'          =>     $_POST["hidden_price"],  
-                     'item_quantity'          =>     $_POST["quantity"]  
-                );  
-                $_SESSION["shopping_cart"][$count] = $item_array;  
-           }  
-           else 
-           {  
-                echo '<script>Figyelmeztetés("A termék már hozzá lett adva a kosárhoz")</script>';  
-                echo '<script>window.location="fvasar.php"</script>';  
-           }  
-      }  
-      else  
-      {  
-           $item_array = array(  
-                'item_id'               =>     $_GET["id"],  
-                'item_name'               =>     $_POST["hidden_name"],  
-                'item_price'          =>     $_POST["hidden_price"],  
-                'item_quantity'          =>     $_POST["quantity"]  
-           );  
-           $_SESSION["shopping_cart"][0] = $item_array;  
-      }  
- }  
- if(isset($_GET["action"]))  
- {  
-      if($_GET["action"] == "delete")  
-      {  
-           foreach($_SESSION["shopping_cart"] as $keys => $values)  
-           {  
-                if($values["item_id"] == $_GET["id"])  
-                {  
-                     unset($_SESSION["shopping_cart"][$keys]);  
-                     echo '<script>Figyelmeztetés("Termék eltávolítva")</script>';  
-                     echo '<script>window.location="fkosar.php"</script>';  
-                }  
-           }  
-      }  
- } 
+include 'config.php';
+
+if(isset($_POST['update_update_btn'])){
+   $update_value = $_POST['update_quantity'];
+   $update_id = $_POST['update_quantity_id'];
+   $update_quantity_query = mysqli_query($db, "UPDATE `cart` SET quantity = '$update_value' WHERE ID = '$update_id'");
+}
+
+if(isset($_GET['remove'])){
+   $remove_id = $_GET['remove'];
+   mysqli_query($db, "DELETE FROM `cart` WHERE ID = '$remove_id'");
+   header('location:fkosar.php');
+}
+
+if(isset($_GET['delete_all'])){
+   mysqli_query($db, "DELETE FROM `cart`");
+   header('location:fkosar.php');
+}
+
 ?> 
 
 <html lang="hu">
@@ -63,66 +32,88 @@ if(isset($_POST["add_to_cart"]))
 </style>
 </head>
 <body>
+
 <?php include 'header.php';?>
 
 <div class="row">
 
-<h3 style="margin-top:100px;">Kosár Tartalma</h3>  
-				<div style="clear:both">
-                <div class="table-responsive">  
-                     <table style="border-collapse: collapse; ">  
-                          <tr style="background-color: #38444d; color: white;">  
-                               <th width="40%">Név</th>  
-                               <th width="10%">Darab szám</th>  
-                               <th width="20%">Ár</th>  
-                               <th width="15%">Összesen</th>  
-                               <th width="5%">Törlés</th>  
-                          </tr>  
-                          <?php   
-                          if(!empty($_SESSION["shopping_cart"]))  
-                          {  
-                               $total = 0;  
-                               foreach($_SESSION["shopping_cart"] as $keys => $values)  
-                               {  
-                          ?>  
-                          <tr style="background-color: #99e6ff;"> 
-							
-                               <td style="border: solid black 1px;" align="center"><?php echo $values["item_name"]; ?></td>
-                               <td style="border: solid black 1px;" align="center"><?php echo $values["item_quantity"]; ?></td>  
-                               <td style="border: solid black 1px;" align="center"><?php echo $values["item_price"]; ?>Ft</td>  
-                               <td style="border: solid black 1px;" align="center"><?php echo $values["item_quantity"] * $values["item_price"]; ?>Ft</td>  
-                               <td style="border: solid black 1px;" align="center"><a href="fkosar.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Remove</span></a></td>  
-								
-						  </tr>  
-                          <?php  
-                                    $total = $total + ($values["item_quantity"] * $values["item_price"]);  
-                               } 
-								$sok=5000;
-								$keves=3000;
-								$ezer=999;
-								$hatszaz=699;
-							   if($total<$keves)
-							   {
-								   $total=$total + $ezer;
-							   }elseif($total<$sok && $total>$keves){
-								   $total=$total + $hatszaz;
-							   }else{
-								   $total=$total;
-							   }
-                          ?>  
-                          <tr style="background-color: #99e6ff;">  
-                               <td style="border: solid black 1px;" colspan="3" align="right" title="A végösszeg már tartalmazza a szállítási díjat is.">
-							   <b>*Végösszeg:</b></td>  
-                               <td style="border: solid black 1px;" colspan="2" align="center"><?php echo $total; ?>Ft</td>  
-                           </tr>  
-                          <?php  
-                          }  
-                          ?>  
-                     </table>  
-                </div> <br>
-				<button style="float: right; margin-right: 30%;"><a href="checkout.php">Tovább</a></button>
-				<br>
-				
+<div class="container">
+
+<section class="shopping-cart">
+
+   <h1 class="heading">Kosár tartalma:</h1>
+
+	<center>
+   <table>
+
+      
+         <th style="background-color: #38444d; color: white;">Kép</th>
+         <th style="background-color: #38444d; color: white;">Név</th>
+         <th style="background-color: #38444d; color: white;">Ár</th>
+         <th style="background-color: #38444d; color: white;">Mennyiség</th>
+         <th style="background-color: #38444d; color: white;">Összesen</th>
+         <th style="background-color: #38444d; color: white;">Törlés</th>
+      
+
+      
+
+         <?php 
+         
+         $select_cart = mysqli_query($db, "SELECT * FROM `cart`");
+         $grand_total = 0;
+         if(mysqli_num_rows($select_cart) > 0){
+            while($fetch_cart = mysqli_fetch_assoc($select_cart)){
+         ?>
+
+         <tr>
+            <td><img src="<?php echo $fetch_cart['image']; ?>" height="100" alt=""></td>
+            <td><?php echo $fetch_cart['k_name']; ?></td>
+            <td><?php echo ($fetch_cart['price']); ?>Ft</td>
+            <td>
+               <form action="" method="post">
+                  <input type="hidden" name="update_quantity_id"  value="<?php echo $fetch_cart['ID']; ?>" >
+                  <input type="number" name="update_quantity" min="1"  value="<?php echo $fetch_cart['quantity']; ?>" >
+                  <input type="submit" value="módosítás" name="update_update_btn">
+               </form>   
+            </td>			
+            <td><?php echo $sub_total = ($fetch_cart['price'] * $fetch_cart['quantity']); ?>Ft</td>
+            <td><a href="fkosar.php?remove=<?php echo $fetch_cart['ID']; ?>">eltávolítás</a></td>
+         </tr>
+         <?php
+           $grand_total += $sub_total;  
+            }
+			$sok=5000;
+			$keves=3000;
+			$ezer=999;
+			$hatszaz=699;
+			   if($grand_total<$keves)
+				{
+					$grand_total=$grand_total + $ezer;
+				}elseif($grand_total<$sok && $grand_total>$keves){
+					$grand_total=$grand_total + $hatszaz;
+				}else{
+					$grand_total=$grand_total;
+				}
+         }
+		 	
+         ?>
+         <tr class="table-bottom">
+            <td><a href="fvasar.php" class="option-btn" style="margin-top: 0;">Vásárlás folytatása</a></td>
+            <td colspan="3" title="A végösszeg már tartalmazza a szállítási díjat is.">*Végösszeg:</td>
+            <td><?php echo $grand_total; ?>Ft</td>
+            <td><a href="fkosar.php?delete_all" onclick="Visszaigazolás('Biztos törlöd a kosár tartalmát?');" class="delete-btn"> <i class="fas fa-trash"></i>Összes törlése</a></td>
+         </tr>
+
+
+   </table>
+   </center>
+
+   <div align="right">
+      <a href="checkout.php" class="btn <?= ($grand_total > 1)?'':'disabled'; ?>">Tovább</a>
+   </div>
+
+</section>
+
 </div>
 		   <?php include 'footer.php';?>
 </div>

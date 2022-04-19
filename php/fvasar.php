@@ -1,9 +1,28 @@
- <?php 
- session_start();
-$db = mysqli_connect("localhost", "root", "", "ik");
-   
- 
+<?php
+include 'config.php';
 
+if(isset($_POST['add_to_cart'])){
+
+   $product_author = $_POST['hidden_author'];
+   $product_name = $_POST['hidden_name'];
+   $product_price = $_POST['hidden_price'];
+   $product_image = $_POST['product_image'];
+   $product_topic = $_POST['hidden_topic'];
+   $product_quantity = 1;
+   $select_cart = mysqli_query($db, "SELECT * FROM `cart` WHERE k_name = '$product_name'");
+
+   if(mysqli_num_rows($select_cart) > 0){
+      $message[] = '<script>alert("Termék már bele lett helyezve a kosárba!")</script> 
+					<script>window.location="fvasar.php"</script>'; 
+   }else{
+      $insert_product = mysqli_query($db, "INSERT INTO `cart`(author_id, k_name, image, topic_id, price, quantity) 
+	  VALUES('$product_author', '$product_name', '$product_image', '$product_topic', '$product_price', '$product_quantity')");
+      $message[] = '<script>alert("Termék sikeresen hozzá adva a kosárhoz!")</script> 
+					<script>window.location="fvasar.php"</script>';
+	  
+   }
+
+}
 if(isset($_POST['search']))
 {
     $valueToSearch = $_POST['valueToSearch'];
@@ -33,12 +52,9 @@ if(isset($_POST['search']))
 
 
 <?php include 'header.php';?>
-
-
-
 <div class="raw">
 <div class="side">
-<p>
+
 <form action="fvasar.php" method="post">
 <b style="	font-family: monospace">Keresés:</b>
 <input type="text" name="valueToSearch" size=15%>
@@ -46,13 +62,9 @@ if(isset($_POST['search']))
 </form> 
 <form action="fvasar.php" method="post">
 <h5> 
-									
 									Témák:
                             </h5>
-							 
 							   <?php
-                                
-
                                 $topic_query = "SELECT * FROM topic";
                                 $topic_query_run  = mysqli_query($db, $topic_query);
 
@@ -86,10 +98,28 @@ if(isset($_POST['search']))
                                 <button type="submit" class="btn btn-primary btn-sm float-end">Szűrés</button>
 								</form>
 
-</div>
+
+  </div> 
+
+
 <div class="main">
-	
- <?php  
+
+<section class="products">
+
+   <h1 class="heading">Legújabb termékek</h1>
+   <?php
+
+if(isset($message)){
+   foreach($message as $message){
+      echo '<div class="message"><span>'.$message.'</span> <i class="fas fa-times" onclick="this.parentElement.style.display = `none`;"></i> </div>';
+   };
+};
+
+?>
+
+   <div class="box-container">
+
+      <?php  
                   
 					
 					
@@ -109,21 +139,23 @@ if(isset($_POST['search']))
                                             ?>
 												
 												<div style="float: left;
+	width:180px;
 	border: 1px solid black;
 	background-color: #99e6ff;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	margin: 25px;"" align="center">
+	margin: 25px;" align="center">
 	
-<form method="post" action="fkosar.php?action=add&id=<?php echo $row["ID"]; ?>">
-                               <img src="<?php echo $row["image"]; ?>" class="img-responsive" /><br />  
+<form method="post" action="fvasar.php">
+                               <img src="<?php echo $row["image"]; ?>" height="100" /><br />  
                                <h4 class="text-info"><?php echo $row["author_id"]; ?></h4>  
                                <h4 class="text-info"><?php echo $row["k_name"]; ?></h4>  
                                <h4 class="text-danger"><?php echo $row["price"]; ?>Ft</h4>  
-                               <input type="number" name="quantity" value="1" />  
-                               <input type="hidden" name="hidden_name" value="<?php echo $row["k_name"]; ?>" />  
-                               <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>" /><br>
-							   
-							   <input type="submit" name="add_to_cart" class="btn btn-success" value="Add to Cart" /> 
+                               <input type="hidden" name="hidden_author" value="<?php echo $row["author_id"]; ?>" />  
+                               <input type="hidden" name="hidden_name" value="<?php echo $row["k_name"]; ?>" />								
+                               <input type="hidden" name="hidden_topic" value="<?php echo $row["topic_id"]; ?>" />
+                               <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>" />
+							   <input type="hidden" name="product_image" value="<?php echo $row['image']; ?>"><br>
+							   <input type="submit" name="add_to_cart" class="btn btn-success" value="Kosárba" /> 
 							   </form>
 							   
                            </div>
@@ -135,47 +167,49 @@ if(isset($_POST['search']))
                                     }
                                 }
                             }
-							
-							
-                elseif(mysqli_num_rows($search_result) > 0)  
+      
+     elseif(mysqli_num_rows($search_result) > 0)  
                 {  
                      while($row = mysqli_fetch_array($search_result))  
-                     {  
-                ?>  
-                <div>   
-					 <div style="float: left;
-						border: 1px solid black;
-						background-color: #99e6ff;
-						box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-						margin: 25px;" align="center">
+                     {
+      ?>
+
+
+<div style="float: left;
+	width:180px;
+	border: 1px solid black;
+	background-color: #99e6ff;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	margin: 25px;" align="center">
 	
-							<form method="post" action="fkosar.php?action=add&id=<?php echo $row["ID"]; ?>">
-                               <img src="<?php echo $row["image"]; ?>" class="img-responsive" /><br />  
+<form method="post" action="fvasar.php">
+                               <img src="img/<?php echo $row["image"];?>"height="100"/><br />  
                                <h4 class="text-info"><?php echo $row["author_id"]; ?></h4>  
                                <h4 class="text-info"><?php echo $row["k_name"]; ?></h4>  
-                               <h4 class="text-danger"><?php echo $row["price"]; ?>Ft</h4>  
-                               <input type="number" name="quantity" class="form-control" value="1" />  
+                               <h4 class="text-danger"><?php echo $row["price"]; ?>Ft</h4>  							   
+                               <input type="hidden" name="hidden_author" value="<?php echo $row["author_id"]; ?>" />
                                <input type="hidden" name="hidden_name" value="<?php echo $row["k_name"]; ?>" />  
-                               <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>" /> <br> 
+                               <input type="hidden" name="hidden_topic" value="<?php echo $row["topic_id"]; ?>" />
+                               <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>" />
+							   <input type="hidden" name="product_image" value="<?php echo $row['image']; ?>"><br>
+							   <input type="submit" name="add_to_cart" class="btn btn-success" value="Kosárba" /> 
+							   </form>
 							   
-                               <input type="submit" name="add_to_cart" class="btn btn-success" value="Add to Cart" />  
-							</form>
-                          </div>
-						   
-						    
-                </div>						  
-                      
-                <?php  
-					 }
-                }  
-                	
+                           </div>
 
-?>
+      <?php
+         };
+      };
+      ?>
+
+   </div>
+</section>
+
 </div>
-						
 </div>
 		   <?php include 'footer.php';?>
 		   
       </body>  
+	  
  </html>
    

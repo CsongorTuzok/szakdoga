@@ -260,11 +260,12 @@ function filterTable($query)
                           <?php  
                           }  
                           ?>  
-                     </table>  
-                </div> 
-           </div>  
+                     </table> 
+					 </div> 
            <br> 
-		   <?php include 'footer.php';?>
+		   <?php include 'footer.php';?>     
+           </div>  
+           
       </body>  
  </html>
    

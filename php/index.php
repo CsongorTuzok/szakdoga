@@ -18,6 +18,7 @@ END;
 	{
 		header('location: fmain.php');
 	}else{
+		
 		session_destroy();
 	}
 	$db = new mysqli("localhost","root","","ik");
