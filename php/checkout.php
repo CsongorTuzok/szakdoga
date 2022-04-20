@@ -44,7 +44,7 @@ if(isset($_POST['order_btn'])){
             <p> Fizetési modod : <span>".$method."</span> </p>
             <p>(*pay when product arrives*)</p>
          </div>
-            <a href='products.php' class='btn'>Vásárlás folytatása</a>
+            <a href='fvasar.php' class='btn'>Vásárlás folytatása</a>
          </div>
       </div>
       ";

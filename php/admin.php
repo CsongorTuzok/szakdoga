@@ -1,56 +1,65 @@
-<!DOCTYPE html>
-<html lang="hu">
 <?php
-	$db = new mysqli('localhost','root','','ik');
-	$true = true;
-		
 
-	
-	if (isset($_POST['submit']))
-	{
-		
-		$sz_name = mysqli_real_escape_string($db, $_POST['sz_name']);
-		$k_name = mysqli_real_escape_string($db, $_POST['k_name']);
-		$topic = mysqli_real_escape_string($db, $_POST['topic']);
-		$image = mysqli_real_escape_string($db, $_POST['image']);
-		$price = mysqli_real_escape_string($db, $_POST['price']);
-		
-			if (empty($_POST['sz_name']))
-			{
-			$true = false;
-			$sz_name_error = "A(z) \"Szerző neve\" üres!";
-			}
-			if (empty($_POST['k_name']))
-			{
-			$true = false;
-			($k_name_error = "A(z) \"Könyv címe\" üres!");
-			}
-			if (empty($_POST['topic']))
-			{
-			$true = false;
-			($topic_error = "A(z) \"Téma\" üres!");
-			}			
-			if (empty($_POST['image']))
-			{
-			$true = false;
-			($image_error = "A(z) \"Kép\" üres!");
-			}
-			if (empty($_POST['price']))
-			{
-			$true = false;
-			($price_error = "A(z) \"Ár\" üres!");
-			}
+include 'config.php';
 
-	if ($true)
-		{			
-			$sql = "INSERT INTO product(sz_name, k_name, topic, image, price)
-			VALUES ('$sz_name','$k_name','$topic','$image','$price')";
-			$db->query($sql);			
-		}
-	}
+if(isset($_POST['add_product'])){
+   $author_id = $_POST['author_id'];
+   $k_name = $_POST['k_name'];
+   $price = $_POST['price'];
+   $topic_id = $_POST['topic_id'];
+   $image = $_FILES['image']['name'];
+   $p_image_tmp_name = $_FILES['image']['tmp_name'];
+   $p_image_folder = 'uploaded_img/'.$image;
 
-	$db->close();
+   $insert_query = mysqli_query($db, "INSERT INTO `product`(author_id, k_name, topic_id, price, image) VALUES('$author_id', '$k_name', '$topic_id', '$price', '$image')") or die('Hiba!!!!!');
+
+   if($insert_query){
+      move_uploaded_file($p_image_tmp_name, $p_image_folder);
+      $message[] = 'Termék sikeresen hozzáadva';
+   }else{
+      $message[] = 'Termék hozzáadása nem sikerült';
+   }
+}
+
+if(isset($_GET['delete'])){
+   $delete_id = $_GET['delete'];
+   $delete_query = mysqli_query($db, "DELETE FROM `product` WHERE ID = $delete_id ") or die('Adatbázishoz csatlakozás sikertelen');
+   if($delete_query){
+      header('location:admin.php');
+      $message[] = 'Termék törlésre került';
+   }else{
+      header('location:admin.php');
+      $message[] = 'Termék törlése nem sikerült';
+   }
+}
+
+if(isset($_POST['update_product'])){
+   $update_p_author_id = $_POST['update_p_author_id'];
+   $update_p_id = $_POST['update_p_id'];
+   $update_p_name = $_POST['update_p_name'];
+   $update_topic_id = $_POST['update_topic_id'];
+   $update_p_price = $_POST['update_p_price'];
+   $update_p_image = $_FILES['update_p_image']['name'];
+   $update_p_image_tmp_name = $_FILES['update_p_image']['tmp_name'];
+   $update_p_image_folder = 'uploaded_img/'.$update_p_image;
+
+   $update_query = mysqli_query($db, "UPDATE `product` SET author_id = '$update_p_author_id', k_name = '$update_p_name', topic_id = '$update_topic_id', price = '$update_p_price', image = '$update_p_image' WHERE ID = '$update_p_id'");
+
+   if($update_query){
+      move_uploaded_file($update_p_image_tmp_name, $update_p_image_folder);
+      $message[] = 'Termék frisités sikeres';
+      header('location:admin.php');
+   }else{
+      $message[] = 'Termék frisités nem sikerült';
+      header('location:admin.php');
+   }
+
+}
+
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,73 +81,119 @@
 <br>
 <a href="afeltolt.php">Digitális könyv feltöltése</a>
 <br>
+<a href="rendeles.php">Rendelések</a>
+<br>
 <a href="logout.php">Kijelentkezés</a>
+   
+<?php
 
-<div class="row">
-<div id="hasab1">
-<b>Könyv feltöltés:</b>
-<br><br>
-<form id="register" action="admin.php" method="POST">
-Szerző neve:
-<br>
-<input type="text" name="sz_name" size=12%>
-<br>
-<?php
-	if (!empty($sz_name_error))
-	{
-		echo "<b>".$sz_name_error."</b>";
-	}
+if(isset($message)){
+   foreach($message as $message){
+      echo '<div class="message"><span>'.$message.'</span> <i class="fas fa-times" onclick="this.parentElement.style.display = `none`;"></i> </div>';
+   }
+}
+
 ?>
-<br>
-Könyv címe:
-<br>
-<input type="text" name="k_name" size=12%>
-<br>
-<?php
-	if (!empty($k_name_error))
-	{
-		echo "<b>".$k_name_error."</b>";
-	}
-?>
-<br>
-Téma:
-<br>
-<input type="text" name="topic" size=12%>
-<br>
-<?php
-	if (!empty($topic_error))
-	{
-		echo "<b>".$topic_error."</b>";
-	}
-?>
-<br>
-Kép:
-<br>
-<input type="text" name="image" size=12%>
-<br>
-<?php
-	if (!empty($image_error))
-	{
-			echo "<b>".$image_error."</b>";
-	}
-?>
-<br>
-Ár:
-<br>
-<input type="number" name="price" size=12%>
-<br>
-<?php
-	if (!empty($price_error))
-	{
-		echo "<b>".$price_error."</b>";
-	}
-?>
-<br>
-<input name="submit" value="Feltöltés" type="submit">
-<br>
-<br>
+
+
+<div class="container">
+
+<section>
+
+<form action="" method="post" class="add-product-form" enctype="multipart/form-data">
+   <h3>Új termék</h3>
+   <input type="text" name="author_id" placeholder="Író" class="box" required>
+   <input type="text" name="k_name" placeholder="cím" class="box" required>
+   <select name="topic_id">
+               <option value="1" selected>ifjúsági regény</option>
+               <option value="2">horror</option>
+               <option value="3">comedia</option>
+               <option value="4">scifi</option>
+               <option value="5">fikcio</option>
+               <option value="6">valamiaminincs</option>
+   </select>
+   <input type="number" name="price" min="0" placeholder="Ár" class="box" required>
+   <input type="file" name="image" accept="image/png, image/jpg, image/jpeg" class="box" required>
+   <input type="submit" value="add the product" name="add_product" class="btn">
 </form>
+
+</section>
+
+<section class="display-product-table">
+
+   <table>
+
+      <thead>
+         <th>kép</th>
+         <th>író neve</th>
+         <th>könyv neve</th>
+         <th>ár</th>
+         <th>törlés</th>
+      </thead>
+
+      <tbody>
+         <?php
+         
+            $select_products = mysqli_query($db, "SELECT * FROM `product`");
+            if(mysqli_num_rows($select_products) > 0){
+               while($row = mysqli_fetch_assoc($select_products)){
+         ?>
+
+         <tr>
+            <td><img src="uploaded_img/<?php echo $row['image']; ?>" height="100" alt=""></td>
+            <td><?php echo $row['author_id']; ?></td>
+            <td><?php echo $row['k_name']; ?></td>
+            <td><?php echo $row['price']; ?> Ft</td>
+            <td>
+               <a href="admin.php?delete=<?php echo $row['ID']; ?>" class="delete-btn" onclick="return confirm('Biztos törölni szeretnéd?');"> <i class="fas fa-trash"></i> törlés </a>
+               <a href="admin.php?edit=<?php echo $row['ID']; ?>" class="option-btn"> <i class="fas fa-edit"></i> frisités </a>
+            </td>
+         </tr>
+
+         <?php
+            }  
+            }else{
+               echo "<div class='empty'>Nincs egy termék se hozzáadva</div>";
+            }
+         ?>
+      </tbody>
+   </table>
+
+</section>
+
+<section class="edit-form-container">
+
+   <?php
+   
+   if(isset($_GET['edit'])){
+      $edit_id = $_GET['edit'];
+      $edit_query = mysqli_query($db, "SELECT * FROM `product` WHERE ID = $edit_id");
+      if(mysqli_num_rows($edit_query) > 0){
+         while($fetch_edit = mysqli_fetch_assoc($edit_query)){
+   ?>
+
+   <form action="admin.php" method="post" enctype="multipart/form-data">
+      <img src="uploaded_img/<?php echo $fetch_edit['image']; ?>" height="200" alt="">
+      <input type="hidden" name="update_p_id" value="<?php echo $fetch_edit['ID']; ?>">
+      <input type="text" class="box" required name="update_p_author_id" value="<?php echo $fetch_edit['author_id']; ?>">
+      <input type="text" class="box" required name="update_p_name" value="<?php echo $fetch_edit['k_name']; ?>">
+      <input type="number" min="0" class="box" required name="update_p_price" value="<?php echo $fetch_edit['price']; ?>">
+      <input type="file" class="box" required name="update_p_image" accept="image/png, image/jpg, image/jpeg">
+      <input type="submit" value="update the prodcut" name="update_product" class="btn">
+      <input type="reset" value="cancel" id="close-edit" class="option-btn">
+   </form>
+
+   <?php
+            }
+         }
+         echo "<script>document.querySelector('.edit-form-container').style.display = 'flex';</script>";
+      }
+   ?>
+
+</section>
+
 </div>
-</div>
+
+
 </body>
 </html>

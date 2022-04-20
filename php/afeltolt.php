@@ -8,14 +8,14 @@
 
 	if (isset($_POST['submit']))
 	{
-			
-	$pdf_name = mysqli_real_escape_string($db, $_POST['pdf_name']);
-		
+		$pdf_name = mysqli_real_escape_string($db, $_POST['pdf_name']);
+						
 			if (empty($_POST['pdf_name']))
 			{
 			$true = false;
 			$pdf_name_error = "A(z) mező üres!";
 			}
+			
 
 	if ($true)
 		{			
@@ -48,13 +48,22 @@
 <br>
 <a href="admin.php">Hagyományos könyv feltöltése</a>
 <br>
+<a href="rendeles.php">Rendelések</a>
+<br>
 <a href="logout.php">Kijelentkezés</a>
 
 <div class="row">
 <div id="hasab1">
 <form action="afeltolt.php" method="post" enctype="multipart/form-data">
   <b>Digitális könyv feltöltése</b><br><br>
-  <input type="text" name="pdf_name"><br><br>
+  <?php
+	if (!empty($pdf_name_error))
+	{
+		echo "<b>".$pdf_name_error."</b>";
+	}
+	
+?>
+  <input type="text" class="box" required name="pdf_name" placeholder="fájlnév.pdf"><br><br>
   <input type="submit" value="Feltöltés" name="submit">
   
 </form>
