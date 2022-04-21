@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html>
@@ -23,8 +22,9 @@
 	
 	if(isset($_GET['remove'])){
    $remove_id = $_GET['remove'];
-   $send_email = mysqli_query($db, "SELECT 'email' FROM 'checkout' WHERE ID = '$remove_id'");
-   mail($send_email,
+   $send_email ="SELECT `email` FROM `checkout` WHERE ID='$remove_id'";
+   $send = mysqli_query($db, $send_email) or die(mysqli_error($db));
+   mail($send,
 			'Változás','Rendelése státusza modosult: feladva.',
 			'From: ifjusagikonyvesbolt@gmail.com');
    mysqli_query($db, "DELETE FROM `checkout` WHERE ID = '$remove_id'");

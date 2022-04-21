@@ -54,7 +54,7 @@ $db = mysqli_connect("localhost", "root", "", "ik");
 if(isset($_POST['search']))
 {
     $valueToSearch = $_POST['valueToSearch'];
-    $query = "SELECT * FROM `product` WHERE CONCAT(`author_id`, `k_name`) LIKE '%".$valueToSearch."%'";
+    $query = "SELECT * FROM `product` WHERE CONCAT(`author`, `k_name`) LIKE '%".$valueToSearch."%'";
     $search_result = filterTable($query);
     
 }
@@ -163,7 +163,7 @@ function filterTable($query)
 	background-color: #99e6ff;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);" align="center">
                                <img src="<?php echo $row["image"]; ?>" class="img-responsive" /><br />  
-                               <h4 class="text-info"><?php echo $row["author_id"]; ?></h4>  
+                               <h4 class="text-info"><?php echo $row["author"]; ?></h4>  
                                <h4 class="text-info"><?php echo $row["k_name"]; ?></h4>  
                                <h4 class="text-danger"><del><?php echo $row["price"]; ?>Ft</del></h4>  
                                <h4 class="text-danger"><?php echo $row["new_price"]; ?>Ft</h4>  
@@ -191,7 +191,7 @@ function filterTable($query)
 	background-color: #99e6ff;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);" align="center">
                                <img src="<?php echo $row["image"]; ?>" class="img-responsive" /><br />  
-                               <h4 class="text-info"><?php echo $row["author_id"]; ?></h4>  
+                               <h4 class="text-info"><?php echo $row["author"]; ?></h4>  
                                <h4 class="text-info"><?php echo $row["k_name"]; ?></h4>  
                                <h4 class="text-danger"><del><?php echo $row["price"]; ?>Ft<del></h4>  
                                <h4 class="text-danger"><?php echo $row["new_price"]; ?>Ft</h4>  

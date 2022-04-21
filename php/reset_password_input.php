@@ -21,7 +21,7 @@
                         if (!$email) {
                             $error = "Invalid email address";
                         } else {
-                            $sel_query = "SELECT * FROM `users2` WHERE email='" . $email . "'";
+                            $sel_query = "SELECT * FROM `users` WHERE email='" . $email . "'";
                             $results = mysqli_query($con, $sel_query);
                             $row = mysqli_num_rows($results);
                             if ($row == "") {

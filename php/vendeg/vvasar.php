@@ -3,24 +3,7 @@ include 'config.php';
 
 if(isset($_POST['add_to_cart'])){
 
-   $product_author = $_POST['hidden_author'];
-   $product_name = $_POST['hidden_name'];
-   $product_price = $_POST['hidden_price'];
-   $product_image = $_POST['product_image'];
-   $product_topic = $_POST['hidden_topic'];
-   $product_quantity = 1;
-   $select_cart = mysqli_query($db, "SELECT * FROM `cart` WHERE k_name = '$product_name'");
-
-   if(mysqli_num_rows($select_cart) > 0){
-      $message[] = '<script>alert("Termék már bele lett helyezve a kosárba!")</script> 
-					<script>window.location="fvasar.php"</script>'; 
-   }else{
-      $insert_product = mysqli_query($db, "INSERT INTO `cart`(author, k_name, image, topic_id, price, quantity) 
-	  VALUES('$product_author', '$product_name', '$product_image', '$product_topic', '$product_price', '$product_quantity')");
-      $message[] = '<script>alert("Termék sikeresen hozzá adva a kosárhoz!")</script> 
-					<script>window.location="fvasar.php"</script>';
-	  
-   }
+   header('location:regisztralj.php');
 
 }
 if(isset($_POST['search']))
@@ -51,16 +34,16 @@ if(isset($_POST['search']))
 <body>
 
 
-<?php include 'header.php';?>
+<?php include 'vheader.php';?>
 <div class="raw">
 <div class="side">
 
-<form action="fvasar.php" method="post">
+<form action="vvasar.php" method="post">
 <b style="	font-family: monospace">Keresés:</b>
 <input type="text" name="valueToSearch" size=15%>
 <input type="submit" name="search" value="Keresés">
 </form> 
-<form action="fvasar.php" method="post">
+<form action="vvasar.php" method="post">
 <h5> 
 									Témák:
                             </h5>
@@ -145,16 +128,12 @@ if(isset($message)){
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	margin: 25px;" align="center">
 	
-<form method="post" action="fvasar.php">
+<form method="post" action="vvasar.php">
                                <img src="<?php echo $row["image"]; ?>" height="100" /><br />  
                                <h4 class="text-info"><?php echo $row["author"]; ?></h4>  
                                <h4 class="text-info"><?php echo $row["k_name"]; ?></h4>  
                                <h4 class="text-danger"><?php echo $row["price"]; ?>Ft</h4>  
-                               <input type="hidden" name="hidden_author" value="<?php echo $row["author"]; ?>" />  
-                               <input type="hidden" name="hidden_name" value="<?php echo $row["k_name"]; ?>" />								
-                               <input type="hidden" name="hidden_topic" value="<?php echo $row["topic_id"]; ?>" />
-                               <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>" />
-							   <input type="hidden" name="product_image" value="<?php echo $row['image']; ?>"><br>
+                               <br>
 							   <input type="submit" name="add_to_cart" class="btn btn-success" value="Kosárba" /> 
 							   </form>
 							   
@@ -182,16 +161,12 @@ if(isset($message)){
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	margin: 25px;" align="center">
 	
-<form method="post" action="fvasar.php">
+<form method="post" action="vvasar.php">
                                <img src="img/<?php echo $row["image"];?>"height="100"/><br />  
                                <h4 class="text-info"><?php echo $row["author"]; ?></h4>  
                                <h4 class="text-info"><?php echo $row["k_name"]; ?></h4>  
                                <h4 class="text-danger"><?php echo $row["price"]; ?>Ft</h4>  							   
-                               <input type="hidden" name="hidden_author" value="<?php echo $row["author"]; ?>" />
-                               <input type="hidden" name="hidden_name" value="<?php echo $row["k_name"]; ?>" />  
-                               <input type="hidden" name="hidden_topic" value="<?php echo $row["topic_id"]; ?>" />
-                               <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>" />
-							   <input type="hidden" name="product_image" value="<?php echo $row['image']; ?>"><br>
+                              <br>
 							   <input type="submit" name="add_to_cart" class="btn btn-success" value="Kosárba" /> 
 							   </form>
 							   
@@ -207,7 +182,7 @@ if(isset($message)){
 
 </div>
 </div>
-		   <?php include 'footer.php';?>
+		   <?php include 'vfooter.php';?>
 		   
       </body>  
 	  

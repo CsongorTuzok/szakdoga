@@ -1,0 +1,110 @@
+body
+{
+	background-color: lightblue;
+}
+.column 
+{
+  float: left;
+  padding: 5px;
+}
+.column.side 
+{
+  width: 24%;
+  text-align: center;
+  border: 1px solid black;
+}
+.column.middle 
+{
+  width: 70%;
+  background-color: #99e6ff;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.row:after 
+{
+  content: "";
+  display: table;
+  clear: both;
+}
+@media screen and (max-width: 600px) 
+{
+  .column.side, .column.middle 
+  {
+    width: 100%;
+  }
+}
+#hasab3
+{
+	width: 150px;
+	float: left;
+	border: 1px solid black;
+	margin-left: 5%;
+	margin-top: 2.5%;
+	padding-left: 5%;
+	padding-right: 5%;
+	background-color: #99e6ff;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
+}
+@media screen and (max-width: 600px) 
+{
+  #hasab3 
+	{
+    float: left;
+	width: 150px;
+	}
+}
+#hasab4
+{
+	width: 150px;
+	float: left;
+	border: 1px solid black;
+	margin-left: 5%;
+	margin-top: 2.5%;
+	padding-left: 5%;
+	padding-right: 5%;
+	background-color: #99e6ff;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
+}
+@media screen and (max-width: 600px) 
+{
+  #hasab4 
+	{
+    float: left;
+	width: 150px;
+	}
+}
+input[type=submit] 
+{
+  background-color: #4d79ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+input[type=submit]:hover 
+{
+  background-color: #3366ff;
+}
+#kosar
+{
+	word-spacing: 250px;
+}
+@media screen and (max-width: 1300px) 
+{
+  #kosar 
+	{
+		word-spacing: 60px;
+	}
+}
+td
+{
+		border: solid black 1px;
+		align: center;
+}
+table
+{
+	collapse: collapse;
+	background-color: #99e6ff;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}

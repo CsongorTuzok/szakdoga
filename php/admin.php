@@ -3,7 +3,7 @@
 include 'config.php';
 
 if(isset($_POST['add_product'])){
-   $author_id = $_POST['author_id'];
+   $author = $_POST['author'];
    $k_name = $_POST['k_name'];
    $price = $_POST['price'];
    $topic_id = $_POST['topic_id'];
@@ -11,7 +11,7 @@ if(isset($_POST['add_product'])){
    $p_image_tmp_name = $_FILES['image']['tmp_name'];
    $p_image_folder = 'uploaded_img/'.$image;
 
-   $insert_query = mysqli_query($db, "INSERT INTO `product`(author_id, k_name, topic_id, price, image) VALUES('$author_id', '$k_name', '$topic_id', '$price', '$image')") or die('Hiba!!!!!');
+   $insert_query = mysqli_query($db, "INSERT INTO `product`(author, k_name, topic_id, price, image) VALUES('$author', '$k_name', '$topic_id', '$price', '$image')") or die('Hiba!!!!!');
 
    if($insert_query){
       move_uploaded_file($p_image_tmp_name, $p_image_folder);
@@ -34,7 +34,7 @@ if(isset($_GET['delete'])){
 }
 
 if(isset($_POST['update_product'])){
-   $update_p_author_id = $_POST['update_p_author_id'];
+   $update_p_author = $_POST['update_p_author'];
    $update_p_id = $_POST['update_p_id'];
    $update_p_name = $_POST['update_p_name'];
    $update_topic_id = $_POST['update_topic_id'];
@@ -43,7 +43,7 @@ if(isset($_POST['update_product'])){
    $update_p_image_tmp_name = $_FILES['update_p_image']['tmp_name'];
    $update_p_image_folder = 'uploaded_img/'.$update_p_image;
 
-   $update_query = mysqli_query($db, "UPDATE `product` SET author_id = '$update_p_author_id', k_name = '$update_p_name', topic_id = '$update_topic_id', price = '$update_p_price', image = '$update_p_image' WHERE ID = '$update_p_id'");
+   $update_query = mysqli_query($db, "UPDATE `product` SET author = '$update_p_author', k_name = '$update_p_name', topic_id = '$update_topic_id', price = '$update_p_price', image = '$update_p_image' WHERE ID = '$update_p_id'");
 
    if($update_query){
       move_uploaded_file($update_p_image_tmp_name, $update_p_image_folder);
@@ -102,7 +102,7 @@ if(isset($message)){
 
 <form action="" method="post" class="add-product-form" enctype="multipart/form-data">
    <h3>Új termék</h3>
-   <input type="text" name="author_id" placeholder="Író" class="box" required>
+   <input type="text" name="author" placeholder="Író" class="box" required>
    <input type="text" name="k_name" placeholder="cím" class="box" required>
    <select name="topic_id">
                <option value="1" selected>ifjúsági regény</option>
@@ -141,7 +141,7 @@ if(isset($message)){
 
          <tr>
             <td><img src="uploaded_img/<?php echo $row['image']; ?>" height="100" alt=""></td>
-            <td><?php echo $row['author_id']; ?></td>
+            <td><?php echo $row['author']; ?></td>
             <td><?php echo $row['k_name']; ?></td>
             <td><?php echo $row['price']; ?> Ft</td>
             <td>
@@ -175,7 +175,7 @@ if(isset($message)){
    <form action="admin.php" method="post" enctype="multipart/form-data">
       <img src="uploaded_img/<?php echo $fetch_edit['image']; ?>" height="200" alt="">
       <input type="hidden" name="update_p_id" value="<?php echo $fetch_edit['ID']; ?>">
-      <input type="text" class="box" required name="update_p_author_id" value="<?php echo $fetch_edit['author_id']; ?>">
+      <input type="text" class="box" required name="update_p_author" value="<?php echo $fetch_edit['author']; ?>">
       <input type="text" class="box" required name="update_p_name" value="<?php echo $fetch_edit['k_name']; ?>">
       <input type="number" min="0" class="box" required name="update_p_price" value="<?php echo $fetch_edit['price']; ?>">
       <input type="file" class="box" required name="update_p_image" accept="image/png, image/jpg, image/jpeg">

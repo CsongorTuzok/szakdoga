@@ -1,0 +1,120 @@
+body
+{
+	background-color: lightblue;
+}
+.raw 
+{  
+  display: flex;
+  flex-wrap: wrap;
+}
+.side 
+{
+  height: 400px;
+  flex: 20%;
+  background-color: #99e6ff;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 20px;
+}
+input[type=text]:focus 
+{
+  border: 3px solid #555;
+}
+input[type=submit] 
+{
+  background-color: #4d79ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+input[type=submit]:hover 
+{
+  background-color: #3366ff;
+}
+.main 
+{
+  flex: 70%;
+  padding: 20px;
+}
+#hasab3
+{
+	width: 6%;
+	float: left;
+	border: 1px solid black;
+	margin-left: 5%;
+	margin-top: 2.5%;
+	padding-left: 5%;
+	padding-right: 5%;
+	background-color: #99e6ff;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+@media screen and (max-width: 600px) 
+{
+  #hasab3 
+	{
+    float: left;
+	width: 60px;
+	}
+}
+#hasab4
+{
+	width: 6%;
+	float: left;
+	border: 1px solid black;
+	margin-left: 1%;
+	margin-top: 2.5%;
+	padding-left: 5%;
+	padding-right: 5%;
+	background-color: #99e6ff;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+@media screen and (max-width: 600px) 
+{
+  #hasab4 
+	{
+    float: left;
+	width: 60px;
+	}
+}
+#hasab5
+{
+	width: 6%;
+	float: left;
+	border: 1px solid black;
+	margin-left: 1%;
+	margin-top: 2.5%;
+	padding-left: 5%;
+	padding-right: 5%;
+	background-color: #99e6ff;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
+}
+@media screen and (max-width: 600px) 
+{
+  #hasab5 
+	{
+    float: left;
+	width: 60px;
+	}
+}
+#hasab6
+{
+	width: 6%;
+	float: left;
+	border: 1px solid black;
+	margin-left: 1%;
+	margin-top: 2.5%;
+	padding-left: 5%;
+	padding-right: 5%;
+	background-color: #99e6ff;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+@media screen and (max-width: 600px) 
+{
+  #hasab6 
+	{
+    float: left;
+	width: 60px;
+	margin-left: 5%;
+	}
+}

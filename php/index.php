@@ -41,7 +41,7 @@ END;
 		$nickname = mysqli_real_escape_string($db, $_POST['nickname']);
 		$pass1 = mysqli_real_escape_string($db, $_POST['pass1']);
 		$pass1 = md5(md5($pass1));
-		$sql = "SELECT * FROM users2 WHERE nickname='$nickname' AND
+		$sql = "SELECT * FROM users WHERE nickname='$nickname' AND
 					pass1='$pass1'";
 		$result=mysqli_query($db,$sql);
 				

@@ -20,7 +20,7 @@ if (isset($_POST["verify_email"]))
 	
 	
 	
-	$sql = "UPDATE users2 SET email_verified_at = NOW() 
+	$sql = "UPDATE users SET email_verified_at = NOW() 
 	WHERE email='$email' AND verification_code='$verification_code'";
 	$result = mysqli_query($db, $sql);
 	

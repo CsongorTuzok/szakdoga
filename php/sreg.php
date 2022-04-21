@@ -67,8 +67,8 @@
 			"A Jelszónak minimum 8 karakter hosszúnak kell lenni és tartalmaznia kell egy nagy betűs karaktert és egy számot.");
 			}
 		
-			$sql_n = "SELECT * FROM users2 WHERE nickname='$nickname'";
-			$sql_e = "SELECT * FROM users2 WHERE email='$email'";
+			$sql_n = "SELECT * FROM users WHERE nickname='$nickname'";
+			$sql_e = "SELECT * FROM users WHERE email='$email'";
 			$res_n = mysqli_query($db, $sql_n) or die(mysqli_error($db));
 			$res_e = mysqli_query($db, $sql_e) or die(mysqli_error($db));
 			
@@ -106,7 +106,7 @@
 			'From: ifjusagikonyvesbolt@gmail.com');
 			
 			
-			$sql = "INSERT INTO users2(vname, kname, email, nickname, pass1, date, verification_code, email_verified_at)
+			$sql = "INSERT INTO users(vname, kname, email, nickname, pass1, date, verification_code, email_verified_at)
 			VALUES ('$vname','$kname','$email','$nickname','$pass1',NOW(),'$verification_code',NULL)";
 			$db->query($sql);
 			
