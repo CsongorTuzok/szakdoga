@@ -15,7 +15,7 @@
 <h1>IFJÚSÁGI KÖNYVESBOLT</h1>
 <div id="kont">
 <img src="img/logo.png" alt="logo">
-<p><a href="/../index.php">Belép/regisztráció</a></p>
+<p><a href="index.php">Belép/regisztráció</a></p>
 </div>
 </div>
 
@@ -31,9 +31,6 @@
     </div>
 	<li class="dropdown">
     <a href="vvasar.php" class="dropbtn">Vásárlás</a>
-    <div class="dropdown-content">
-      <a href="vakcio.php" ><!--class="active"-->Akciók</a>
-    </div>
   </li>
   <li><a href="vfizet.php">Fizetés és Szállítás</a></li>
   <li><a href="vvirtual.php">Virtuális séta</a></li>

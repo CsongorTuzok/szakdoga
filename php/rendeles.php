@@ -22,8 +22,7 @@
 	
 	if(isset($_GET['remove'])){
    $remove_id = $_GET['remove'];
-   $send_email ="SELECT `email` FROM `checkout` WHERE ID='$remove_id'";
-   $send = mysqli_query($db, $send_email) or die(mysqli_error($db));
+   $send = mysqli_query($db, "SELECT `email` FROM `checkout` WHERE ID='$remove_id'") or die(mysqli_error($db));
    mail($send,
 			'Változás','Rendelése státusza modosult: feladva.',
 			'From: ifjusagikonyvesbolt@gmail.com');
@@ -76,7 +75,7 @@
             <td><?php echo ($fetch_cart['total_price']); ?></td>
 			<td>				
              <input type="hidden" name="update_quantity_id"  value="<?php echo $fetch_cart['ID']; ?>" >				
-			<a href="rendeles.php?remove=<?php echo $fetch_cart['ID']; ?>">eltávolítás</a>
+			<a href="rendeles.php?remove=<?php echo $fetch_cart['ID']; ?>" onclick="return confirm('Biztos törölni szeretnéd a rendelést?(csak akor töröld, ha már fel lett adva!)');">eltávolítás</a>
 			</td>
          </tr>
        

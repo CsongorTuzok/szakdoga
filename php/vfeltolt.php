@@ -16,9 +16,8 @@
 
 <div class="main">
   <?php
-  $db = new mysqli('localhost','root','','ik');
-  $products = "SELECT * FROM pdf";
-                                    $products_run = mysqli_query($db, $products);
+  include 'config.php';
+                                    $products_run = mysqli_query($db, "SELECT * FROM pdf");
                                     if(mysqli_num_rows($products_run) > 0)
                                     {
                                          while($row = mysqli_fetch_array($products_run))  
@@ -36,6 +35,6 @@
 </div>
 </div>
 
-<?php include 'vfooter.php';?>
+<?php include 'footer.php';?>
 </body>
 </html>

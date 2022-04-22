@@ -50,7 +50,7 @@ Házhoz szállítás
 </div>
 </div>
 <?php
-include('vfooter.php')
+include('footer.php')
 ?>
 </body>
 </html>

@@ -78,7 +78,7 @@ Old meg a műveletet:
 <input name="submit" value="Regisztráció" type="submit">
 <br><br>
 </form>
-<a href="index.php">Vissza</a>
+<a href="index.php">Vissza a belépéshez</a>
 </div>
 </div>
 <?php include 'footer.php';?>

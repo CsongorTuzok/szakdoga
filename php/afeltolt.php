@@ -2,7 +2,7 @@
 
 <html>
 <?php
-	$db = new mysqli('localhost','root','','ik');
+	include 'config.php';
 	$true = true;
 
 	if (isset($_POST['submit']))

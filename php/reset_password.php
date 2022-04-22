@@ -10,12 +10,12 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
                     <?php
-                    $con = new mysqli('localhost','root','','ik');
+                    include 'config.php';
                     if (isset($_GET["key"]) && isset($_GET["email"]) && isset($_GET["action"]) && ($_GET["action"] == "reset") && !isset($_POST["action"])) {
                         $key = $_GET["key"];
                         $email = $_GET["email"];
                         $curDate = date("Y-m-d H:i:s");
-                        $query = mysqli_query($con, "SELECT * FROM `password_reset_temp` WHERE `key`='" . $key . "' and `email`='" . $email . "';");
+                        $query = mysqli_query($db, "SELECT * FROM `password_reset_temp` WHERE `key`='" . $key . "' and `email`='" . $email . "';");
                         $row = mysqli_num_rows($query);
                         if ($row == "") {
                             $error = '<h2>Invalid Link</h2>';
@@ -58,8 +58,8 @@
 
                     if (isset($_POST["email"]) && isset($_POST["action"]) && ($_POST["action"] == "update")) {
                         $error = "";
-                        $pass1 = mysqli_real_escape_string($con, $_POST["pass1"]);
-                        $pass2 = mysqli_real_escape_string($con, $_POST["pass2"]);
+                        $pass1 = mysqli_real_escape_string($db, $_POST["pass1"]);
+                        $pass2 = mysqli_real_escape_string($db, $_POST["pass2"]);
                         $email = $_POST["email"];
                         $curDate = date("Y-m-d H:i:s");
                         if ($pass1 != $pass2) {
@@ -70,9 +70,9 @@
                         } else {
 
                             $pass1 = md5(md5($pass1));
-                            mysqli_query($con, "UPDATE `users` SET `pass1` = '" . $pass1 . "' WHERE `email` = '" . $email . "'");
+                            mysqli_query($db, "UPDATE `users` SET `pass1` = '" . $pass1 . "' WHERE `email` = '" . $email . "'");
 
-                            mysqli_query($con, "DELETE FROM `password_reset_temp` WHERE `email` = '$email'");
+                            mysqli_query($db, "DELETE FROM `password_reset_temp` WHERE `email` = '$email'");
 
                             echo '<div class="error"><p>Congratulations! Your password has been updated successfully.</p>';
                         }

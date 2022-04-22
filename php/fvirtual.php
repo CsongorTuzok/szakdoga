@@ -14,7 +14,8 @@
 
 <div class="row">
 <div class="middle">
-<iframe width='100%' height="480px" frameborder='1' allowfullscreen allow='xr-spatial-tracking'></iframe>
+<iframe src="https://app.lapentor.com/sphere/virtual-1650622424" frameborder="0" width="100%" height="480px" scrolling="no" 
+allow="vr,gyroscope,accelerometer" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" oallowfullscreen="true" msallowfullscreen="true">
 </div>
 </div>
 <?php include 'footer.php';?>

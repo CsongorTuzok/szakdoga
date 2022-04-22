@@ -14,14 +14,16 @@ END;
     exit;
 }
 	
-	if (!empty($_SESSION['nickname']))
-	{
-		header('location: fmain.php');
-	}else{
+	
+	if(!empty($_SESSION['nickname'])&&$_SESSION['nickname']!="admin"){
 		
+		header('location: fmain.php');
+	}elseif(!empty($_SESSION['nickname'])&&$_SESSION['nickname']="admin"){
+		header('location: admin.php');
+	}else{
 		session_destroy();
 	}
-	$db = new mysqli("localhost","root","","ik");
+	include 'config.php';
 	if (isset($_POST["submit"]))
 	{
 		$true = true;
@@ -169,7 +171,7 @@ Jelszó:
 ?>
 <p><a href="regisztracio.php">Regisztráció</a>
 <br>
-<a href="vmain.html">Belépés vendég felhasználóval</a>
+<a href="vmain.php">Belépés vendég felhasználóval</a>
 <br>
 <a href="reset_password_input.php">Elfelejtetted a jelszavad?</a>
 </div>

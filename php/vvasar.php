@@ -9,13 +9,11 @@ if(isset($_POST['add_to_cart'])){
 if(isset($_POST['search']))
 {
     $valueToSearch = $_POST['valueToSearch'];
-    $query = "SELECT * FROM `product` WHERE CONCAT(`author`, `k_name`) LIKE '%".$valueToSearch."%'";
-    $search_result = mysqli_query($db,$query);
+    $search_result = mysqli_query($db, "SELECT * FROM `product` WHERE CONCAT(`author`, `k_name`) LIKE '%".$valueToSearch."%'");
     
 }
  else {
-    $query = "SELECT * FROM `product`";
-    $search_result = mysqli_query($db,$query);
+    $search_result = mysqli_query($db, "SELECT * FROM `product`");
 }
 
 ?>
@@ -48,8 +46,7 @@ if(isset($_POST['search']))
 									Témák:
                             </h5>
 							   <?php
-                                $topic_query = "SELECT * FROM topic";
-                                $topic_query_run  = mysqli_query($db, $topic_query);
+                                $topic_query_run  = mysqli_query($db, "SELECT * FROM topic");
 
 
                                 if(mysqli_num_rows($topic_query_run) > 0)
@@ -112,9 +109,8 @@ if(isset($message)){
                                 $topicchecked = $_POST['topic'];
                                 foreach($topicchecked as $rowtopic)
                                 {
-                                    // echo $rowtopic;
-                                    $products = "SELECT * FROM product WHERE topic_id IN ($rowtopic)";
-                                    $products_run = mysqli_query($db, $products);
+        
+                                    $products_run = mysqli_query($db, "SELECT * FROM product WHERE topic_id IN ($rowtopic)");
 									if(mysqli_num_rows($products_run) > 0)
                                     {
                                          while($row = mysqli_fetch_array($products_run))  
@@ -173,8 +169,8 @@ if(isset($message)){
                            </div>
 
       <?php
-         };
-      };
+         }
+      }
       ?>
 
    </div>
@@ -182,7 +178,7 @@ if(isset($message)){
 
 </div>
 </div>
-		   <?php include 'vfooter.php';?>
+		   <?php include 'footer.php';?>
 		   
       </body>  
 	  

@@ -12,30 +12,24 @@
 <body>
 <?php include 'header.php';?>
 <div class="raw">
-
-
 <div class="main">
   <?php
-  $db = new mysqli('localhost','root','','ik');
-  $products = "SELECT * FROM pdf";
-                                    $products_run = mysqli_query($db, $products);
-                                    if(mysqli_num_rows($products_run) > 0)
-                                    {
-                                         while($row = mysqli_fetch_array($products_run))  
-												{
-                                            ?>
-                                                <div class="konyv" style="border:1px solid #333; background-color:#38444d; border-radius:5px; padding:16px; margin-top:5px;" align="center">  
-                           
-                               <a style="color: white; text-decoration: none; cursor:pointer;  display: block;" href="<?php echo $row["pdf_name"]; ?>"><?php echo $row["pdf_name"]; ?></a>  
-                               
-                          </div>
-                                            <?php
-												}
-                                    }
-									?>
+  include 'config.php';
+  $products_run = mysqli_query($db, "SELECT * FROM pdf");
+        if(mysqli_num_rows($products_run) > 0)
+        {
+         while($row = mysqli_fetch_array($products_run)) 
+			{
+?>
+<div class="konyv" style="border:1px solid #333; background-color:#38444d; border-radius:5px; padding:16px; margin-top:5px;" align="center">  
+<a style="color: white; text-decoration: none; cursor:pointer;  display: block;" href="<?php echo $row["pdf_name"]; ?>"><?php echo $row["pdf_name"]; ?></a>  
+</div>
+<?php
+			}
+        }
+?>
 </div>
 </div>
-
 <?php include 'footer.php';?>
 </body>
 </html>

@@ -12,7 +12,7 @@ END;
     exit;
 }
 
-$db = new mysqli("localhost","root","","ik");
+include 'config.php';
 if (isset($_POST["verify_email"]))
 {
 	$email = mysqli_real_escape_string($db, $_POST["email"]);
@@ -20,9 +20,8 @@ if (isset($_POST["verify_email"]))
 	
 	
 	
-	$sql = "UPDATE users SET email_verified_at = NOW() 
-	WHERE email='$email' AND verification_code='$verification_code'";
-	$result = mysqli_query($db, $sql);
+	$result = mysqli_query($db, "UPDATE users SET email_verified_at = NOW() 
+	WHERE email='$email' AND verification_code='$verification_code'");
 	
 	if (mysqli_affected_rows($db) == 0)
 	{

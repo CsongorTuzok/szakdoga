@@ -10,38 +10,10 @@
 </style>
 </head>
 <body>
-<div class="header">
-<h1>IFJÚSÁGI KÖNYVESBOLT</h1>
-<div id="kont">
-<img src="img/logo.png" alt="logo">
-<p><a href="login.html">Belép/regisztráció</a></p>
-</div>
-</div>
-<ul>
-	
-	<input type="checkbox" id="checkbox_toggle" />
-	<label for="checkbox_toggle" class="hamburger">&#9776;</label>
-	<div class="menu">
-	
-	
-	<li><a href="vmain.html" class="active">Rólunk</a>
-	<li class="dropdown">
-	<a href="vkosar.html" class="dropbtn">Feltöltött könyvek</a>
-	<div class="dropdown-content">
-		<a href="vkosar.html">Könyv feltöltés</a>
-    </div>
-	<li class="dropdown">
-    <a href="vvasar.html" class="dropbtn">Vásárlás</a>
-    <div class="dropdown-content">
-		<a href="vakcio.html">Akciók</a>
-    </div>
-  </li>
-  <li><a href="vfizet.html">Fizetés és Szállítás</a></li>
-  <li><a href="vvirtual.html">Virtuális séta</a></li>
-  <li><a href="#kapcs">Kapcsolatok</a></li>
-  <li style="float: right;"><a href="vkosar.html">Kosár</a></li>
-  </div>
-</ul>
+<?php
+include('vheader.php');
+
+?>
 
 <div class="row">
 <div class="column side">
@@ -92,18 +64,8 @@ Ahogy arra a neve is utal egy virtuális könyvbolt, ahol körbe lehet sétálni
 </div>
 </div>
 
-<div class="footer">
-<hr>
-<a id="kapcs">
-<h3>Kapcsolatok:</h3>
-<address>
-email:<a href="mailto:csongortuzok@gmail.com">************</a><br>
-tel.:06***********<br>
-központi raktár:********
-</address>
-</a>
-<img src="img/logo.png" alt="logo">
-<p>Ifjúsági <br> könyvbolt</p>
-</div>
+<?php
+include('footer.php')
+?>
 </body>
 </html>

@@ -33,6 +33,6 @@
 
 </div>
 
-<?php include 'vfooter.php';?>
+<?php include 'footer.php';?>
 </body>
 </html>

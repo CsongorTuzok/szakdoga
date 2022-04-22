@@ -2,7 +2,7 @@
 <html lang="hu">
 <?php
 	session_start();
-	$db = new mysqli('localhost','root','','ik');
+	include 'config.php';
 	$true = true;
 	
 	
@@ -67,10 +67,8 @@
 			"A Jelszónak minimum 8 karakter hosszúnak kell lenni és tartalmaznia kell egy nagy betűs karaktert és egy számot.");
 			}
 		
-			$sql_n = "SELECT * FROM users WHERE nickname='$nickname'";
-			$sql_e = "SELECT * FROM users WHERE email='$email'";
-			$res_n = mysqli_query($db, $sql_n) or die(mysqli_error($db));
-			$res_e = mysqli_query($db, $sql_e) or die(mysqli_error($db));
+			$res_n = mysqli_query($db, "SELECT * FROM users WHERE nickname='$nickname'") or die(mysqli_error($db));
+			$res_e = mysqli_query($db, "SELECT * FROM users WHERE email='$email'") or die(mysqli_error($db));
 			
 			if (mysqli_num_rows($res_n)>0)
 			{				
@@ -106,9 +104,8 @@
 			'From: ifjusagikonyvesbolt@gmail.com');
 			
 			
-			$sql = "INSERT INTO users(vname, kname, email, nickname, pass1, date, verification_code, email_verified_at)
-			VALUES ('$vname','$kname','$email','$nickname','$pass1',NOW(),'$verification_code',NULL)";
-			$db->query($sql);
+			$sql = mysqli_query($db, "INSERT INTO users(vname, kname, email, nickname, pass1, date, verification_code, email_verified_at)
+			VALUES ('$vname','$kname','$email','$nickname','$pass1',NOW(),'$verification_code',NULL)");
 			
 			echo '<center><h3>SIKERS REGISZTRÁCIÓ </h3>
 					<a href="index.php">Bejelentkezés</a></center>';
