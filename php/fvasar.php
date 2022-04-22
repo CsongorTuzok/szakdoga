@@ -25,7 +25,7 @@ if(isset($_POST['add_to_cart'])){
 }
 if(isset($_POST['search']))
 {
-    $valueToSearch = $_POST['valueToSearch'];
+    $valueToSearch = mysqli_real_escape_string($db, $_POST['valueToSearch']);
     $search_result = mysqli_query($db, "SELECT * FROM `product` WHERE CONCAT(`author`, `k_name`) LIKE '%".$valueToSearch."%'");
     
 }

@@ -6,12 +6,12 @@ include 'config.php';
 
 if(isset($_POST['order_btn'])){
 
-   $v_name = $_POST['v_name'];
-   $k_name = $_POST['k_name'];
-   $email = $_POST['email'];
-   $method = $_POST['method'];
-   $address = $_POST['address'];
-   $mobil = $_POST['mobil'];
+   $v_name =  mysqli_real_escape_string($db, $_POST['v_name']);
+   $k_name =  mysqli_real_escape_string($db, $_POST['k_name']);
+   $email =  mysqli_real_escape_string($db, $_POST['email']);
+   $method =  mysqli_real_escape_string($db, $_POST['method']);
+   $address =  mysqli_real_escape_string($db, $_POST['address']);
+   $mobil =  mysqli_real_escape_string($db, $_POST['mobil']);
 
    $cart_query = mysqli_query($db, "SELECT * FROM `cart`");
    $price_total = 0;
