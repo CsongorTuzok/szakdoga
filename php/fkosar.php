@@ -27,7 +27,7 @@ if(isset($_GET['delete_all'])){
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title> Ifjúsági Könyvesbolt </title>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/fkosar.css">
+<link rel="stylesheet" type="text/css" href="_css/fkosar2.css">
 <style>
 </style>
 </head>
@@ -39,21 +39,20 @@ if(isset($_GET['delete_all'])){
 
 <div class="container">
 
-<section class="shopping-cart">
 
-   <h1 class="heading">Kosár tartalma:</h1>
+   <h1>Kosár tartalma:</h1>
 
 	<center>
    <table>
 
       
-         <th style="background-color: #38444d; color: white;">Kép</th>
-         <th style="background-color: #38444d; color: white;">Név</th>
-         <th style="background-color: #38444d; color: white;">Ár</th>
-         <th style="background-color: #38444d; color: white;">Mennyiség</th>
-         <th style="background-color: #38444d; color: white;">Összesen</th>
-         <th style="background-color: #38444d; color: white;">Törlés</th>
-      
+         <th>Kép</th>
+         <th>Író név</th>
+         <th>Könyv név</th>
+         <th>Ár</th>
+         <th>Mennyiség</th>
+         <th>Összesen</th>
+         <th>Törlés</th>     
 
       
 
@@ -67,6 +66,7 @@ if(isset($_GET['delete_all'])){
 
          <tr>
             <td><img src="<?php echo $fetch_cart['image']; ?>" height="100" alt=""></td>
+            <td><?php echo $fetch_cart['author']; ?></td>
             <td><?php echo $fetch_cart['k_name']; ?></td>
             <td><?php echo ($fetch_cart['price']); ?>Ft</td>
             <td>
@@ -99,20 +99,17 @@ if(isset($_GET['delete_all'])){
          ?>
          <tr class="table-bottom">
             <td><a href="fvasar.php" class="option-btn" style="margin-top: 0;">Vásárlás folytatása</a></td>
-            <td colspan="3" title="A végösszeg már tartalmazza a szállítási díjat is.">*Végösszeg:</td>
+            <td colspan="3" title="A végösszeg már tartalmazza a szállítási díjat is."><div  style="float: right;">*Végösszeg:</div></td>
             <td><?php echo $grand_total; ?>Ft</td>
             <td><a href="fkosar.php?delete_all" onclick="Visszaigazolás('Biztos törlöd a kosár tartalmát?');" class="delete-btn"> <i class="fas fa-trash"></i>Összes törlése</a></td>
+			<td><a href="checkout.php">Tovább</a></td>
          </tr>
 
 
    </table>
    </center>
 
-   <div align="right">
-      <a href="checkout.php" class="btn <?= ($grand_total > 1)?'':'disabled'; ?>">Tovább</a>
-   </div>
 
-</section>
 
 </div>
 		   <?php include 'footer.php';?>

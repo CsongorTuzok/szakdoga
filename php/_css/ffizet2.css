@@ -27,3 +27,12 @@ td
 	margin-top: 5%;
 	padding-left: 3%;
 }
+@media screen and (max-width: 600px) 
+{
+ #hasab
+{
+	width: 33%;
+	position: relative;
+	right: 10%;
+}
+}

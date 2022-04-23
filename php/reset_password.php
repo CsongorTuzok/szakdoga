@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Reset Password</title>
+        <title>Új jelszó</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     </head>
     <body>
@@ -24,24 +24,24 @@
                             $expDate = $row['expDate'];
                             if ($expDate >= $curDate) {
                                 ?> 
-                                <h2>Reset Password</h2>   
+                                <h2>Változtasd meg a jelszavad</h2>   
                                 <form method="post" action="" name="update">
 
                                     <input type="hidden" name="action" value="update" class="form-control"/>
 
 
                                     <div class="form-group">
-                                        <label><strong>Enter New Password:</strong></label>
+                                        <label><strong>Új jelszó:</strong></label>
                                         <input type="password"  name="pass1" value="update" class="form-control"/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label><strong>Re-Enter New Password:</strong></label>
+                                        <label><strong>Új jelszó újra:</strong></label>
                                         <input type="password"  name="pass2" value="update" class="form-control"/>
                                     </div>
                                     <input type="hidden" name="email" value="<?php echo $email; ?>"/>
                                     <div class="form-group">
-                                        <input type="submit" id="reset" value="Reset Password"  class="btn btn-primary"/>
+                                        <input type="submit" id="reset" value="Jelszó változtatás"  class="btn btn-primary"/>
                                     </div>
 
                                 </form>

@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title> Ifjúsági Könyvesbolt </title>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/regisztracio.css">
+<link rel="stylesheet" type="text/css" href="_css/regisztracio.css">
 <style>
  </style>
 </head>
@@ -20,12 +20,13 @@
 	}
 	echo $_SESSION['nickname'];
 	
+	// $send = mysqli_query($db, "SELECT `email` FROM `checkout` WHERE ID='$remove_id'") or die(mysqli_error($db));
+  // mail($send,
+			//'Változás','Rendelése státusza modosult: feladva.',
+			//'From: ifjusagikonyvesbolt@gmail.com');
+	
 	if(isset($_GET['remove'])){
    $remove_id = $_GET['remove'];
-   $send = mysqli_query($db, "SELECT `email` FROM `checkout` WHERE ID='$remove_id'") or die(mysqli_error($db));
-   mail($send,
-			'Változás','Rendelése státusza modosult: feladva.',
-			'From: ifjusagikonyvesbolt@gmail.com');
    mysqli_query($db, "DELETE FROM `checkout` WHERE ID = '$remove_id'");
    header('location:rendeles.php');
 	

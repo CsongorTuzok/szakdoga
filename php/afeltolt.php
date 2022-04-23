@@ -31,7 +31,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title> Ifjúsági Könyvesbolt </title>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/regisztracio.css">
+<link rel="stylesheet" type="text/css" href="_css/regisztracio.css">
 <style>
  </style>
 </head>

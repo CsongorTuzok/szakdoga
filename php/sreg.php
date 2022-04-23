@@ -104,8 +104,8 @@
 			'From: ifjusagikonyvesbolt@gmail.com');
 			
 			
-			$sql = mysqli_query($db, "INSERT INTO users(vname, kname, email, nickname, pass1, date, verification_code, email_verified_at)
-			VALUES ('$vname','$kname','$email','$nickname','$pass1',NOW(),'$verification_code',NULL)");
+			$sql = mysqli_query($db, "INSERT INTO `users` (vname, kname, email, nickname, pass1, date, verification_code)
+			VALUES ('$vname','$kname','$email','$nickname','$pass1',NOW(),'$verification_code')");
 			
 			echo '<center><h3>SIKERS REGISZTRÁCIÓ </h3>
 					<a href="index.php">Bejelentkezés</a></center>';
@@ -124,7 +124,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title> Ifjúsági Könyvesbolt </title>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/regisztracio.css">
+<link rel="stylesheet" type="text/css" href="_css/regisztracio.css">
 <style>
  </style>
 </head>

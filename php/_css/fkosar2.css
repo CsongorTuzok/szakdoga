@@ -97,14 +97,17 @@ input[type=submit]:hover
 		word-spacing: 60px;
 	}
 }
-td
-{
-		border: solid black 1px;
-		align: center;
+td,th{
+	border: solid black 1px;
+}
+th{
+	background-color: #38444d; 
+	color: white;
 }
 table
 {
-	collapse: collapse;
+	border-collapse: collapse;
 	background-color: #99e6ff;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	border: solid black 1px;
 }

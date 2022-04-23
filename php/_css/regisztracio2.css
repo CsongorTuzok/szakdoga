@@ -57,6 +57,8 @@ a:active
 {
   #hasab1 {
 			width: 200px;
+			position: relative;
+			right: 20%;
 		}
 }
 input[type=text]:focus 

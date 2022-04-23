@@ -34,16 +34,17 @@ if(isset($_GET['delete'])){
 }
 
 if(isset($_POST['update_product'])){
-   $update_p_author = $_POST['update_p_author'];
-   $update_p_id = $_POST['update_p_id'];
-   $update_p_name = $_POST['update_p_name'];
-   $update_topic_id = $_POST['update_topic_id'];
-   $update_p_price = $_POST['update_p_price'];
+   $update_p_author = mysqli_real_escape_string($db, $_POST['update_p_author']);
+   $update_p_id = mysqli_real_escape_string($db, $_POST['update_p_id']);
+   $update_p_name = mysqli_real_escape_string($db, $_POST['update_p_name']);
+   $update_topic_id = mysqli_real_escape_string($db, $_POST['update_topic_id']);
+   $update_p_price = mysqli_real_escape_string($db, $_POST['update_p_price']);
    $update_p_image = $_FILES['update_p_image']['name'];
    $update_p_image_tmp_name = $_FILES['update_p_image']['tmp_name'];
    $update_p_image_folder = 'uploaded_img/'.$update_p_image;
 
-   $update_query = mysqli_query($db, "UPDATE `product` SET author = '$update_p_author', k_name = '$update_p_name', topic_id = '$update_topic_id', price = '$update_p_price', image = '$update_p_image' WHERE ID = '$update_p_id'");
+   $update_query = mysqli_query($db, "UPDATE `product` SET author = '$update_p_author', k_name = '$update_p_name', 
+   topic_id = '$update_topic_id', price = '$update_p_price', image = '$update_p_image' WHERE ID = '$update_p_id'");
 
    if($update_query){
       move_uploaded_file($update_p_image_tmp_name, $update_p_image_folder);
@@ -65,7 +66,7 @@ if(isset($_POST['update_product'])){
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title> Ifjúsági Könyvesbolt </title>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/regisztracio.css">
+<link rel="stylesheet" type="text/css" href="_css/regisztracio.css">
 <style>
  </style>
 </head>
@@ -89,7 +90,7 @@ if(isset($_POST['update_product'])){
 
 if(isset($message)){
    foreach($message as $message){
-      echo '<div class="message"><span>'.$message.'</span> <i class="fas fa-times" onclick="this.parentElement.style.display = `none`;"></i> </div>';
+      echo '<div class="message"><span>'.$message.'</span> <i class="fas fa-times" onclick="this.parentElement.style.display = `none`;">x</i> </div>';
    }
 }
 
@@ -114,7 +115,7 @@ if(isset($message)){
    </select>
    <input type="number" name="price" min="0" placeholder="Ár" class="box" required>
    <input type="file" name="image" accept="image/png, image/jpg, image/jpeg" class="box" required>
-   <input type="submit" value="add the product" name="add_product" class="btn">
+   <input type="submit" value="Feltöltés" name="add_product" class="btn">
 </form>
 
 </section>

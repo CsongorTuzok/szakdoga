@@ -64,7 +64,7 @@ END;
 				$_SESSION['nickname'] = $nickname;
 				header('location: fmain.php');
 			}
-			elseif ($row["usertype"] == "admin")
+			else
 			{
 				session_start();
 				$_SESSION['nickname'] = $nickname;
@@ -92,7 +92,7 @@ END;
 <meta name="description" content="Online Könyvesbolt">
 <title> Ifjúsági Könyvesbolt </title>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/login.css">
+<link rel="stylesheet" type="text/css" href="_css/login.css">
 <style>
 </style>
 <script>

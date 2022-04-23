@@ -45,7 +45,7 @@
                           mail($email,
 							'Reset_password','link:
 							<p><a href="http://localhost/szakdoga/reset_password.php?key=' . $key . '&email=' . $email . '&action=reset" target="_blank">
-							http://localhost/PW/reset_password.php?key=' . $key . '&email=' . $email . '&action=reset</a></p>',
+							http://localhost/szakdoga/reset_password.php?key=' . $key . '&email=' . $email . '&action=reset</a></p>',
 							'From: ifjusagikonyvesbolt@gmail.com');
                         }
                     }

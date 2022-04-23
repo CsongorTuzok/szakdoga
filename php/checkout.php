@@ -62,7 +62,7 @@ if(isset($_POST['order_btn'])){
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title> Ifjúsági Könyvesbolt </title>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/regisztracio.css">
+<link rel="stylesheet" type="text/css" href="_css/regisztracio.css">
 <style>
 </style>
 </head>
@@ -102,11 +102,8 @@ if(isset($_POST['order_btn'])){
 		}else{
 			$grand_total=$grand_total;
 		}
-      }else{
-         echo "<div class='display-order'><span>A kosarad üres!</span></div>";
-      }
-      ?>
-      <span class="grand-total"> Végösszeg: <?= $grand_total; ?> Ft </span><br>
+		?>
+		  <span class="grand-total"> Végösszeg: <?= $grand_total; ?> Ft </span><br>
    
 
       
@@ -138,5 +135,11 @@ if(isset($_POST['order_btn'])){
 </div>		
 				
 </div>
+		<?php
+      }else{
+         echo "<div class='display-order'><span>A kosarad üres!</span></div>";
+      }
+      ?>
+    
 </body>
 </html>
