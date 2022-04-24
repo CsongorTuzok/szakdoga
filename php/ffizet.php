@@ -46,7 +46,6 @@ Házhoz szállítás
 <img src="img/furgon.jpg" style="margin-left: 30%;">
 </div>
 </div>
-
 <?php include 'footer.php';?>
 </body>
 </html>

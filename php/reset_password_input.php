@@ -1,17 +1,18 @@
-<html>
-    <head>
-        <title>Ifjúsági Könyvesbolt</title>
-         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    </head>
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title> Ifjúsági Könyvesbolt </title>
+<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+<link rel="stylesheet" type="text/css" href="_css/regisztracio2.css">
+<style>
+</style>
+</head>
     <body>
-
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4">
-
-                    <h2>Elfelejtetted a jelszavad?</h2>   
-
+			<div class="row">
+            <div id="hasab1">
+            <h2>Elfelejtetted a jelszavad?</h2>   
                     <?php
 					include 'config.php';
                     if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
@@ -41,8 +42,7 @@
                             mysqli_query($db, "INSERT INTO `password_reset_temp` (`email`, `key`, `expDate`) 
 							VALUES ('" . $email . "', '" . $key . "', '" . $expDate . "');");
 
-
-                          mail($email,
+							mail($email,
 							'Reset_password','link:
 							<p><a href="http://localhost/szakdoga/reset_password.php?key=' . $key . '&email=' . $email . '&action=reset" target="_blank">
 							http://localhost/szakdoga/reset_password.php?key=' . $key . '&email=' . $email . '&action=reset</a></p>',
@@ -50,22 +50,12 @@
                         }
                     }
                     ?>
-                    <form method="post" action="" name="reset">
-                        
-
-                        <div class="form-group">
-                           <label><strong>Írd be az email címed:</strong></label>
-                            <input type="email" name="email" placeholder="példa@email.com" class="form-control"/>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="submit" id="reset" value="küldés"  class="btn btn-primary"/>
-                        </div>
+                    <form method="post" action="reset_password_input.php" name="reset">
+                    <label><strong>Írd be az email címed:</strong></label>
+                    <input type="email" name="email" placeholder="példa@email.com">
+					<input type="submit" id="reset" value="küldés">
                     </form>
-
-                </div>
-                <div class="col-md-4"></div>
+            </div>  
             </div>
-        </div>
     </body>
 </html>

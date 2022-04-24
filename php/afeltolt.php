@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 <?php
 	include 'config.php';
@@ -15,7 +14,6 @@
 			$pdf_name_error = "A(z) mező üres!";
 			}
 			
-
 	if ($true)
 		{			
 			$sql = "INSERT INTO pdf(pdf_name)
@@ -31,9 +29,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title> Ifjúsági Könyvesbolt </title>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="_css/regisztracio.css">
+<link rel="stylesheet" type="text/css" href="_css/regisztracio2.css">
 <style>
- </style>
+</style>
 </head>
 <body>
 <?php
@@ -50,24 +48,20 @@
 <a href="rendeles.php">Rendelések</a>
 <br>
 <a href="logout.php">Kijelentkezés</a>
-
 <div class="row">
 <div id="hasab1">
-<form action="afeltolt.php" method="post" enctype="multipart/form-data">
-  <b>Digitális könyv feltöltése</b><br><br>
-  <?php
+	<form action="afeltolt.php" method="post" enctype="multipart/form-data">
+	<b>Digitális könyv feltöltése</b><br><br>
+<?php
 	if (!empty($pdf_name_error))
 	{
 		echo "<b>".$pdf_name_error."</b>";
 	}
-	
 ?>
   <input type="text" class="box" required name="pdf_name" placeholder="fájlnév.pdf"><br><br>
   <input type="submit" value="Feltöltés" name="submit">
-  
-</form>
+	</form>
 </div>
 </div>
-
 </body>
 </html>

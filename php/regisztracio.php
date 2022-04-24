@@ -31,7 +31,7 @@
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 <link rel="stylesheet" type="text/css" href="_css/regisztracio2.css">
 <style>
- </style>
+</style>
 </head>
 <body>
 <div class="header">
@@ -40,7 +40,6 @@
 <img src="img/logo.png" alt="logo">
 </div>
 </div>
-
 <div class="row">
 <div id="hasab1">
 <b>Regisztráció:</b>

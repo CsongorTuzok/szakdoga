@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-
 <?php
-	session_start();
-	
+	session_start();	
 	function die_nicely($msg) {
     echo <<<END
 	<style>body
@@ -13,7 +11,6 @@
 END;
     exit;
 }
-	
 	
 	if(!empty($_SESSION['nickname'])&&$_SESSION['nickname']!="admin"){
 		
@@ -52,7 +49,7 @@ END;
          $row = mysqli_fetch_array($result);  
 					
 			
-				if ($row["email_verified_at"] == NULL)
+				if ($row["email_verified_at"] == "0000-00-00 00:00:00")
 			{
 				
 				die_nicely("Erösitd meg az emailed <a href='email-ver.php'>itt</a>");
@@ -69,9 +66,7 @@ END;
 				session_start();
 				$_SESSION['nickname'] = $nickname;
 				header('location: admin.php');
-			}
-			
-			
+			}	
 		}else
 			{
 				($error = "A Felhasználónév vagy a Jelszó nem megfelelő!");
@@ -83,7 +78,6 @@ END;
 	}
 	$db->close();
 ?>
-
 <html lang="hu">
 <head>
 <meta charset="UTF-8">
@@ -92,11 +86,10 @@ END;
 <meta name="description" content="Online Könyvesbolt">
 <title> Ifjúsági Könyvesbolt </title>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="_css/login.css">
+<link rel="stylesheet" type="text/css" href="_css/login2.css">
 <style>
 </style>
 <script>
-
 	function main()
 	{
 		var nickname = document.forms['form']['nickname'];
@@ -176,7 +169,6 @@ Jelszó:
 <a href="reset_password_input.php">Elfelejtetted a jelszavad?</a>
 </div>
 </div>
-
 <div class="main">
 <blockquote id="idezet">
 &quot; Aki könyvet olvas, kezdetnek éppúgy hajlandó eltársalogni az időjárásról,
@@ -187,7 +179,6 @@ mint akárki más, de innen általában tovább is tud lépni.
 Stephen King
 </blockquote>
 </div>
-
 <p id="hasab2">
 <img src="img/book.jpeg" alt="book" style="max-width: 100%;">
 </div>

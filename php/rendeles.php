@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title> Ifjúsági Könyvesbolt </title>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="_css/regisztracio.css">
+<link rel="stylesheet" type="text/css" href="_css/regisztracio2.css">
 <style>
  </style>
 </head>
@@ -20,16 +19,10 @@
 	}
 	echo $_SESSION['nickname'];
 	
-	// $send = mysqli_query($db, "SELECT `email` FROM `checkout` WHERE ID='$remove_id'") or die(mysqli_error($db));
-  // mail($send,
-			//'Változás','Rendelése státusza modosult: feladva.',
-			//'From: ifjusagikonyvesbolt@gmail.com');
-	
 	if(isset($_GET['remove'])){
-   $remove_id = $_GET['remove'];
-   mysqli_query($db, "DELETE FROM `checkout` WHERE ID = '$remove_id'");
-   header('location:rendeles.php');
-	
+	$remove_id = $_GET['remove'];
+	mysqli_query($db, "DELETE FROM `checkout` WHERE ID = '$remove_id'");
+	header('location:rendeles.php');
 }
 ?>
 <br>
@@ -38,34 +31,24 @@
 <a href="afeltolt.php">Digitális könyv feltöltése</a>
 <br>
 <a href="logout.php">Kijelentkezés</a>
-
 <div class="row">
   <b>Rendelések:</b><br><br>
-<table>
-
-      
-         <th style="background-color: #38444d; color: white;">Vezetéknév</th>
-         <th style="background-color: #38444d; color: white;">Keresztnév</th>
-         <th style="background-color: #38444d; color: white;">email</th>
-         <th style="background-color: #38444d; color: white;">lakcím</th>
-         <th style="background-color: #38444d; color: white;">telefonszám</th>
-         <th style="background-color: #38444d; color: white;">fizetési mód</th>
-         <th style="background-color: #38444d; color: white;">termék</th>
-         <th style="background-color: #38444d; color: white;">végösszeg</th>
-         <th style="background-color: #38444d; color: white;">törlés</th>
-      
-
-      
-
-         <?php 
-		
-         
-         $select_cart = mysqli_query($db, "SELECT * FROM `checkout`");
-         if(mysqli_num_rows($select_cart) > 0){
-            while($fetch_cart = mysqli_fetch_assoc($select_cart)){
-         ?>
-
-         <tr>
+	<table>
+		<th style="background-color: #38444d; color: white;">Vezetéknév</th>
+        <th style="background-color: #38444d; color: white;">Keresztnév</th>
+        <th style="background-color: #38444d; color: white;">email</th>
+        <th style="background-color: #38444d; color: white;">lakcím</th>
+        <th style="background-color: #38444d; color: white;">telefonszám</th>
+        <th style="background-color: #38444d; color: white;">fizetési mód</th>
+        <th style="background-color: #38444d; color: white;">termék</th>
+        <th style="background-color: #38444d; color: white;">végösszeg</th>
+        <th style="background-color: #38444d; color: white;">törlés</th>
+<?php 
+	$select_cart = mysqli_query($db, "SELECT * FROM `checkout`");
+	if(mysqli_num_rows($select_cart) > 0){
+		while($fetch_cart = mysqli_fetch_assoc($select_cart)){
+?>
+		<tr>
             <td><?php echo $fetch_cart['v_name']; ?></td>
             <td><?php echo ($fetch_cart['k_name']); ?></td>
             <td><?php echo ($fetch_cart['email']); ?></td>
@@ -75,22 +58,15 @@
             <td><?php echo ($fetch_cart['item']); ?></td>
             <td><?php echo ($fetch_cart['total_price']); ?></td>
 			<td>				
-             <input type="hidden" name="update_quantity_id"  value="<?php echo $fetch_cart['ID']; ?>" >				
+            <input type="hidden" name="update_quantity_id"  value="<?php echo $fetch_cart['ID']; ?>" >				
 			<a href="rendeles.php?remove=<?php echo $fetch_cart['ID']; ?>" onclick="return confirm('Biztos törölni szeretnéd a rendelést?(csak akor töröld, ha már fel lett adva!)');">eltávolítás</a>
 			</td>
-         </tr>
-       
-         
-
-
-   
-   <?php
-		 }
-		 }
-   ?>
+        </tr>
+<?php
+		}
+	}
+?>
    </table>
-  
 </div>
-
 </body>
 </html>

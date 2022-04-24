@@ -10,9 +10,6 @@
 </style>
 </head>
 <body>
-
-
-
 <div class="header">
 <h1>IFJÚSÁGI KÖNYVESBOLT</h1>
 <div id="kont">
@@ -20,7 +17,6 @@
 <p><a href="index.php">Belép/regisztráció</a></p>
 </div>
 </div>
-
 <ul>
 <input class="checkbox" type="checkbox" id="checkbox_toggle" />
 <label for="checkbox_toggle" class="hamburger">&#9776;</label>

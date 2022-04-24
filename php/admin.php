@@ -1,7 +1,5 @@
 <?php
-
 include 'config.php';
-
 if(isset($_POST['add_product'])){
    $author = $_POST['author'];
    $k_name = $_POST['k_name'];
@@ -54,11 +52,8 @@ if(isset($_POST['update_product'])){
       $message[] = 'Termék frisités nem sikerült';
       header('location:admin.php');
    }
-
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,9 +61,9 @@ if(isset($_POST['update_product'])){
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title> Ifjúsági Könyvesbolt </title>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="_css/regisztracio.css">
+<link rel="stylesheet" type="text/css" href="_css/regisztracio2.css">
 <style>
- </style>
+</style>
 </head>
 <body>
 <?php
@@ -85,7 +80,6 @@ if(isset($_POST['update_product'])){
 <a href="rendeles.php">Rendelések</a>
 <br>
 <a href="logout.php">Kijelentkezés</a>
-   
 <?php
 
 if(isset($message)){
@@ -95,16 +89,11 @@ if(isset($message)){
 }
 
 ?>
-
-
-<div class="container">
-
 <section>
-
-<form action="" method="post" class="add-product-form" enctype="multipart/form-data">
+	<form action="" method="post" enctype="multipart/form-data">
    <h3>Új termék</h3>
-   <input type="text" name="author" placeholder="Író" class="box" required>
-   <input type="text" name="k_name" placeholder="cím" class="box" required>
+   <input type="text" name="author" placeholder="Író" required>
+   <input type="text" name="k_name" placeholder="cím" required>
    <select name="topic_id">
                <option value="1" selected>ifjúsági regény</option>
                <option value="2">horror</option>
@@ -112,18 +101,14 @@ if(isset($message)){
                <option value="4">scifi</option>
                <option value="5">fikcio</option>
                <option value="6">valamiaminincs</option>
-   </select>
-   <input type="number" name="price" min="0" placeholder="Ár" class="box" required>
-   <input type="file" name="image" accept="image/png, image/jpg, image/jpeg" class="box" required>
-   <input type="submit" value="Feltöltés" name="add_product" class="btn">
+	</select>
+   <input type="number" name="price" min="0" placeholder="Ár" required>
+   <input type="file" name="image" accept="image/png, image/jpg, image/jpeg" required>
+   <input type="submit" value="Feltöltés" name="add_product">
 </form>
-
 </section>
-
-<section class="display-product-table">
-
+<section>
    <table>
-
       <thead>
          <th>kép</th>
          <th>író neve</th>
@@ -131,70 +116,55 @@ if(isset($message)){
          <th>ár</th>
          <th>törlés</th>
       </thead>
-
       <tbody>
-         <?php
-         
-            $select_products = mysqli_query($db, "SELECT * FROM `product`");
-            if(mysqli_num_rows($select_products) > 0){
-               while($row = mysqli_fetch_assoc($select_products)){
-         ?>
-
-         <tr>
-            <td><img src="uploaded_img/<?php echo $row['image']; ?>" height="100" alt=""></td>
+<?php
+	$select_products = mysqli_query($db, "SELECT * FROM `product`");
+	if(mysqli_num_rows($select_products) > 0){
+	while($row = mysqli_fetch_assoc($select_products)){
+?>
+        <tr>
+			<td><img src="uploaded_img/<?php echo $row['image']; ?>" height="100" alt=""></td>
             <td><?php echo $row['author']; ?></td>
             <td><?php echo $row['k_name']; ?></td>
             <td><?php echo $row['price']; ?> Ft</td>
             <td>
-               <a href="admin.php?delete=<?php echo $row['ID']; ?>" class="delete-btn" onclick="return confirm('Biztos törölni szeretnéd?');"> <i class="fas fa-trash"></i> törlés </a>
-               <a href="admin.php?edit=<?php echo $row['ID']; ?>" class="option-btn"> <i class="fas fa-edit"></i> frisités </a>
+               <a href="admin.php?delete=<?php echo $row['ID']; ?>" onclick="return confirm('Biztos törölni szeretnéd?');"> törlés </a>
+               <a href="admin.php?edit=<?php echo $row['ID']; ?>"> frisités </a>
             </td>
-         </tr>
-
-         <?php
-            }  
-            }else{
-               echo "<div class='empty'>Nincs egy termék se hozzáadva</div>";
-            }
-         ?>
+        </tr>
+<?php
+														}  
+											}else{
+												echo "<div class='empty'>Nincs egy termék se hozzáadva</div>";
+												}
+?>
       </tbody>
    </table>
-
 </section>
-
-<section class="edit-form-container">
-
-   <?php
-   
+<section>
+<?php
    if(isset($_GET['edit'])){
       $edit_id = $_GET['edit'];
       $edit_query = mysqli_query($db, "SELECT * FROM `product` WHERE ID = $edit_id");
       if(mysqli_num_rows($edit_query) > 0){
          while($fetch_edit = mysqli_fetch_assoc($edit_query)){
-   ?>
-
+?>
    <form action="admin.php" method="post" enctype="multipart/form-data">
       <img src="uploaded_img/<?php echo $fetch_edit['image']; ?>" height="200" alt="">
       <input type="hidden" name="update_p_id" value="<?php echo $fetch_edit['ID']; ?>">
-      <input type="text" class="box" required name="update_p_author" value="<?php echo $fetch_edit['author']; ?>">
-      <input type="text" class="box" required name="update_p_name" value="<?php echo $fetch_edit['k_name']; ?>">
+      <input type="text" required name="update_p_author" value="<?php echo $fetch_edit['author']; ?>">
+      <input type="text" required name="update_p_name" value="<?php echo $fetch_edit['k_name']; ?>">
       <input type="number" min="0" class="box" required name="update_p_price" value="<?php echo $fetch_edit['price']; ?>">
-      <input type="file" class="box" required name="update_p_image" accept="image/png, image/jpg, image/jpeg">
-      <input type="submit" value="update the prodcut" name="update_product" class="btn">
-      <input type="reset" value="cancel" id="close-edit" class="option-btn">
+      <input type="file" required name="update_p_image" accept="image/png, image/jpg, image/jpeg">
+      <input type="submit" value="update the prodcut" name="update_product">
+      <input type="reset" value="cancel" id="close-edit">
    </form>
-
-   <?php
-            }
-         }
-         echo "<script>document.querySelector('.edit-form-container').style.display = 'flex';</script>";
-      }
-   ?>
-
+<?php
+															}
+											}
+											echo "<script>document.querySelector('.edit-form-container').style.display = 'flex';</script>";
+							}
+?>
 </section>
-
-</div>
-
-
 </body>
 </html>

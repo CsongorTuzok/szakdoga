@@ -4,11 +4,8 @@
 	session_start();
 	include 'config.php';
 	$true = true;
-	
-	
 	if (isset($_POST['submit']))
-	{
-		
+	{	
 		$vname = mysqli_real_escape_string($db, $_POST['vname']);
 		$kname = mysqli_real_escape_string($db, $_POST['kname']);
 		$email = mysqli_real_escape_string($db, $_POST['email']);
@@ -124,12 +121,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title> Ifjúsági Könyvesbolt </title>
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="_css/regisztracio.css">
+<link rel="stylesheet" type="text/css" href="_css/regisztracio2.css">
 <style>
  </style>
 </head>
 <body>
-
 <div class="row">
 <center>
 <p>

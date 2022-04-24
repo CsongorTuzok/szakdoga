@@ -10,7 +10,6 @@
 </style>
 </head>
 <body>
-
 <div class="header">
 <h1>IFJÚSÁGI KÖNYVESBOLT</h1>
 <div id="kont">
@@ -18,7 +17,6 @@
 <p><a href="../logout.php">Kijelentkezés</a></p>
 </div>
 </div>
-
 <ul>
 <input class="checkbox" type="checkbox" id="checkbox_toggle" />
 <label for="checkbox_toggle" class="hamburger">&#9776;</label>
@@ -31,9 +29,6 @@
     </div>
 	<li class="dropdown">
     <a href="../fvasar.php" class="dropbtn">Vásárlás</a>
-    <div class="dropdown-content">
-      <a href="../fakcio.php" ><!--class="active"-->Akciók</a>
-    </div>
   </li>
   <li><a href="../ffizet.php">Fizetés és Szállítás</a></li>
   <li><a href="../fvirtual.php">Virtuális séta</a></li>
