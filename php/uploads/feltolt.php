@@ -15,7 +15,7 @@
 <div class="main">
   <?php
   include 'config.php';
-  $products_run = mysqli_query($db, "SELECT * FROM pdf");
+  $products_run = mysqli_query($db, "SELECT * FROM pdf") or die_nicely("Hiba!<br>próbáld újra.");
         if(mysqli_num_rows($products_run) > 0)
         {
          while($row = mysqli_fetch_array($products_run)) 

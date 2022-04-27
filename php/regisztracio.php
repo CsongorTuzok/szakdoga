@@ -21,8 +21,7 @@
 			$answer = $first_num * $second_num;
 			break;
 		}
-		$_SESSION["answer"] = $answer;
-	
+		$_SESSION["answer"] = $answer;	
 ?>
 <head>
 <meta charset="UTF-8">

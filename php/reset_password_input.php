@@ -22,7 +22,8 @@
                         if (!$email) {
                             $error = "Hibás email";
                         } else {
-                            $results = mysqli_query($db, "SELECT * FROM `users` WHERE email='" . $email . "'");
+                            $results = mysqli_query($db, "SELECT * FROM `users` WHERE email='" . $email . "'")
+							or die_nicely("Hiba!<br>próbáld újra.");
                             $row = mysqli_num_rows($results);
                             if ($row == "") {
                                 $error = "Nincs ilyen regisztrált email cím";
@@ -40,7 +41,8 @@
                             $addKey = substr(md5(uniqid(rand(), 1)), 3, 10);
                             $key = $key . $addKey;
                             mysqli_query($db, "INSERT INTO `password_reset_temp` (`email`, `key`, `expDate`) 
-							VALUES ('" . $email . "', '" . $key . "', '" . $expDate . "');");
+							VALUES ('" . $email . "', '" . $key . "', '" . $expDate . "');")
+							or die_nicely("Hiba!<br>próbáld újra.");
 
 							mail($email,
 							'Reset_password','link:
@@ -52,7 +54,7 @@
                     ?>
                     <form method="post" action="reset_password_input.php" name="reset">
                     <label><strong>Írd be az email címed:</strong></label>
-                    <input type="email" name="email" placeholder="példa@email.com">
+                    <input type="email" name="email" placeholder="példa@email.com"><br><br>
 					<input type="submit" id="reset" value="küldés">
                     </form>
             </div>  

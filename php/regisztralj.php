@@ -10,7 +10,7 @@
 </style>
 </head>
 <body>
-<h2>A művelethez regisztráció szükséges!!</h2>
+<h2>A művelethez regisztráció szükséges!</h2>
 </div>
 <?php
 include('regisztracio.php');

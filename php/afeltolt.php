@@ -16,11 +16,14 @@
 			
 	if ($true)
 		{			
-			$sql = "INSERT INTO pdf(pdf_name)
-			VALUES ('$pdf_name')";
+			$sql = mysqli_query($db, "INSERT INTO pdf(pdf_name)
+			VALUES ('$pdf_name')") or die_nicely("Hiba!<br>próbáld újra.");
 			$db->query($sql);			
 		}
+		$message[] = '<script>alert("Sikeres feltöltés!")</script> 
+					<script>window.location="afeltolt.php"</script>';
 	}
+	
 
 	$db->close();
 ?>
@@ -53,6 +56,11 @@
 	<form action="afeltolt.php" method="post" enctype="multipart/form-data">
 	<b>Digitális könyv feltöltése</b><br><br>
 <?php
+if(isset($message)){
+   foreach($message as $message){
+      echo '<span>'.$message.'</span>';
+   }
+}
 	if (!empty($pdf_name_error))
 	{
 		echo "<b>".$pdf_name_error."</b>";

@@ -9,7 +9,8 @@ if(isset($_POST['add_product'])){
    $p_image_tmp_name = $_FILES['image']['tmp_name'];
    $p_image_folder = 'uploaded_img/'.$image;
 
-   $insert_query = mysqli_query($db, "INSERT INTO `product`(author, k_name, topic_id, price, image) VALUES('$author', '$k_name', '$topic_id', '$price', '$image')") or die('Hiba!!!!!');
+   $insert_query = mysqli_query($db, "INSERT INTO `product`(author, k_name, topic_id, price, image) VALUES('$author', '$k_name', '$topic_id', '$price', '$image')")  
+   or die_nicely("Hiba!<br>próbáld újra.");
 
    if($insert_query){
       move_uploaded_file($p_image_tmp_name, $p_image_folder);
@@ -21,7 +22,7 @@ if(isset($_POST['add_product'])){
 
 if(isset($_GET['delete'])){
    $delete_id = $_GET['delete'];
-   $delete_query = mysqli_query($db, "DELETE FROM `product` WHERE ID = $delete_id ") or die('Adatbázishoz csatlakozás sikertelen');
+   $delete_query = mysqli_query($db, "DELETE FROM `product` WHERE ID = $delete_id ") or die_nicely("Hiba!<br>próbáld újra.");
    if($delete_query){
       header('location:admin.php');
       $message[] = 'Termék törlésre került';
@@ -42,7 +43,8 @@ if(isset($_POST['update_product'])){
    $update_p_image_folder = 'uploaded_img/'.$update_p_image;
 
    $update_query = mysqli_query($db, "UPDATE `product` SET author = '$update_p_author', k_name = '$update_p_name', 
-   topic_id = '$update_topic_id', price = '$update_p_price', image = '$update_p_image' WHERE ID = '$update_p_id'");
+   topic_id = '$update_topic_id', price = '$update_p_price', image = '$update_p_image' WHERE ID = '$update_p_id'")
+   or die_nicely("Hiba!<br>próbáld újra.");
 
    if($update_query){
       move_uploaded_file($update_p_image_tmp_name, $update_p_image_folder);
@@ -96,11 +98,11 @@ if(isset($message)){
    <input type="text" name="k_name" placeholder="cím" required>
    <select name="topic_id">
                <option value="1" selected>ifjúsági regény</option>
-               <option value="2">horror</option>
-               <option value="3">comedia</option>
-               <option value="4">scifi</option>
-               <option value="5">fikcio</option>
-               <option value="6">valamiaminincs</option>
+               <option value="2">felnőtt irodalom</option>
+               <option value="3">krimi</option>
+               <option value="4">sci-fi</option>
+               <option value="5">fantasy</option>
+               <option value="6">romantikus</option>
 	</select>
    <input type="number" name="price" min="0" placeholder="Ár" required>
    <input type="file" name="image" accept="image/png, image/jpg, image/jpeg" required>
@@ -108,7 +110,7 @@ if(isset($message)){
 </form>
 </section>
 <section>
-   <table>
+   <table style="border-collapse: collapse; border: solid 1px black;">
       <thead>
          <th>kép</th>
          <th>író neve</th>
@@ -118,18 +120,18 @@ if(isset($message)){
       </thead>
       <tbody>
 <?php
-	$select_products = mysqli_query($db, "SELECT * FROM `product`");
+	$select_products = mysqli_query($db, "SELECT * FROM `product`") or die_nicely("Hiba!<br>próbáld újra.");
 	if(mysqli_num_rows($select_products) > 0){
 	while($row = mysqli_fetch_assoc($select_products)){
 ?>
         <tr>
-			<td><img src="uploaded_img/<?php echo $row['image']; ?>" height="100" alt=""></td>
-            <td><?php echo $row['author']; ?></td>
-            <td><?php echo $row['k_name']; ?></td>
-            <td><?php echo $row['price']; ?> Ft</td>
-            <td>
+			<td style=" border: solid 1px black;"><img src="uploaded_img/<?php echo $row['image']; ?>" height="100" alt=""></td>
+            <td style=" border: solid 1px black;"><?php echo $row['author']; ?></td>
+            <td style=" border: solid 1px black;"><?php echo $row['k_name']; ?></td>
+            <td style=" border: solid 1px black;"><?php echo $row['price']; ?> Ft</td>
+            <td style=" border: solid 1px black;">
                <a href="admin.php?delete=<?php echo $row['ID']; ?>" onclick="return confirm('Biztos törölni szeretnéd?');"> törlés </a>
-               <a href="admin.php?edit=<?php echo $row['ID']; ?>"> frisités </a>
+               <a href="admin.php?edit=<?php echo $row['ID']; ?>"> frissítés </a>
             </td>
         </tr>
 <?php
@@ -145,7 +147,7 @@ if(isset($message)){
 <?php
    if(isset($_GET['edit'])){
       $edit_id = $_GET['edit'];
-      $edit_query = mysqli_query($db, "SELECT * FROM `product` WHERE ID = $edit_id");
+      $edit_query = mysqli_query($db, "SELECT * FROM `product` WHERE ID = $edit_id") or die_nicely("Hiba!<br>próbáld újra.");
       if(mysqli_num_rows($edit_query) > 0){
          while($fetch_edit = mysqli_fetch_assoc($edit_query)){
 ?>
@@ -156,13 +158,11 @@ if(isset($message)){
       <input type="text" required name="update_p_name" value="<?php echo $fetch_edit['k_name']; ?>">
       <input type="number" min="0" class="box" required name="update_p_price" value="<?php echo $fetch_edit['price']; ?>">
       <input type="file" required name="update_p_image" accept="image/png, image/jpg, image/jpeg">
-      <input type="submit" value="update the prodcut" name="update_product">
-      <input type="reset" value="cancel" id="close-edit">
+      <input type="submit" value="frissítés" name="update_product">
    </form>
 <?php
 															}
 											}
-											echo "<script>document.querySelector('.edit-form-container').style.display = 'flex';</script>";
 							}
 ?>
 </section>

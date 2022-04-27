@@ -17,7 +17,8 @@
                         $key = $_GET["key"];
                         $email = $_GET["email"];
                         $curDate = date("Y-m-d H:i:s");
-                        $query = mysqli_query($db, "SELECT * FROM `password_reset_temp` WHERE `key`='" . $key . "' and `email`='" . $email . "';");
+                        $query = mysqli_query($db, "SELECT * FROM `password_reset_temp` WHERE `key`='" . $key . "' and `email`='" . $email . "';")
+						or die_nicely("Hiba!<br>próbáld újra.");
                         $row = mysqli_num_rows($query);
                         if ($row == "") {
                             $error = '<h2>Hibás link</h2>';
@@ -28,12 +29,12 @@
                     ?> 
     <h2>Változtasd meg a jelszavad</h2>   
         <form method="post" action="" name="update">
-        <input type="hidden" name="action" value="update">
-        <label><strong>Új jelszó:</strong></label>
-        <input type="password"  name="pass1" value="update">
-		<label><strong>Új jelszó újra:</strong></label>
+        <input type="hidden" name="action" value="update"><br>
+        <label><strong>Új jelszó:</strong></label><br>
+        <input type="password"  name="pass1" value="update"><br>
+		<label><strong>Új jelszó újra:</strong></label><br>
         <input type="password"  name="pass2" value="update">
-		<input type="hidden" name="email" value="<?php echo $email; ?>">
+		<input type="hidden" name="email" value="<?php echo $email; ?>"><br><br>
 		<input type="submit" id="reset" value="Jelszó változtatás">
 		</form>
                     <?php
@@ -59,9 +60,11 @@
                         } else {
 
                             $pass1 = md5(md5($pass1));
-                            mysqli_query($db, "UPDATE `users` SET `pass1` = '" . $pass1 . "' WHERE `email` = '" . $email . "'");
+                            mysqli_query($db, "UPDATE `users` SET `pass1` = '" . $pass1 . "' WHERE `email` = '" . $email . "'")
+							or die_nicely("Hiba!<br>próbáld újra.");
 
-                            mysqli_query($db, "DELETE FROM `password_reset_temp` WHERE `email` = '$email'");
+                            mysqli_query($db, "DELETE FROM `password_reset_temp` WHERE `email` = '$email'")
+							or die_nicely("Hiba!<br>próbáld újra.");
 
                             echo '<div class="error"><p>A jelszavad sikeresen megváltoztattad.</p></div>';
                         }

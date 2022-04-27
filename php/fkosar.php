@@ -5,17 +5,18 @@ include 'config.php';
 if(isset($_POST['update_update_btn'])){
    $update_value = $_POST['update_quantity'];
    $update_id = $_POST['update_quantity_id'];
-   $update_quantity_query = mysqli_query($db, "UPDATE `cart` SET quantity = '$update_value' WHERE ID = '$update_id'");
+   $update_quantity_query = mysqli_query($db, "UPDATE `cart` SET quantity = '$update_value' WHERE ID = '$update_id'")
+   or die_nicely("Hiba!<br>próbáld újra.");
 }
 
 if(isset($_GET['remove'])){
    $remove_id = $_GET['remove'];
-   mysqli_query($db, "DELETE FROM `cart` WHERE ID = '$remove_id'");
+   mysqli_query($db, "DELETE FROM `cart` WHERE ID = '$remove_id'") or die_nicely("Hiba!<br>próbáld újra.");
    header('location:fkosar.php');
 }
 
 if(isset($_GET['delete_all'])){
-   mysqli_query($db, "DELETE FROM `cart`");
+   mysqli_query($db, "DELETE FROM `cart`") or die_nicely("Hiba!<br>próbáld újra.");
    header('location:fkosar.php');
 }
 
@@ -44,13 +45,13 @@ if(isset($_GET['delete_all'])){
          <th>Összesen</th>
          <th>Törlés</th>     
 <?php 
-	$select_cart = mysqli_query($db, "SELECT * FROM `cart`");
+	$select_cart = mysqli_query($db, "SELECT * FROM `cart`") or die_nicely("Hiba!<br>próbáld újra.");
 	$grand_total = 0;
 	if(mysqli_num_rows($select_cart) > 0){
 		while($fetch_cart = mysqli_fetch_assoc($select_cart)){
 ?>
          <tr>
-            <td><img src="<?php echo $fetch_cart['image']; ?>" height="100" alt="botítókép"></td>
+            <td><center><img src="uploaded_img/<?php echo $fetch_cart['image']; ?>" height="100" alt="botítókép"></center></td> 
             <td><?php echo $fetch_cart['author']; ?></td>
             <td><?php echo $fetch_cart['k_name']; ?></td>
             <td><?php echo ($fetch_cart['price']); ?>Ft</td>

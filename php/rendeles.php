@@ -21,7 +21,7 @@
 	
 	if(isset($_GET['remove'])){
 	$remove_id = $_GET['remove'];
-	mysqli_query($db, "DELETE FROM `checkout` WHERE ID = '$remove_id'");
+	mysqli_query($db, "DELETE FROM `checkout` WHERE ID = '$remove_id'") or die_nicely("Hiba!<br>próbáld újra.");
 	header('location:rendeles.php');
 }
 ?>
@@ -44,7 +44,7 @@
         <th style="background-color: #38444d; color: white;">végösszeg</th>
         <th style="background-color: #38444d; color: white;">törlés</th>
 <?php 
-	$select_cart = mysqli_query($db, "SELECT * FROM `checkout`");
+	$select_cart = mysqli_query($db, "SELECT * FROM `checkout`") or die_nicely("Hiba!<br>próbáld újra.");
 	if(mysqli_num_rows($select_cart) > 0){
 		while($fetch_cart = mysqli_fetch_assoc($select_cart)){
 ?>

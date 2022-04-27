@@ -1,16 +1,7 @@
 <!DOCTYPE html>
 <?php
 	session_start();	
-	function die_nicely($msg) {
-    echo <<<END
-	<style>body
-{
-	background-color: lightblue;
-}</style>
-<center><div><h3>$msg</h3></div></center>
-END;
-    exit;
-}
+	
 	
 	if(!empty($_SESSION['nickname'])&&$_SESSION['nickname']!="admin"){
 		
@@ -40,9 +31,8 @@ END;
 		$nickname = mysqli_real_escape_string($db, $_POST['nickname']);
 		$pass1 = mysqli_real_escape_string($db, $_POST['pass1']);
 		$pass1 = md5(md5($pass1));
-		$sql = "SELECT * FROM users WHERE nickname='$nickname' AND
-					pass1='$pass1'";
-		$result=mysqli_query($db,$sql);
+		$result=mysqli_query($db, "SELECT * FROM users WHERE nickname='$nickname' AND pass1='$pass1'" ) 
+		or die_nicely("Hiba!<br>próbáld újra.");
 				
 		if(mysqli_num_rows($result) > 0)
          {
@@ -55,17 +45,17 @@ END;
 				die_nicely("Erösitd meg az emailed <a href='email-ver.php'>itt</a>");
 				
 			}
-			if ($row["usertype"] == "user")
+			if ($row["usertype"] == "admin")
 			{
 				session_start();
 				$_SESSION['nickname'] = $nickname;
-				header('location: fmain.php');
+				header('location: admin.php');
 			}
 			else
 			{
 				session_start();
 				$_SESSION['nickname'] = $nickname;
-				header('location: admin.php');
+				header('location: fmain.php');
 			}	
 		}else
 			{

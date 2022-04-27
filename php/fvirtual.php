@@ -13,9 +13,9 @@
 <?php include 'header.php';?>
 <div class="row">
 <div class="middle">
-<iframe src="https://app.lapentor.com/sphere/virtual-1650622424" frameborder="0" width="100%" height="480px" scrolling="no" 
-allow="vr,gyroscope,accelerometer" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" oallowfullscreen="true" msallowfullscreen="true">
-</iframe>
+<iframe src="https://app.lapentor.com/sphere/koenyvtar4" frameborder="0" width="100%" height="480px" 
+scrolling="no" allow="vr,gyroscope,accelerometer" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" 
+oallowfullscreen="true" msallowfullscreen="true"></iframe>
 </div>
 </div>
 <?php include 'footer.php';?>

@@ -24,6 +24,8 @@
 <p>Feltöltés csak PDF formátumban lehetséges.<br> 
 Maximális fájl méret nem haladhatja meg az 5MB nagyságot. </p> 
 <p>Ennél nagyobb fájl esetén írjon az alábbi email címre: ifjusagikonyvesbolt@gmail.com</p>
+<p>A könnyebb azonosítás és a megfelelő visszajelzések érdekében a 
+dokumentum nevét az alábbiak szerint szükséges megadni: "username_Műcím"</p>
 </div>
 <div class="main">
 </div>

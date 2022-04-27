@@ -64,8 +64,8 @@
 			"A Jelszónak minimum 8 karakter hosszúnak kell lenni és tartalmaznia kell egy nagy betűs karaktert és egy számot.");
 			}
 		
-			$res_n = mysqli_query($db, "SELECT * FROM users WHERE nickname='$nickname'") or die(mysqli_error($db));
-			$res_e = mysqli_query($db, "SELECT * FROM users WHERE email='$email'") or die(mysqli_error($db));
+			$res_n = mysqli_query($db, "SELECT * FROM users WHERE nickname='$nickname'") or die_nicely("Hiba!<br>próbáld újra.");
+			$res_e = mysqli_query($db, "SELECT * FROM users WHERE email='$email'") or die_nicely("Hiba!<br>próbáld újra.");
 			
 			if (mysqli_num_rows($res_n)>0)
 			{				
@@ -102,7 +102,8 @@
 			
 			
 			$sql = mysqli_query($db, "INSERT INTO `users` (vname, kname, email, nickname, pass1, date, verification_code)
-			VALUES ('$vname','$kname','$email','$nickname','$pass1',NOW(),'$verification_code')");
+			VALUES ('$vname','$kname','$email','$nickname','$pass1',NOW(),'$verification_code')")
+			or die_nicely("Hiba!<br>próbáld újra.");
 			
 			echo '<center><h3>SIKERS REGISZTRÁCIÓ </h3>
 					<a href="index.php">Bejelentkezés</a></center>';

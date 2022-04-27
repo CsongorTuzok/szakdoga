@@ -8,10 +8,11 @@ if(isset($_POST['add_to_cart'])){
 if(isset($_POST['search']))
 {
     $valueToSearch = mysqli_real_escape_string($db, $_POST['valueToSearch']);
-    $search_result = mysqli_query($db, "SELECT * FROM `product` WHERE CONCAT(`author`, `k_name`) LIKE '%".$valueToSearch."%'");  
+    $search_result = mysqli_query($db, "SELECT * FROM `product` WHERE CONCAT(`author`, `k_name`) LIKE '%".$valueToSearch."%'")
+	or die_nicely("Hiba!<br>próbáld újra.");
 }
  else {
-    $search_result = mysqli_query($db, "SELECT * FROM `product`");
+    $search_result = mysqli_query($db, "SELECT * FROM `product`") or die_nicely("Hiba!<br>próbáld újra.");
 }
 ?>
 <!DOCTYPE html>  
@@ -37,7 +38,7 @@ if(isset($_POST['search']))
 	<form action="vvasar.php" method="post">
 	<h5>Témák:</h5>
 <?php
-	$topic_query_run  = mysqli_query($db, "SELECT * FROM topic");
+	$topic_query_run  = mysqli_query($db, "SELECT * FROM topic") or die_nicely("Hiba!<br>próbáld újra.");
 		if(mysqli_num_rows($topic_query_run) > 0)
 		{
 			foreach($topic_query_run as $topiclist)
@@ -68,13 +69,6 @@ if(isset($_POST['search']))
 <div class="main">
 <section>
    <h1 class="heading">Legújabb termékek</h1>
-<?php
-	if(isset($message)){
-	foreach($message as $message){
-    echo '<div class="message"><span>'.$message.'</span> <i class="fas fa-times" onclick="this.parentElement.style.display = `none`;"></i> </div>';
-   }
-}
-?>
    <div class="box-container">
 <?php  
 	if(isset($_POST['topic']))
@@ -83,7 +77,8 @@ if(isset($_POST['search']))
 		$topicchecked = $_POST['topic'];
 		foreach($topicchecked as $rowtopic)
 		{
-		$products_run = mysqli_query($db, "SELECT * FROM product WHERE topic_id IN ($rowtopic)");
+		$products_run = mysqli_query($db, "SELECT * FROM product WHERE topic_id IN ($rowtopic)")
+		or die_nicely("Hiba!<br>próbáld újra.");
 			if(mysqli_num_rows($products_run) > 0)
 			{
 				while($row = mysqli_fetch_array($products_run))  
@@ -96,7 +91,7 @@ if(isset($_POST['search']))
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	margin: 25px;" align="center">	
 	<form method="post" action="vvasar.php">
-	<img src="<?php echo $row["image"]; ?>" height="100"><br>  
+	<img src="uploaded_img/<?php echo $row["image"]; ?>" height="100"><br>  
 	<h4><?php echo $row["author"]; ?></h4>  
 	<h4><?php echo $row["k_name"]; ?></h4>  
 	<h4><?php echo $row["price"]; ?>Ft</h4>  
@@ -121,7 +116,7 @@ if(isset($_POST['search']))
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	margin: 25px;" align="center">
 	<form method="post" action="vvasar.php">
-	<img src="img/<?php echo $row["image"];?>"height="100"><br>  
+	<img src="uploaded_img<?php echo $row["image"];?>"height="100"><br>  
 	<h4><?php echo $row["author"]; ?></h4>  
 	<h4><?php echo $row["k_name"]; ?></h4>  
 	<h4><?php echo $row["price"]; ?>Ft</h4>  							   
