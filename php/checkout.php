@@ -23,27 +23,7 @@ if(isset($_POST['order_btn'])){
    $total_product = implode(', ',$product_name);
    $detail_query = mysqli_query($db, "INSERT INTO `checkout`(v_name, k_name, email, method, address, mobil, item, total_price) 
    VALUES('$v_name','$k_name','$email','$method','$address','$mobil','$total_product','$price_total')") or die_nicely("Hiba!<br>próbáld újra.");
-
-   if($cart_query && $detail_query){
-	   $sql = mysqli_query($db, "SELECT ID FROM `checkout` WHERE address = '$address' AND total_price = '$total_price'");
-	   $id = mysqli_fetch_assoc($sql);
-	   $azonosito = $id['ID'];
-      echo "
-         <h3>Köszönjük a vásárlásod!</h3>
-            <span>".$total_product."</span>
-            <span> total : ".$price_total. "Ft  </span>
-            <p> Név: <span>".$v_name." ".$k_name."</span> </p>
-            <p> Telefon szám : <span>".$mobil."</span> </p>
-            <p> Email cím : <span>".$email."</span> </p>
-            <p> Lakcím : <span>".$address."</span> </p>
-            <p> Fizetési mód : <span>".$method."</span> </p>
-            <a href='fvasar.php' class='btn'>Vásárlás folytatása</a>
-      ";
-	  mail($email,
-			'Siker','Rendelése feldolgozás alá került.',
-			'From: ifjusagikonyvesbolt@gmail.com');
-   }
-
+	header("location:checkout2.php");
 }
 ?>
 <html lang="hu">
