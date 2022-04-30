@@ -1,0 +1,50 @@
+CREATE DATABASE ik;
+
+CREATE TABLE `ik`.`cart` ( `ID` INT(10) NOT NULL AUTO_INCREMENT , `author` VARCHAR(50) NOT NULL , 
+`k_name` VARCHAR(50) NOT NULL , `topic_id` INT(10) NOT NULL , `image` VARCHAR(50) NOT NULL , `price` 
+INT(10) NOT NULL , `quantity` INT(10) NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;
+
+CREATE TABLE `ik`.`checkout` ( `ID` INT(10) NOT NULL AUTO_INCREMENT , `v_name` VARCHAR(50) NOT NULL ,
+`k_name` VARCHAR(50) NOT NULL , `email` VARCHAR(50) NOT NULL , `address` VARCHAR(50) NOT NULL , 
+`mobil` INT(15) NOT NULL , `method` VARCHAR(50) NOT NULL , `item` VARCHAR(500) NOT NULL , `total_price` 
+INT(10) NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB; 
+
+CREATE TABLE `ik`.`password_reset_temp` ( `email` VARCHAR(50) NOT NULL , `key` VARCHAR(500) NOT NULL , 
+`expDate` DATETIME NOT NULL ) ENGINE = InnoDB; 
+
+CREATE TABLE `ik`.`pdf` ( `ID` INT(10) NOT NULL AUTO_INCREMENT , `pdf_name` VARCHAR(50) NOT NULL , 
+PRIMARY KEY (`ID`)) ENGINE = InnoDB;
+
+CREATE TABLE `ik`.`product` ( `ID` INT(10) NOT NULL AUTO_INCREMENT , `author` VARCHAR(50) NOT NULL , 
+`k_name` VARCHAR(50) NOT NULL , `topic_id` INT(10) NOT NULL , `image` VARCHAR(50) NOT NULL , `price` 
+INT(10) NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;  
+
+CREATE TABLE `ik`.`topic` ( `ID` INT(10) NOT NULL AUTO_INCREMENT , `name` VARCHAR(50) NOT NULL , 
+PRIMARY KEY (`ID`)) ENGINE = InnoDB; 
+
+CREATE TABLE `ik`.`users` ( `ID` INT(10) NOT NULL AUTO_INCREMENT , `vname` VARCHAR(50) NOT NULL , 
+`kname` VARCHAR(50) NOT NULL , `email` VARCHAR(50) NOT NULL , `nickname` VARCHAR(50) NOT NULL , 
+`pass1` VARCHAR(500) NOT NULL , `date` DATE NOT NULL , `usertype` VARCHAR(50) NOT NULL DEFAULT 'user' , 
+`verification_code` TEXT NOT NULL , `email_verified_at` DATETIME NOT NULL , PRIMARY KEY (`ID`)) 
+ENGINE = InnoDB;
+
+INSERT INTO `topic` (`ID`, `name`) VALUES (NULL, 'ifjúsági regény'),(NULL, 'felnőtt irodalom'), 
+(NULL, 'krimi'), (NULL, 'sci-fi'), (NULL, 'fantasy'), (NULL, 'romantikus');
+
+INSERT INTO `users` (`ID`, `vname`, `kname`, `email`, `nickname`, `pass1`, `date`, `usertype`, 
+`verification_code`, `email_verified_at`) VALUES (NULL, 'admin', 'admin', 'ifjusagikonyvesbolt@gmail.com', 'admin', 
+md5(md5('admin')), '2022-04-30', 'admin', '', '2022-04-30 12:24:28.000000'),
+(NULL, 'user', 'user', 'user@gmail.com', 'user', 
+md5(md5('user')), '2022-04-30', 'user', '', '2022-04-30 12:24:28.000000');
+
+INSERT INTO `product` (`ID`, `author`, `k_name`, `topic_id`, `image`, `price`) 
+VALUES (NULL, 'Fekete István', 'Tüskevár', '1', 'tuskevar.jpg', '1200'),
+(NULL, 'Gárdonyi Géza', 'Egri csillagok', '1', 'egri.jpg', '1300'),
+(NULL, 'Jókai Mór', 'A kőszívű ember fiai', '2', 'koszivu.jpg', '1000'),
+(NULL, 'Fjodor Mihajlovics Dosztojevszkij', 'Bűn és bűnhődés', '2', 'bun.jpg', '1450'),
+(NULL, 'Jonathan Swift', 'Gulliver utazásai', '3', 'gulliver.jpg', '1900'),
+(NULL, 'Anatole France', 'A pingvinek szigete', '3', 'pingvinek.jpg', '1222'),
+(NULL, 'Lev Tolsztoj', 'Háború és béke', '4', 'haboru-es-beke.jpg', '1555');
+
+INSERT INTO `pdf` (`ID`, `pdf_name`) VALUES (NULL, 'test1.pdf'),(NULL, 'test2.pdf'),
+(NULL, 'test3.pdf'),(NULL, 'test4.pdf');
