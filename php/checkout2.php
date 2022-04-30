@@ -14,9 +14,12 @@ include 'config.php';
          $method = $product_item['method'];	 
       }
    }
+   $from = 'ifjusagikonyvesbolt@gmail.com';
+   $headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+   $headers .= 'From: '.$from."\r\n";
 	  mail($email,
 			'Siker','Rendelése feldolgozás alá került.',
-			'From: ifjusagikonyvesbolt@gmail.com');
+			$headers);
 	mysqli_query($db, "DELETE FROM `cart`") or die_nicely("Hiba!<br>próbáld újra.");
 ?>
 <html lang="hu">

@@ -11,6 +11,7 @@
 </head>
     <body>
 			<div class="row">
+			<button style="float:left;"><a href="index.php">Vissza</a></button>
             <div id="hasab1">
             <h2>Elfelejtetted a jelszavad?</h2>   
                     <?php
@@ -44,11 +45,14 @@
 							VALUES ('" . $email . "', '" . $key . "', '" . $expDate . "');")
 							or die_nicely("Hiba!<br>próbáld újra.");
 
+							$from = 'ifjusagikonyvesbolt@gmail.com';
+							$headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+							$headers .= 'From: '.$from."\r\n";
 							mail($email,
-							'Reset_password','link:
+							'Reset_password','<b>Jelszó megváltoztatási link:</b>
 							<p><a href="http://localhost/szakdoga/reset_password.php?key=' . $key . '&email=' . $email . '&action=reset" target="_blank">
 							http://localhost/szakdoga/reset_password.php?key=' . $key . '&email=' . $email . '&action=reset</a></p>',
-							'From: ifjusagikonyvesbolt@gmail.com');
+							$headers);
                         }
                     }
                     ?>

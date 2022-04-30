@@ -63,7 +63,7 @@ if(isset($_GET['delete_all'])){
                </form>   
             </td>			
             <td><?php echo $sub_total = ($fetch_cart['price'] * $fetch_cart['quantity']); ?>Ft</td>
-            <td><a href="fkosar.php?remove=<?php echo $fetch_cart['ID']; ?>">eltávolítás</a></td>
+            <td><a href="fkosar.php?remove=<?php echo $fetch_cart['ID']; ?>" onclick="return confirm('Biztos törölni szeretnéd?');">eltávolítás</a></td>
          </tr>
 <?php
            $grand_total += $sub_total;  
@@ -86,7 +86,7 @@ if(isset($_GET['delete_all'])){
             <td><a href="fvasar.php" style="margin-top: 0;">Vásárlás folytatása</a></td>
             <td colspan="3" title="A végösszeg már tartalmazza a szállítási díjat is."><div  style="float: right;">*Végösszeg:</div></td>
             <td><?php echo $grand_total; ?>Ft</td>
-            <td><a href="fkosar.php?delete_all" onclick="Visszaigazolás('Biztos törlöd a kosár tartalmát?');">Összes törlése</a></td>
+            <td><a href="fkosar.php?delete_all" onclick="return confirm('Biztos törlöd a kosár tartalmát?');">Összes törlése</a></td>
 			<td><a href="checkout.php">Tovább</a></td>
          </tr>
    </table>

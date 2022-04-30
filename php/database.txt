@@ -16,7 +16,7 @@ CREATE TABLE `ik`.`pdf` ( `ID` INT(10) NOT NULL AUTO_INCREMENT , `pdf_name` VARC
 PRIMARY KEY (`ID`)) ENGINE = InnoDB;
 
 CREATE TABLE `ik`.`product` ( `ID` INT(10) NOT NULL AUTO_INCREMENT , `author` VARCHAR(50) NOT NULL , 
-`k_name` VARCHAR(50) NOT NULL , `topic_id` INT(10) NOT NULL , `image` VARCHAR(50) NOT NULL , `price` 
+`k_name` VARCHAR(50) NOT NULL , `topic_id` INT(10) NOT NULL , `image` VARCHAR(50) NOT NULL DEFAULT 'bookicon.jpg' , `price` 
 INT(10) NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;  
 
 CREATE TABLE `ik`.`topic` ( `ID` INT(10) NOT NULL AUTO_INCREMENT , `name` VARCHAR(50) NOT NULL , 

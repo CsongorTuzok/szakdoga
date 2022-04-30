@@ -70,6 +70,7 @@
                         }
                     }
                     ?>  
+	<button style="float:left;"><a href="index.php">Bejelentkezés</a></button>
     </div>
     </div>
     </body>

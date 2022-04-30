@@ -96,9 +96,12 @@
 			
 			$verification_code = substr(number_format
 			(time() * rand(), 0,'', ''), 0, 6);
+			$from = 'ifjusagikonyvesbolt@gmail.com';
+			$headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+			$headers .= 'From: '.$from."\r\n";
 			mail($email,
-			'Email verification','Verification code:'.$verification_code,
-			'From: ifjusagikonyvesbolt@gmail.com');
+			'Email','Email megerősítési kód: <b>'.$verification_code.'</b>',
+			$headers);
 			
 			
 			$sql = mysqli_query($db, "INSERT INTO `users` (vname, kname, email, nickname, pass1, date, verification_code)

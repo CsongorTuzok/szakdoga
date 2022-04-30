@@ -116,7 +116,7 @@ if(isset($message)){
          <th>író neve</th>
          <th>könyv neve</th>
          <th>ár</th>
-         <th>törlés</th>
+         <th>művelet</th>
       </thead>
       <tbody>
 <?php
